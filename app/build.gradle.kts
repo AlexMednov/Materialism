@@ -66,5 +66,8 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest);
+    debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation("com.google.android.material:material:1.1.0");
 }

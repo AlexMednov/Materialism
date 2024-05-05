@@ -3,4 +3,5 @@
     <color name="login_color">#2094D6</color>
     <color name="light_grey_login">#D9D9D9</color>
     <color name="login_button_color">#5157EF</color>
+    <string name="title_activity_main_page">MainPageActivity</string>
 </resources>

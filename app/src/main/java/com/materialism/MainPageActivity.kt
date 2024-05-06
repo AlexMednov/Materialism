@@ -15,15 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.materialism.ui.theme.MaterialismTheme
 
-class MainActivity : ComponentActivity() {
+class MainPageActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.main_page_activity)
 
-        val loginButton = findViewById<Button>(R.id.loginButton)
+        val backButton = findViewById<Button>(R.id.back)
 
-        loginButton.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this, MainPageActivity::class.java)
+        backButton.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
 
             startActivity(intent)
         })

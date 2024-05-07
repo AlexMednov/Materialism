@@ -5,6 +5,17 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
+    <TextView
+        android:id="@+id/fileUri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#2f4b66"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:gravity="center">
+
+    </TextView>
+
     <Button
         android:id="@+id/uploadFiles"
         android:layout_width="wrap_content"

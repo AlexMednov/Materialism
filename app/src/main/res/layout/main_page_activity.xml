@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
+
+    <TextView
+        android:id="@+id/fileUri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#2f4b66"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:gravity="center">
+
+    </TextView>
 
     <Button
         android:id="@+id/uploadFiles"
@@ -11,21 +23,52 @@
         android:layout_height="wrap_content"
         android:text="Uppload files">
 
-    </Button>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Place holder nav bar">
 
-    <Button
-        android:id="@+id/acesCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Acces cammera">
+            </TextView>
+        </androidx.cardview.widget.CardView>
 
-    </Button>
+        <Button
+            android:id="@+id/uploadFiles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload files">
 
-    <Button
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go back">
+        </Button>
 
-    </Button>
+        <Button
+            android:id="@+id/acesCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aces camera">
+
+        </Button>
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go back">
+
+        </Button>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Place holder bottom nav bar, or in other words flex boxes work">
+
+            </TextView>
+        </androidx.cardview.widget.CardView>
+
+    </com.google.android.flexbox.FlexboxLayout>
 </LinearLayout>

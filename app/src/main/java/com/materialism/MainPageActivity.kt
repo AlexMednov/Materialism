@@ -4,28 +4,43 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.materialism.ui.theme.MaterialismTheme
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 
 class MainPageActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_page_activity)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.main_page_activity)
 
-        val backButton = findViewById<Button>(R.id.back)
+    // Registers a photo picker activity launcher in single-select mode.
+    val pickMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+          val text = findViewById<View>(R.id.fileUri) as TextView
+          // Callback is invoked after the user selects a media item or closes the
+          // photo picker.
+          if (uri != null) {
+            text.text = uri.toString()
+          } else {
+            text.text = "No media selected"
+          }
+        }
 
-        backButton.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+    val uploadFilesButton = findViewById<Button>(R.id.uploadFiles)
+    val backButton = findViewById<Button>(R.id.back)
 
-            startActivity(intent)
+    uploadFilesButton.setOnClickListener(
+        View.OnClickListener {
+          pickMedia.launch(
+              PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         })
-    }
+
+    backButton.setOnClickListener(
+        View.OnClickListener {
+          val intent = Intent(this, MainActivity::class.java)
+
+          startActivity(intent)
+        })
+  }
 }

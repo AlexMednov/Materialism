@@ -17,15 +17,10 @@
 
     </TextView>
 
-    <Button
-        android:id="@+id/uploadFiles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Uppload files">
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,7 +41,7 @@
             android:id="@+id/acesCamera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Aces camera">
+            android:text="Access camera">
 
         </Button>
 
@@ -70,5 +65,4 @@
             </TextView>
         </androidx.cardview.widget.CardView>
 
-    </com.google.android.flexbox.FlexboxLayout>
 </LinearLayout>

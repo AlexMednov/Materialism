@@ -17,8 +17,13 @@
             android:exported="false"
             android:label="@string/title_activity_main_page"
             android:theme="@style/Theme.Materialism" />
+		<activity
+            android:name=".AddItemActivity"
+            android:exported="false"
+            android:label="@string/add_item_activity"
+            android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Materialism">

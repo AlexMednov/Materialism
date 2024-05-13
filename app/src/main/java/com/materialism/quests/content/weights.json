@@ -1,0 +1,36 @@
+{"Daily": {
+  "Groceries": "7",
+  "Beverages": "7",
+  "HouseHold_supplies": "2",
+  "Personal_care_products": "2",
+  "Health_care": "2",
+  "Office_or_school_supplies": "1",
+  "Entertainment": "1",
+  "Clothing_accessories": "1",
+  "Tech": "1",
+  "Misc": "1"
+},
+"Weekly": {
+  "Groceries": "5",
+  "Beverages": "5",
+  "HouseHold_supplies": "4",
+  "Personal_care_products": "3",
+  "Health_care": "2",
+  "Office_or_school_supplies": "2",
+  "Entertainment": "3",
+  "Clothing_accessories": "1",
+  "Tech": "1",
+  "Misc": "1"
+},
+"Monthly": {
+  "Groceries": "1",
+  "Beverages": "1",
+  "HouseHold_supplies": "4",
+  "Personal_care_products": "4",
+  "Health_care": "3",
+  "Office_or_school_supplies": "4",
+  "Entertainment": "4",
+  "Clothing_accessories": "2",
+  "Tech": "3",
+  "Misc": "1"
+}}

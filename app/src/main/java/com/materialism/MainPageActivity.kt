@@ -20,6 +20,14 @@ class MainPageActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_page_activity)
 
+        val categoryButton = findViewById<Button>(R.id.categoryButton)
+
+        categoryButton.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, AddCategoryActivity::class.java)
+
+            startActivity(intent)
+        })
+
         val backButton = findViewById<Button>(R.id.back)
 
         backButton.setOnClickListener(View.OnClickListener {

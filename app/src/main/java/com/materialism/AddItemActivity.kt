@@ -51,6 +51,10 @@ class AddItemActivity : ComponentActivity() {
                 )
             })
 
+        addItemButton.setOnClickListener {
+            //something
+        }
+
         backButton.setOnClickListener(
             View.OnClickListener {
                 val intent = Intent(this, MainPageActivity::class.java)

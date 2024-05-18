@@ -41,6 +41,7 @@ class AddItemActivity : ComponentActivity() {
             }
 
         val uploadFilesButton = findViewById<Button>(R.id.uploadFiles)
+        val addItemButton = findViewById<Button>(R.id.addItem)
         val backButton = findViewById<Button>(R.id.back)
 
         uploadFilesButton.setOnClickListener(

@@ -20,4 +20,10 @@
         android:layout_height="wrap_content"
         android:text="Add Category" />
 
+    <Button
+        android:id="@+id/deleteCategoryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Category" />
+
 </LinearLayout>

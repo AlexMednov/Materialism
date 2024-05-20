@@ -4,4 +4,20 @@
     <color name="light_grey_login">#D9D9D9</color>
     <color name="login_button_color">#5157EF</color>
     <string name="title_activity_main_page">MainPageActivity</string>
+    <string name="history">History</string>
+    <string name="title_activity_design_main_page">DesignMainPageActivity</string>
+    <string name="flag">Flag</string>
+    <string name="people">People</string>
+    <string name="item_name">Item name</string>
+    <string name="home">Home</string>
+    <string name="item_description">Item description</string>
+    <string name="library">Library</string>
+    <string name="item_cancel">Cancel</string>
+    <string name="item_delete">Delete</string>
+    <string name="item_edit">Edit</string>
+    <string name="add_item">Add</string>
+    <string name="level">Level</string>
+    <string name="item_picture">item picture</string>
+    <string name="library_of_items">Library</string>
+    <string name="menu">Menu</string>
 </resources>

@@ -30,15 +30,15 @@
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/uploadFiles"
+            android:id="@+id/addItems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload files">
+            android:text="Add items">
 
         </Button>
 
         <Button
-            android:id="@+id/acesCamera"
+            android:id="@+id/accessCamera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Access camera">

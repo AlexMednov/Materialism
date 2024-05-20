@@ -1,0 +1,74 @@
+{"Groceries": {
+  "1": "Apple",
+  "2": "Banana",
+  "3": "Cucumber",
+  "4": "Orange",
+  "5": "Strawberry",
+  "6": "Carrot",
+  "7": "Broccoli",
+  "8": "Spinach",
+  "9": "Tomato",
+  "10": "Bell Pepper"
+},
+"Beverages": {
+  "1": "Water",
+  "2": "Orange Juice",
+  "3": "Coffee",
+  "4": "Green Tea",
+  "5": "Lemonade",
+  "6": "Smoothie",
+  "7": "Soda",
+  "8": "Milkshake",
+  "9": "Apple Juice",
+  "10": "Mango Juice"
+},
+"HouseHold_supplies": {
+  "1": "Paper Towels",
+  "2": "Laundry Detergent",
+  "3": "Dish Soap",
+  "4": "Trash Bags",
+  "5": "Cleaning Spray"
+},
+"Personal_care_products": {
+  "1": "Toothpaste",
+  "2": "Shampoo",
+  "3": "Body Lotion",
+  "4": "Deodorant",
+  "5": "Face Wash"
+},
+"Health_care": {
+  "1": "First Aid Kit",
+  "2": "Thermometer",
+  "3": "Pain Relievers",
+  "4": "Band-Aids",
+  "5": "Antiseptic Solution"
+},
+"Office_or_school_supplies": {
+  "1": "Notebooks",
+  "2": "Pens",
+  "3": "Stapler",
+  "4": "Sticky Notes",
+  "5": "Highlighters"
+},
+"Entertainment": {
+  "1": "Playing Cards",
+  "2": "Board Game",
+  "3": "Video Game"
+},
+"Clothing_accessories": {
+  "1": "Belt",
+  "2": "Scarf",
+  "3": "Hat",
+  "4": "Sunglasses",
+  "5": "Watch"
+},
+"Tech": {
+  "1": "Charging Cable",
+  "2": "Batteries",
+  "3": "Phone Case"
+},
+"Misc": {
+  "1": "Clown Shoes",
+  "2": "Sledgehammer",
+  "3": "Cool Stick"
+}}

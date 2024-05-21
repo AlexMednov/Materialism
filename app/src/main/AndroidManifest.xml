@@ -33,12 +33,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:name=".CameraActivity"-->
-<!--            android:exported="true"-->
-<!--            android:label="@string/take_photo"-->
-<!--            android:theme="@style/Theme.Materialism"-->
-<!--            />-->
+        <activity
+            android:name=".CameraActivity"
+            android:exported="true"
+            android:label="@string/take_photo"
+            android:theme="@style/Theme.Materialism"
+            />
 
     </application>
 

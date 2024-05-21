@@ -23,6 +23,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.core.Preview
 import androidx.camera.core.CameraSelector
 import android.util.Log
+import androidx.activity.ComponentActivity
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
@@ -34,13 +35,13 @@ import androidx.camera.video.VideoRecordEvent
 import androidx.core.content.PermissionChecker
 import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
-import java.util.Locale
+import java.util.git 
 
 
 //    setContentView(R.layout.main_page_activity)
 typealias LumaListener = (luma: Double) -> Unit
 
-class CameraActivity : AppCompatActivity() {
+class CameraActivity : ComponentActivity() {
     private lateinit var viewBinding: CameraActivityBinding
 
     private var imageCapture: ImageCapture? = null

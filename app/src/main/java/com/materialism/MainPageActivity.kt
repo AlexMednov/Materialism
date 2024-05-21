@@ -28,7 +28,7 @@ class MainPageActivity : ComponentActivity() {
             }
 
         val uploadFilesButton = findViewById<Button>(R.id.uploadFiles)
-//        val accessCameraButton = findViewById<Button>(R.id.accessCamera)
+        val accessCameraButton = findViewById<Button>(R.id.accessCamera)
         val backButton = findViewById<Button>(R.id.back)
 
         uploadFilesButton.setOnClickListener(
@@ -44,10 +44,12 @@ class MainPageActivity : ComponentActivity() {
                 startActivity(intent)
             })
 
-//        accessCameraButton.setOnClickListener(
-//            View.OnClickListener {
-//
-//            }
-//        )
+        accessCameraButton.setOnClickListener(
+            View.OnClickListener {
+                val intent = Intent(applicationContext, CameraActivity::class.java)
+
+                startActivity(intent)
+            }
+        )
     }
 }

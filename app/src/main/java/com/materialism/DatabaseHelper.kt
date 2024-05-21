@@ -34,6 +34,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         const val TABLE_ITEM = "Item"
         const val COLUMN_ITEM_ID = "id"
         const val COLUMN_ITEM_NAME = "name"
+        const val COLUMN_ITEM_IMAGE_URI = "imageURI"
         const val COLUMN_ITEM_DESCRIPTION = "description"
         const val COLUMN_ITEM_LOCATION = "location"
         const val COLUMN_ITEM_PUBLIC = "isPublic"

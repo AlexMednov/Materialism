@@ -119,12 +119,13 @@ class DatabaseManager(context: Context) {
 
     // Item CRUD operations
     fun addItem(
-        name: String, description: String?, location: String?,
+        name: String, imageURI: String, description: String?, location: String?,
         isPublic: Boolean, isLoaned: Boolean, dateTimeAdded: String,
         dateTimeModified: String, userId: Int, categoryId: Int, subcategoryId: Int?
     ): Long {
         val values = ContentValues()
         values.put(DatabaseHelper.COLUMN_ITEM_NAME, name)
+        values.put(DatabaseHelper.COLUMN_ITEM_IMAGE_URI, imageURI)
         values.put(DatabaseHelper.COLUMN_ITEM_DESCRIPTION, description)
         values.put(DatabaseHelper.COLUMN_ITEM_LOCATION, location)
         values.put(DatabaseHelper.COLUMN_ITEM_PUBLIC, isPublic)
@@ -141,6 +142,7 @@ class DatabaseManager(context: Context) {
         val columns = arrayOf(
             DatabaseHelper.COLUMN_ITEM_ID,
             DatabaseHelper.COLUMN_ITEM_NAME,
+            DatabaseHelper.COLUMN_ITEM_IMAGE_URI,
             DatabaseHelper.COLUMN_ITEM_DESCRIPTION,
             DatabaseHelper.COLUMN_ITEM_LOCATION,
             DatabaseHelper.COLUMN_ITEM_PUBLIC,
@@ -158,12 +160,13 @@ class DatabaseManager(context: Context) {
     }
 
     fun updateItem(
-        id: Int, name: String, description: String?, location: String?,
+        id: Int, name: String, imageURI: String, description: String?, location: String?,
         isPublic: Boolean, isLoaned: Boolean, dateTimeAdded: String,
         dateTimeModified: String, userId: Int, categoryId: Int, subcategoryId: Int?
     ): Int {
         val values = ContentValues()
         values.put(DatabaseHelper.COLUMN_ITEM_NAME, name)
+        values.put(DatabaseHelper.COLUMN_ITEM_IMAGE_URI, imageURI)
         values.put(DatabaseHelper.COLUMN_ITEM_DESCRIPTION, description)
         values.put(DatabaseHelper.COLUMN_ITEM_LOCATION, location)
         values.put(DatabaseHelper.COLUMN_ITEM_PUBLIC, isPublic)

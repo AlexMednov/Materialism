@@ -1,11 +1,9 @@
 <resources>
     <string name="app_name">Materialism</string>
-    <color name="login_color">#2094D6</color>
-    <color name="light_grey_login">#D9D9D9</color>
-    <color name="login_button_color">#5157EF</color>
     <string name="title_activity_main_page">MainPageActivity</string>
     <string name="history">History</string>
     <string name="title_activity_design_main_page">DesignMainPageActivity</string>
+    <string name="title_activity_add_item">AddItemActivity</string>
     <string name="flag">Flag</string>
     <string name="people">People</string>
     <string name="item_name">Item name</string>
@@ -15,9 +13,28 @@
     <string name="item_cancel">Cancel</string>
     <string name="item_delete">Delete</string>
     <string name="item_edit">Edit</string>
-    <string name="add_item">Add</string>
+    <string name="add">Add</string>
     <string name="level">Level</string>
-    <string name="item_picture">item picture</string>
+    <string name="item_picture">Item picture</string>
     <string name="library_of_items">Library</string>
     <string name="menu">Menu</string>
+    <string name="selected_photo">Selected photo from phone gallery</string>
+    <string name="select_picture">Select picture</string>
+    <string name="name_hint">Name:</string>
+    <string name="description_hint">Description:</string>
+    <string name="category_hint">Category:</string>
+    <string name="private_label">Item is private?</string>
+    <string name="private_yes">Yes</string>
+    <string name="private_no">No</string>
+    <string name="add_item">Add item</string>
+    <string name="back">Back</string>
+
+    <!-- Categories Array -->
+    <string-array name="categories_array">
+        <item>Category 1</item>
+        <item>Category 2</item>
+        <item>Category 3</item>
+        <item>Category 4</item>
+        <item>Category 5</item>
+    </string-array>
 </resources>

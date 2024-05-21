@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".AddItemActivity">
+
+    <!-- Menu Button -->
+    <ImageButton
+        android:id="@+id/menu_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_menu"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/menu" />
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_toEndOf="@id/menu_button"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_back"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/back" />
+
+    <!-- Image Placeholder -->
+    <ImageView
+        android:id="@+id/image_placeholder"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/menu_button"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/darker_gray"
+        android:contentDescription="@string/selected_photo" />
+
+    <!-- Select Picture Button -->
+    <Button
+        android:id="@+id/select_picture_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_placeholder"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/green"
+        android:text="@string/select_picture"
+        android:textColor="@android:color/black"
+        />
+
+    <!-- Name EditText -->
+    <EditText
+        android:id="@+id/name_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/select_picture_button"
+        android:layout_marginTop="16dp"
+        android:hint="@string/name_hint"
+        android:background="@drawable/edit_text_background"
+        android:padding="12dp" />
+
+    <!-- Description EditText -->
+    <EditText
+        android:id="@+id/description_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name_edit_text"
+        android:layout_marginTop="16dp"
+        android:hint="@string/description_hint"
+        android:background="@drawable/edit_text_background"
+        android:padding="12dp" />
+
+    <!-- Category Spinner -->
+    <Spinner
+        android:id="@+id/category_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description_edit_text"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_text_background" />
+
+    <!-- Private Item Checkboxes -->
+    <TextView
+        android:id="@+id/private_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/category_spinner"
+        android:layout_marginTop="16dp"
+        android:text="@string/private_label"
+        android:textColor="@android:color/black" />
+
+    <CheckBox
+        android:id="@+id/private_yes_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/private_label"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentStart="true"
+        android:text="@string/private_yes"
+        android:textColor="@android:color/black" />
+
+    <CheckBox
+        android:id="@+id/private_no_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/private_label"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@id/private_yes_checkbox"
+        android:text="@string/private_no"
+        android:textColor="@android:color/black" />
+
+    <!-- Add Item Button -->
+    <Button
+        android:id="@+id/add_item_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/private_yes_checkbox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_background"
+        android:text="@string/add_item"
+        android:textColor="@android:color/white"
+        />
+</RelativeLayout>

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DesignMainPageActivity">
@@ -56,114 +56,73 @@
             android:contentDescription="@string/people" />
     </LinearLayout>
 
-    <!-- List of items -->
-    <ScrollView
+    <!-- List of items using RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_below="@id/topBar"
-        android:layout_above="@id/bottomNavBar"
-        android:padding="16dp">
+        android:layout_above="@id/bottom_navigation_bar"
+        android:padding="16dp"
+        tools:listitem="@layout/item_layout" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- Repeated item layout -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                android:background="?attr/selectableItemBackground">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="#E0E0E0"
-                    android:contentDescription="@string/item_picture" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingStart="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/item_name"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/item_description" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Repeat above LinearLayout for each item -->
-            <!-- Add as many items as needed here -->
-
-        </LinearLayout>
-    </ScrollView>
-
-    <!-- Bottom navigation bar -->
-    <RelativeLayout
-        android:id="@+id/bottomNavBar"
+    <!-- Bottom Navigation Bar -->
+    <LinearLayout
+        android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:layout_alignParentBottom="true"
-        android:background="?attr/colorPrimaryDark"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorAccent"
+        android:padding="16dp"
+        android:layout_alignParentBottom="true">
 
-        <!-- Library of items -->
-        <Button
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/ic_library"
-            android:contentDescription="@string/library_of_items" />
-
-        <!-- Add button -->
-        <Button
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/ic_add"
-            android:contentDescription="@string/add_item" />
-
-        <!-- Level and experience -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/level"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:orientation="vertical">
+            android:text="Level: 1"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_vertical" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/level"
-                android:textColor="@android:color/white" />
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:progress="7"
+            android:max="20"
+            android:progressTint="@color/green"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        <TextView
+            android:id="@+id/exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exp: 7/20"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_vertical" />
 
-                <ProgressBar
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:progress="35" />
+        <ImageView
+            android:id="@+id/library_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_library"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="16dp" />
+    </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="7/20"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-        </LinearLayout>
-    </RelativeLayout>
+    <!-- Floating Action Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/green"
+        android:contentDescription="@string/add_item" />
 </RelativeLayout>

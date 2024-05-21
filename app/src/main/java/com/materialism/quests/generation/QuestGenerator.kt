@@ -1,8 +1,7 @@
 package com.materialism.quests.generation
-import com.materialism.quests.generation.dataStructure.Item
 import com.materialism.quests.generation.dataStructure.TimeFrames
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import java.io.File
 
 
@@ -20,6 +19,7 @@ class QuestGenerator {
             val filePath: String = "../content/weights.json"
             val jsonContent: String = readJSONFile(filePath)
             val timeFrames: TimeFrames = parseJSON(jsonContent)
+            println(timeFrames)
 
             return 1
         }

@@ -58,7 +58,7 @@ class ViewItemsActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        itemAdapter = ItemAdapter(getItems(), true)
+        itemAdapter = ItemAdapter(getItems(), true) // Pass true to show edit button
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@ViewItemsActivity)
             adapter = itemAdapter

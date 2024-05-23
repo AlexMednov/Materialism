@@ -21,6 +21,7 @@ class MainPageActivity : ComponentActivity() {
 
         val backButton = findViewById<Button>(R.id.back)
 
+      val addItemButton = findViewById<Button>(R.id.add_item_button)
     addItemButton.setOnClickListener(
         View.OnClickListener {
           val intent = Intent(this, AddItemActivity::class.java)

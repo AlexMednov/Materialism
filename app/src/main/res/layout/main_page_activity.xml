@@ -16,34 +16,39 @@
         android:gravity="center">
 
     </TextView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Place holder nav bar">
 
-        <TextView
+            </TextView>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/addItems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Place holder nav bar">
+            android:text="Add items">
 
-        </TextView>
-    </androidx.cardview.widget.CardView>
+        </Button>
 
-    <Button
-        android:id="@+id/addItems"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add items">
+        <Button
+            android:id="@+id/accessCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Access camera">
 
-    </Button>
+        </Button>
 
-    <Button
-        android:id="@+id/accessCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Access camera">
-
-    </Button>
+        <Button
+            android:id="@+id/categoryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go to category">
 
     <Button
         android:id="@+id/back"

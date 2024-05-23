@@ -4,4 +4,6 @@
     <color name="light_grey_login">#D9D9D9</color>
     <color name="login_button_color">#5157EF</color>
     <string name="title_activity_main_page">MainPageActivity</string>
+    <string name="add_item_activity">AddItemActivity</string>
+    <string name="item_description">Thumbnail of the selected item</string>
 </resources>

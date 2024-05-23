@@ -4,10 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 
 class MainPageActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,9 +16,9 @@ class MainPageActivity : ComponentActivity() {
 
     addItemButton.setOnClickListener(
         View.OnClickListener {
-            val intent = Intent(this, AddItemActivity::class.java)
+          val intent = Intent(this, AddItemActivity::class.java)
 
-            startActivity(intent)
+          startActivity(intent)
         })
 
     backButton.setOnClickListener(

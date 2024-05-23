@@ -34,5 +34,11 @@ class MainPageActivity : ComponentActivity() {
 
           startActivity(intent)
         })
+
+      val designButton: Button = findViewById(R.id.DesignButton)
+      designButton.setOnClickListener {
+          val intent = Intent(this, DesignMainPageActivity::class.java)
+          startActivity(intent)
+      }
   }
 }

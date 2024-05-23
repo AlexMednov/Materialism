@@ -71,5 +71,6 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("com.google.android.material:material:1.1.0")
-    implementation("com.google.android.flexbox:flexbox:3.0.0");
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
+    implementation("com.google.code.gson:gson:2.8.8");
 }

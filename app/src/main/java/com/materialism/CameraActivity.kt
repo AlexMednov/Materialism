@@ -35,8 +35,7 @@ import androidx.camera.video.VideoRecordEvent
 import androidx.core.content.PermissionChecker
 import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
-import java.util.git 
-
+import java.util.Locale
 
 //    setContentView(R.layout.main_page_activity)
 typealias LumaListener = (luma: Double) -> Unit

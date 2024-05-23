@@ -639,7 +639,6 @@ FodyWeavers.xsd
 hs_err_pid*
 replay_pid*
 
-
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.
 

@@ -31,7 +31,6 @@ class AddItemActivity : ComponentActivity() {
     // Registers a photo picker activity launcher in single-select mode.
     val pickMedia =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-          val text = findViewById<View>(R.id.fileUri) as TextView
           val thumbnail = findViewById<View>(R.id.image_thumbnail) as ImageView
           // Callback is invoked after the user selects a media item or closes the
           // photo picker.
@@ -39,8 +38,6 @@ class AddItemActivity : ComponentActivity() {
             imageUri = uri.toString()
             val bitmap = getThumbnail(uri)
             thumbnail.setImageBitmap(bitmap)
-          } else {
-            text.text = "No media selected"
           }
         }
 

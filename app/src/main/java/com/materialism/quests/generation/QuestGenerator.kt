@@ -31,7 +31,7 @@ class QuestGenerator {
             val gson = Gson()
             try {
                 val jsonFile = File(path).readText()
-                val data: ItemList? = gson.fromJson(jsonFile, ItemList::class.java)
+                val data: ItemList = gson.fromJson(jsonFile, ItemList::class.java)
                 println(data)
                 return data
             }
@@ -41,6 +41,7 @@ class QuestGenerator {
             finally{
                 println("lmao")
             }
+
             return null
         }
         fun calculateWeightsDailyQuests(timeFrame: TimeFrame): Double{
@@ -126,7 +127,9 @@ class QuestGenerator {
                 }
             }
 
-            var itemList = readJSONQuestItems("/com/materialism/quests/content/weights.json")
+            var itemList: ItemList? = readJSONQuestItems("/com/materialism/quests/content/weights.json")
+
+//            val totalNumber: Int = getTotalNumberOfElementsInCategory(generatedCategory, itemList)
 
         }
 
@@ -149,22 +152,25 @@ class QuestGenerator {
         }
 
         fun generateItem(totalNumberOfElements:Int, category:String, itemList:ItemList):String{
-            val randomNumber = Random.nextInt()
+            val randomNumber = Random.nextInt(totalNumberOfElements)
 
-            val numberOfElements: Int = when(category) {
-                "Groceries" -> itemList.Groceries.count()
-                "Beverages" -> itemList.Beverages.count()
-                "HouseHold_supplies" -> itemList.HouseHold_supplies.count()
-                "Personal_care_products" -> itemList.Personal_care_products.count()
-                "Health_care" -> itemList.Health_care.count()
-                "Office_or_school_supplies" -> itemList.Office_or_school_supplies.count()
-                "Entertainment" -> itemList.Entertainment.count()
-                "Clothing_accessories" -> itemList.Clothing_accessories.count()
-                "Tech" -> itemList.Tech.count()
-                "Misc" -> itemList.Misc.count()
+            val itemGenerated: String = when(category) {
+                "Groceries" -> itemList.Groceries[randomNumber].Item
+                "Beverages" -> itemList.Beverages[randomNumber].Item
+                "HouseHold_supplies" -> itemList.HouseHold_supplies[randomNumber].Item
+                "Personal_care_products" -> itemList.Personal_care_products[randomNumber].Item
+                "Health_care" -> itemList.Health_care[randomNumber].Item
+                "Office_or_school_supplies" -> itemList.Office_or_school_supplies[randomNumber].Item
+                "Entertainment" -> itemList.Entertainment[randomNumber].Item
+                "Clothing_accessories" -> itemList.Clothing_accessories[randomNumber].Item
+                "Tech" -> itemList.Tech[randomNumber].Item
+                "Misc" -> itemList.Misc[randomNumber].Item
                 else -> throw IllegalArgumentException("Invalid category")//Finish this later, time to eepy sleepy
                 }
+            return itemGenerated
         }
+
+        //Thats just catastrophic. JSON cant be read. Will probably redo the thing with the propper db instead.
 
         fun generateWeeklyQuests(){
 

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Materialism</string>
     <string name="title_activity_main_page">MainPageActivity</string>
+    <string name="access_camera">Access Camera</string>
+    <string name="take_photo">Take Photo</string>
     <string name="history">History</string>
     <string name="title_activity_design_main_page">DesignMainPageActivity</string>
     <string name="title_activity_add_item">AddItemActivity</string>

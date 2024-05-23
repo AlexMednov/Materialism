@@ -17,9 +17,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.time.LocalDate
-import com.materialism.DatabaseHelper
 
 class AddItemActivity : ComponentActivity() {
+  private lateinit var databaseManager: DatabaseManager
 
   private val THUMBNAIL_SIZE = 480
   private var imageUri = ""
@@ -60,8 +60,7 @@ class AddItemActivity : ComponentActivity() {
       var currentDate = LocalDate.now().toString()
 
       try {
-        DatabaseHelper.addItem(
-            itemName, imageUri, itemDescription, null, 0, 0, currentDate, currentDate, 0, 0, null)
+        databaseManager.addItem(itemName.toString(), imageUri, itemDescription.toString(), null, false, false, currentDate, currentDate, 0, 0, null)
       } catch (e: SQLException) {
         val errorText = findViewById<View>(R.id.errorText) as TextView
         errorText.text = e.toString();

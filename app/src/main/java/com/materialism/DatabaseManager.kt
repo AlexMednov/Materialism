@@ -6,7 +6,6 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 
 class DatabaseManager(context: Context) {
-
     private val dbHelper = DatabaseHelper(context)
     private var database: SQLiteDatabase? = null
 

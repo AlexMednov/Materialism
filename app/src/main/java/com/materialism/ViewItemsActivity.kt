@@ -5,7 +5,9 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.ActivityViewItemsBinding
 import com.materialism.sampledata.Item
 
@@ -13,19 +15,28 @@ class ViewItemsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityViewItemsBinding
     private lateinit var itemAdapter: ItemAdapter
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityViewItemsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Setup back button
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+
+        DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
+        setupSortSpinner()
+        setupRecyclerView()
+
+        binding.menuIcon.setOnClickListener {
+            DrawerUtils.openDrawer(drawerLayout)
+        }
+
         binding.backButton.setOnClickListener {
             onBackPressed()
         }
-
-        setupSortSpinner()
-        setupRecyclerView()
     }
 
     private fun setupSortSpinner() {
@@ -47,7 +58,7 @@ class ViewItemsActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        itemAdapter = ItemAdapter(getItems(), true) // Pass true to show edit button
+        itemAdapter = ItemAdapter(getItems(), true)
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@ViewItemsActivity)
             adapter = itemAdapter

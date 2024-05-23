@@ -4,18 +4,27 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.DesignMainPageActivityBinding
 import com.materialism.sampledata.Item
 
 class DesignMainPageActivity : AppCompatActivity() {
 
     private lateinit var binding: DesignMainPageActivityBinding
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DesignMainPageActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+
+        DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
 
         binding.level.text = "Level: 1"
         binding.progressBar.progress = 10
@@ -28,7 +37,7 @@ class DesignMainPageActivity : AppCompatActivity() {
         )
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = ItemAdapter(items, false) // Pass false to hide edit button
+        binding.recyclerView.adapter = ItemAdapter(items, false)
 
         binding.fab.setOnClickListener {
             val intent = Intent(this, AddItemActivity::class.java)
@@ -37,6 +46,10 @@ class DesignMainPageActivity : AppCompatActivity() {
 
         binding.libraryIcon.setOnClickListener {
             openViewItemsActivity(it)
+        }
+
+        binding.icMenu.setOnClickListener {
+            DrawerUtils.openDrawer(drawerLayout)
         }
     }
 

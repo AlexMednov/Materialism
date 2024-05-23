@@ -7,7 +7,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.ActivityAddItemBinding
 
-class AddItemActivity : AppCompatActivity() {
+class DesignAddItemActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddItemBinding
     private lateinit var drawerLayout: DrawerLayout

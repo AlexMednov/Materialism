@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.time.LocalDate
+import com.materialism.DatabaseHelper
 
 class AddItemActivity : ComponentActivity() {
 

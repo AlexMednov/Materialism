@@ -53,5 +53,6 @@
         <item>Alphabetic order</item>
         <item>Descending order</item>
     </string-array>
-
+    <string name="add_item_activity">AddItemActivity</string>
+    <string name="item_description">Thumbnail of the selected item</string>
 </resources>

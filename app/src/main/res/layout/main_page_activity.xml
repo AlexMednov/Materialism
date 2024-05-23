@@ -16,7 +16,6 @@
         android:gravity="center">
 
     </TextView>
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -30,15 +29,15 @@
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/uploadFiles"
+            android:id="@+id/addItems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload files">
+            android:text="Add items">
 
         </Button>
 
         <Button
-            android:id="@+id/acesCamera"
+            android:id="@+id/accessCamera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Access camera">
@@ -46,14 +45,17 @@
         </Button>
 
         <Button
-            android:id="@+id/back"
+            android:id="@+id/categoryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Go back">
-
-        </Button>
+            android:text="Go to category">
 
     <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go back">
+    <Button>
         android:id="@+id/DesignButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,13 +66,16 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Place holder bottom nav bar, or in other words flex boxes work">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Place holder bottom nav bar, or in other words flex boxes work">
 
-            </TextView>
-        </androidx.cardview.widget.CardView>
+        </TextView>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

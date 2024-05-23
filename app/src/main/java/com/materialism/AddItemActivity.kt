@@ -35,3 +35,5 @@ class AddItemActivity : AppCompatActivity() {
         return true
     }
 }
+
+// TODO: Item private should be No by deffault

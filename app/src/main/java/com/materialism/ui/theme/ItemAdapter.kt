@@ -4,24 +4,57 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.materialism.databinding.ItemLayoutBinding
+import com.materialism.databinding.ItemLayoutMainPageBinding
+import com.materialism.sampledata.Item
 
-data class Item(val name: String, val description: String)
+class ItemAdapter(private var items: List<Item>, private val showEditButton: Boolean) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-class ItemAdapter(private val items: List<Item>) :
-    RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (showEditButton) {
+            val binding = ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            EditViewHolder(binding)
+        } else {
+            val binding = ItemLayoutMainPageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            NoEditViewHolder(binding)
+        }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = items[position]
-        holder.binding.itemName.text = item.name
-        holder.binding.itemDescription.text = item.description
+        if (holder is EditViewHolder) {
+            holder.binding.itemName.text = item.name
+            holder.binding.itemDescription.text = item.description
+            holder.binding.itemCategory.text = item.category
+            holder.binding.itemLocation.text = item.location
+            holder.binding.itemDate.text = item.date
+        } else if (holder is NoEditViewHolder) {
+            holder.binding.itemName.text = item.name
+            holder.binding.itemDescription.text = item.description
+            holder.binding.itemCategory.text = item.category
+            holder.binding.itemLocation.text = item.location
+            holder.binding.itemDate.text = item.date
+        }
     }
 
     override fun getItemCount() = items.size
 
-    class ViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+    class EditViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+    class NoEditViewHolder(val binding: ItemLayoutMainPageBinding) : RecyclerView.ViewHolder(binding.root)
+
+    // Methods for sorting
+    fun sortByCategory() {
+        items = items.sortedBy { it.category }
+        notifyDataSetChanged()
+    }
+
+    fun sortByNameAsc() {
+        items = items.sortedBy { it.name }
+        notifyDataSetChanged()
+    }
+
+    fun sortByNameDesc() {
+        items = items.sortedByDescending { it.name }
+        notifyDataSetChanged()
+    }
 }

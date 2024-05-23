@@ -61,7 +61,10 @@ class AddItemActivity : ComponentActivity() {
       try {
         DatabaseHelper.addItem(
             itemName, imageUri, itemDescription, null, 0, 0, currentDate, currentDate, 0, 0, null)
-      } catch (e: SQLException) {}
+      } catch (e: SQLException) {
+        val errorText = findViewById<View>(R.id.errorText) as TextView
+        errorText.text = e.toString();
+      }
 
       // send back to main page
       val intent = Intent(this, MainPageActivity::class.java)

@@ -1,6 +1,5 @@
 package com.materialism
 
-import android.content.Intent
 import android.database.SQLException
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -15,14 +14,13 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.ActivityAddItemBinding
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.time.LocalDate
 
-class DesignAddItemActivity : AppCompatActivity() {
+class AddItemActivity : AppCompatActivity() {
 
   private lateinit var binding: ActivityAddItemBinding
   private lateinit var drawerLayout: DrawerLayout

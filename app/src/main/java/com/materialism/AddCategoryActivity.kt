@@ -21,14 +21,14 @@ class AddCategoryActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_add_category)
 
-    flexboxLayout = findViewById(R.id.flexboxLayout)
+    flexboxLayout = findViewById(R.id.flexbox_layout)
 
     // Load and display existing categories
       loadCategories().forEach { addCategoryView(it.name) }
 
-    val addCategoryButton = findViewById<Button>(R.id.addCategoryButton)
+    val addCategoryButton = findViewById<Button>(R.id.add_category_button)
     addCategoryButton.setOnClickListener {
-      val categoryNameEditText = findViewById<EditText>(R.id.categoryName)
+      val categoryNameEditText = findViewById<EditText>(R.id.category_name)
       val categoryName = categoryNameEditText.text.toString()
       if (categoryName.isNotBlank()) {
         val category = Category(categoryName)
@@ -38,9 +38,9 @@ class AddCategoryActivity : AppCompatActivity() {
       }
     }
 
-    val deleteCategoryButton = findViewById<Button>(R.id.deleteCategoryButton)
+    val deleteCategoryButton = findViewById<Button>(R.id.delete_category_button)
     deleteCategoryButton.setOnClickListener {
-      val categoryNameEditText = findViewById<EditText>(R.id.categoryName)
+      val categoryNameEditText = findViewById<EditText>(R.id.category_name)
       val categoryName = categoryNameEditText.text.toString()
       if (categoryName.isNotBlank()) {
         deleteCategory(categoryName)

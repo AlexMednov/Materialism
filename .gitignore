@@ -770,3 +770,6 @@ fabric.properties
 ### AndroidStudio Patch ###
 
 !/gradle/wrapper/gradle-wrapper.jar
+
+.idea/deploymentTargetSelector.xml
+

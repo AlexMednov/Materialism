@@ -22,6 +22,11 @@
             android:exported="false"
             android:label="@string/title_activity_main_page"
             android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false"
+            android:label="@string/title_activity_register"
+            android:theme="@style/Theme.Materialism" />
 		<activity
             android:name=".AddItemActivity"
             android:exported="false"

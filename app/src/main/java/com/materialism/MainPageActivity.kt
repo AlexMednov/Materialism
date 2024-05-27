@@ -11,7 +11,7 @@ class MainPageActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_page_activity)
 
-        val categoryButton = findViewById<Button>(R.id.categoryButton)
+        val categoryButton = findViewById<Button>(R.id.category_button)
 
         categoryButton.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, AddCategoryActivity::class.java)
@@ -19,7 +19,7 @@ class MainPageActivity : ComponentActivity() {
             startActivity(intent)
         })
 
-        val accessCameraButton = findViewById<Button>(R.id.accessCamera)
+        val accessCameraButton = findViewById<Button>(R.id.access_camera)
 
         accessCameraButton.setOnClickListener(
             View.OnClickListener {
@@ -31,7 +31,7 @@ class MainPageActivity : ComponentActivity() {
 
         val backButton = findViewById<Button>(R.id.back)
 
-        val addItemButton = findViewById<Button>(R.id.addItems)
+        val addItemButton = findViewById<Button>(R.id.add_items)
         addItemButton.setOnClickListener(
             View.OnClickListener {
                 val intent = Intent(this, AddItemActivity::class.java)
@@ -46,7 +46,7 @@ class MainPageActivity : ComponentActivity() {
                 startActivity(intent)
             })
 
-        val designButton: Button = findViewById(R.id.DesignButton)
+        val designButton: Button = findViewById(R.id.design_button)
         designButton.setOnClickListener {
             val intent = Intent(this, DesignMainPageActivity::class.java)
             startActivity(intent)

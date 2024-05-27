@@ -11,7 +11,7 @@ class LoginActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.login_activity)
 
-    val loginButton = findViewById<Button>(R.id.loginButton)
+    val loginButton = findViewById<Button>(R.id.login_button)
 
     loginButton.setOnClickListener(
         View.OnClickListener {

@@ -13,7 +13,7 @@
 
         <!-- Top bar with icons -->
         <LinearLayout
-            android:id="@+id/topBar"
+            android:id="@+id/top_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -68,7 +68,7 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_below="@id/topBar"
+            android:layout_below="@id/top_bar"
             android:layout_above="@id/bottom_navigation_bar"
             android:padding="16dp"
             tools:listitem="@layout/item_layout" />

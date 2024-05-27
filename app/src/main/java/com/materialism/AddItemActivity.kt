@@ -15,6 +15,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.ActivityAddItemBinding
 import java.io.FileNotFoundException
@@ -42,7 +43,7 @@ class DesignAddItemActivity : AppCompatActivity() {
     DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
 
     binding.backButton.setOnClickListener {
-
+      finish()
     }
 
     binding.menuButton.setOnClickListener { DrawerUtils.openDrawer(drawerLayout) }
@@ -96,9 +97,8 @@ class DesignAddItemActivity : AppCompatActivity() {
         errorText.text = e.toString()
       }
 
-      // send back to main page
-      val intent = Intent(this, MainPageActivity::class.java)
-      startActivity(intent)
+      // send to previous page
+      finish()
     }
   }
 

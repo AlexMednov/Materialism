@@ -56,7 +56,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation(libs.androidx.constraintlayout)
     val camerax_version = "1.3.3"
     implementation("androidx.camera:camera-core:${camerax_version}")
     implementation("androidx.camera:camera-camera2:${camerax_version}")

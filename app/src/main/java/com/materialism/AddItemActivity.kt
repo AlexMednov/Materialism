@@ -41,8 +41,8 @@ class AddItemActivity : ComponentActivity() {
           }
         }
 
-    val uploadFilesButton = findViewById<Button>(R.id.uploadFiles)
-    val addItemButton = findViewById<Button>(R.id.addItem)
+    val uploadFilesButton = findViewById<Button>(R.id.upload_files)
+    val addItemButton = findViewById<Button>(R.id.add_item)
     val backButton = findViewById<Button>(R.id.back)
 
     uploadFilesButton.setOnClickListener(
@@ -52,15 +52,26 @@ class AddItemActivity : ComponentActivity() {
         })
 
     addItemButton.setOnClickListener {
-      var itemName: EditText = findViewById(R.id.itemName)
-      var itemDescription: EditText = findViewById(R.id.itemDescription)
+      var itemName: EditText = findViewById(R.id.item_name)
+      var itemDescription: EditText = findViewById(R.id.item_description)
       var currentDate = LocalDate.now().toString()
 
       try {
-        databaseManager.addItem(itemName.toString(), imageUri, itemDescription.toString(), null, false, false, currentDate, currentDate, 0, 0, null)
+        databaseManager.addItem(
+            itemName.toString(),
+            imageUri,
+            itemDescription.toString(),
+            null,
+            false,
+            false,
+            currentDate,
+            currentDate,
+            0,
+            0,
+            null)
       } catch (e: SQLException) {
-        val errorText = findViewById<View>(R.id.errorText) as TextView
-        errorText.text = e.toString();
+        val errorText = findViewById<View>(R.id.error_text) as TextView
+        errorText.text = e.toString()
       }
 
       // send back to main page

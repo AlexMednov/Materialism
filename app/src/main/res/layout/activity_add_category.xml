@@ -4,24 +4,24 @@
     android:orientation="vertical">
 
     <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flexboxLayout"
+        android:id="@+id/flexbox_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/categoryName"
+        android:id="@+id/category_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Category Name" />
 
     <Button
-        android:id="@+id/addCategoryButton"
+        android:id="@+id/add_category_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Category" />
 
     <Button
-        android:id="@+id/deleteCategoryButton"
+        android:id="@+id/delete_category_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Delete Category" />

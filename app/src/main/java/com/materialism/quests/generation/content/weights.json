@@ -1,34 +1,128 @@
-{"Daily": [
-  {"Category": "Groceries", "Weight": 7},
-  {"Category": "Beverages", "Weight": 7},
-  {"Category": "HouseHold_supplies", "Weight": 2},
-  {"Category": "Personal_care_products", "Weight": 2},
-  {"Category": "Health_care", "Weight": 2},
-  {"Category": "Office_or_school_supplies", "Weight": 1},
-  {"Category": "Entertainment", "Weight": 1},
-  {"Category": "Clothing_accessories", "Weight": 1},
-  {"Category": "Tech", "Weight": 1},
-  {"Category": "Misc", "Weight": 1}],
-"Weekly": [
-  {"Category": "Groceries", "Weight": 5},
-  {"Category": "Beverages", "Weight": 5},
-  {"Category": "HouseHold_supplies", "Weight": 4},
-  {"Category": "Personal_care_products", "Weight": 3},
-  {"Category": "Health_care", "Weight": 2},
-  {"Category": "Office_or_school_supplies", "Weight": 2},
-  {"Category": "Entertainment", "Weight": 3},
-  {"Category": "Clothing_accessories", "Weight": 1},
-  {"Category": "Tech", "Weight": 1},
-  {"Category": "Misc", "Weight": 1}],
-"Monthly": [
-  {"Category": "Groceries", "Weight": 1},
-  {"Category": "Beverages", "Weight": 1},
-  {"Category": "HouseHold_supplies", "Weight": 4},
-  {"Category": "Personal_care_products", "Weight": 4},
-  {"Category": "Health_care", "Weight": 3},
-  {"Category": "Office_or_school_supplies", "Weight": 4},
-  {"Category": "Entertainment", "Weight": 4},
-  {"Category": "Clothing_accessories", "Weight": 2},
-  {"Category": "Tech", "Weight": 3},
-  {"Category": "Misc", "Weight": 1}]
+{
+  "Daily": [
+    {
+      "Category": "Groceries",
+      "Weight": 7
+    },
+    {
+      "Category": "Beverages",
+      "Weight": 7
+    },
+    {
+      "Category": "HouseHold_supplies",
+      "Weight": 2
+    },
+    {
+      "Category": "Personal_care_products",
+      "Weight": 2
+    },
+    {
+      "Category": "Health_care",
+      "Weight": 2
+    },
+    {
+      "Category": "Office_or_school_supplies",
+      "Weight": 1
+    },
+    {
+      "Category": "Entertainment",
+      "Weight": 1
+    },
+    {
+      "Category": "Clothing_accessories",
+      "Weight": 1
+    },
+    {
+      "Category": "Tech",
+      "Weight": 1
+    },
+    {
+      "Category": "Misc",
+      "Weight": 1
+    }
+  ],
+  "Weekly": [
+    {
+      "Category": "Groceries",
+      "Weight": 5
+    },
+    {
+      "Category": "Beverages",
+      "Weight": 5
+    },
+    {
+      "Category": "HouseHold_supplies",
+      "Weight": 4
+    },
+    {
+      "Category": "Personal_care_products",
+      "Weight": 3
+    },
+    {
+      "Category": "Health_care",
+      "Weight": 2
+    },
+    {
+      "Category": "Office_or_school_supplies",
+      "Weight": 2
+    },
+    {
+      "Category": "Entertainment",
+      "Weight": 3
+    },
+    {
+      "Category": "Clothing_accessories",
+      "Weight": 1
+    },
+    {
+      "Category": "Tech",
+      "Weight": 1
+    },
+    {
+      "Category": "Misc",
+      "Weight": 1
+    }
+  ],
+  "Monthly": [
+    {
+      "Category": "Groceries",
+      "Weight": 1
+    },
+    {
+      "Category": "Beverages",
+      "Weight": 1
+    },
+    {
+      "Category": "HouseHold_supplies",
+      "Weight": 4
+    },
+    {
+      "Category": "Personal_care_products",
+      "Weight": 4
+    },
+    {
+      "Category": "Health_care",
+      "Weight": 3
+    },
+    {
+      "Category": "Office_or_school_supplies",
+      "Weight": 4
+    },
+    {
+      "Category": "Entertainment",
+      "Weight": 4
+    },
+    {
+      "Category": "Clothing_accessories",
+      "Weight": 2
+    },
+    {
+      "Category": "Tech",
+      "Weight": 3
+    },
+    {
+      "Category": "Misc",
+      "Weight": 1
+    }
+  ]
 }

@@ -4,36 +4,39 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 
 class MainPageActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main_page_activity)
 
-    // Registers a photo picker activity launcher in single-select mode.
-    val pickMedia =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-          val text = findViewById<View>(R.id.fileUri) as TextView
-          // Callback is invoked after the user selects a media item or closes the
-          // photo picker.
-          if (uri != null) {
-            text.text = uri.toString()
-          } else {
-            text.text = "No media selected"
-          }
-        }
+    val categoryButton = findViewById<Button>(R.id.category_button)
 
-    val uploadFilesButton = findViewById<Button>(R.id.uploadFiles)
+    categoryButton.setOnClickListener(
+        View.OnClickListener {
+          val intent = Intent(this, AddCategoryActivity::class.java)
+
+          startActivity(intent)
+        })
+
+    val accessCameraButton = findViewById<Button>(R.id.access_camera)
+
+    accessCameraButton.setOnClickListener(
+        View.OnClickListener {
+          val intent = Intent(applicationContext, CameraActivity::class.java)
+
+          startActivity(intent)
+        })
+
     val backButton = findViewById<Button>(R.id.back)
 
-    uploadFilesButton.setOnClickListener(
+    val addItemButton = findViewById<Button>(R.id.add_items)
+    addItemButton.setOnClickListener(
         View.OnClickListener {
-          pickMedia.launch(
-              PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+          val intent = Intent(this, AddItemActivity::class.java)
+
+          startActivity(intent)
         })
 
     backButton.setOnClickListener(
@@ -42,5 +45,11 @@ class MainPageActivity : ComponentActivity() {
 
           startActivity(intent)
         })
+
+    val designButton: Button = findViewById(R.id.design_button)
+    designButton.setOnClickListener {
+      val intent = Intent(this, DesignMainPageActivity::class.java)
+      startActivity(intent)
+    }
   }
 }

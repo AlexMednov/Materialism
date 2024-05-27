@@ -7,49 +7,49 @@ import android.widget.Button
 import androidx.activity.ComponentActivity
 
 class MainPageActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_page_activity)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.main_page_activity)
 
-        val categoryButton = findViewById<Button>(R.id.category_button)
+    val categoryButton = findViewById<Button>(R.id.category_button)
 
-        categoryButton.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this, AddCategoryActivity::class.java)
+    categoryButton.setOnClickListener(
+        View.OnClickListener {
+          val intent = Intent(this, AddCategoryActivity::class.java)
 
-            startActivity(intent)
+          startActivity(intent)
         })
 
-        val accessCameraButton = findViewById<Button>(R.id.access_camera)
+    val accessCameraButton = findViewById<Button>(R.id.access_camera)
 
-        accessCameraButton.setOnClickListener(
-            View.OnClickListener {
-                val intent = Intent(applicationContext, CameraActivity::class.java)
+    accessCameraButton.setOnClickListener(
+        View.OnClickListener {
+          val intent = Intent(applicationContext, CameraActivity::class.java)
 
-                startActivity(intent)
-            }
-        )
+          startActivity(intent)
+        })
 
-        val backButton = findViewById<Button>(R.id.back)
+    val backButton = findViewById<Button>(R.id.back)
 
-        val addItemButton = findViewById<Button>(R.id.add_items)
-        addItemButton.setOnClickListener(
-            View.OnClickListener {
-                val intent = Intent(this, AddItemActivity::class.java)
+    val addItemButton = findViewById<Button>(R.id.add_items)
+    addItemButton.setOnClickListener(
+        View.OnClickListener {
+          val intent = Intent(this, AddItemActivity::class.java)
 
-                startActivity(intent)
-            })
+          startActivity(intent)
+        })
 
-        backButton.setOnClickListener(
-            View.OnClickListener {
-                val intent = Intent(this, LoginActivity::class.java)
+    backButton.setOnClickListener(
+        View.OnClickListener {
+          val intent = Intent(this, LoginActivity::class.java)
 
-                startActivity(intent)
-            })
+          startActivity(intent)
+        })
 
-        val designButton: Button = findViewById(R.id.design_button)
-        designButton.setOnClickListener {
-            val intent = Intent(this, DesignMainPageActivity::class.java)
-            startActivity(intent)
-        }
+    val designButton: Button = findViewById(R.id.design_button)
+    designButton.setOnClickListener {
+      val intent = Intent(this, DesignMainPageActivity::class.java)
+      startActivity(intent)
     }
+  }
 }

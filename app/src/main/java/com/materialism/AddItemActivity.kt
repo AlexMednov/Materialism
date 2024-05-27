@@ -57,10 +57,21 @@ class AddItemActivity : ComponentActivity() {
       var currentDate = LocalDate.now().toString()
 
       try {
-        databaseManager.addItem(itemName.toString(), imageUri, itemDescription.toString(), null, false, false, currentDate, currentDate, 0, 0, null)
+        databaseManager.addItem(
+            itemName.toString(),
+            imageUri,
+            itemDescription.toString(),
+            null,
+            false,
+            false,
+            currentDate,
+            currentDate,
+            0,
+            0,
+            null)
       } catch (e: SQLException) {
         val errorText = findViewById<View>(R.id.error_text) as TextView
-        errorText.text = e.toString();
+        errorText.text = e.toString()
       }
 
       // send back to main page

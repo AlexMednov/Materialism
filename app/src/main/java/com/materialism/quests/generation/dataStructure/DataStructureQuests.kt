@@ -1,9 +1,6 @@
 package com.materialism.quests.generation.dataStructure
 
-data class Category(
-    val Category: String,
-    val Weight: Int
-)
+data class Category(val Category: String, val Weight: Int)
 
 data class TimeFrame(
     val Daily: List<Category>,
@@ -11,10 +8,7 @@ data class TimeFrame(
     val Monthly: List<Category>
 )
 
-data class Item(
-    val ID: Int,
-    val Item: String
-)
+data class Item(val ID: Int, val Item: String)
 
 data class ItemList(
     val Groceries: List<Item>,

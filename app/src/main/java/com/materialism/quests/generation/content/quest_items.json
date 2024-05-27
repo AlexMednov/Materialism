@@ -1,74 +1,238 @@
-{"Groceries": [
-  {"ID": 1, "Item": "Apple"},
-  {"ID": 2, "Item": "Banana"},
-  {"ID": 3, "Item": "Cucumber"},
-  {"ID": 4, "Item": "Orange"},
-  {"ID": 5, "Item": "Strawberry"},
-  {"ID": 6, "Item": "Carrot"},
-  {"ID": 7, "Item": "Broccoli"},
-  {"ID": 8, "Item": "Spinach"},
-  {"ID": 9, "Item": "Tomato"},
-  {"ID": 10, "Item": "Ball pepper"}
-],
-"Beverages": [
-  {"ID": 1, "Item": "Water"},
-  {"ID": 2, "Item": "Orange juice"},
-  {"ID": 3, "Item": "Coffee"},
-  {"ID": 4, "Item": "Green tea"},
-  {"ID": 5, "Item": "Lemonade"},
-  {"ID": 6, "Item": "Smoothie"},
-  {"ID": 7, "Item": "Soda"},
-  {"ID": 8, "Item": "Milkshake"},
-  {"ID": 9, "Item": "Apple juice"},
-  {"ID": 10, "Item": "Mango juice"}
-],
-"HouseHold_supplies": [
-  {"ID": 1, "Item": "Paper towels"},
-  {"ID": 2, "Item": "Laundry detergent"},
-  {"ID": 3, "Item": "Dish soap"},
-  {"ID": 4, "Item": "Trash bags"},
-  {"ID": 5, "Item": "Cleaning spray"}
-],
-"Personal_care_products": [
-  {"ID": 1, "Item": "Toothpaste"},
-  {"ID": 2, "Item": "Shampoo"},
-  {"ID": 3, "Item": "Body lotion"},
-  {"ID": 4, "Item": "Deodorant"},
-  {"ID": 5, "Item": "Face wash"}
-],
-"Health_care": [
-  {"ID": 1, "Item": "First aid kit"},
-  {"ID": 2, "Item": "Thermometer"},
-  {"ID": 3, "Item": "Pain killers"},
-  {"ID": 4, "Item": "Band-aids"},
-  {"ID": 5, "Item": "Antiseptic solution"}
-],
-"Office_or_school_supplies": [
-  {"ID": 1, "Item": "Notebook"},
-  {"ID": 2, "Item": "Pen"},
-  {"ID": 3, "Item": "Stapler"},
-  {"ID": 4, "Item": "Sticky notes"},
-  {"ID": 5, "Item": "Highlighters"}
-],
-"Entertainment": [
-  {"ID": 1, "Item": "Playing cards"},
-  {"ID": 2, "Item": "Board game"},
-  {"ID": 3, "Item": "Video game"}
-],
-"Clothing_accessories": [
-  {"ID": 1, "Item": "Belt"},
-  {"ID": 2, "Item": "Scarf"},
-  {"ID": 3, "Item": "Hat"},
-  {"ID": 4, "Item": "Sunglasses"},
-  {"ID": 2, "Item": "Watch"}
-],
-"Tech": [
-  {"ID": 1, "Item": "Charging cable"},
-  {"ID": 2, "Item": "Batteries"},
-  {"ID": 2, "Item": "Phone case"}
-],
-"Misc": [
-  {"Id": 1, "Item": "Clown Shoes"},
-  {"ID": 2, "Item": "Sledgehammer"},
-  {"ID": 3, "Item": "Cool stick"}
-]}
+{
+  "Groceries": [
+    {
+      "ID": 1,
+      "Item": "Apple"
+    },
+    {
+      "ID": 2,
+      "Item": "Banana"
+    },
+    {
+      "ID": 3,
+      "Item": "Cucumber"
+    },
+    {
+      "ID": 4,
+      "Item": "Orange"
+    },
+    {
+      "ID": 5,
+      "Item": "Strawberry"
+    },
+    {
+      "ID": 6,
+      "Item": "Carrot"
+    },
+    {
+      "ID": 7,
+      "Item": "Broccoli"
+    },
+    {
+      "ID": 8,
+      "Item": "Spinach"
+    },
+    {
+      "ID": 9,
+      "Item": "Tomato"
+    },
+    {
+      "ID": 10,
+      "Item": "Ball pepper"
+    }
+  ],
+  "Beverages": [
+    {
+      "ID": 1,
+      "Item": "Water"
+    },
+    {
+      "ID": 2,
+      "Item": "Orange juice"
+    },
+    {
+      "ID": 3,
+      "Item": "Coffee"
+    },
+    {
+      "ID": 4,
+      "Item": "Green tea"
+    },
+    {
+      "ID": 5,
+      "Item": "Lemonade"
+    },
+    {
+      "ID": 6,
+      "Item": "Smoothie"
+    },
+    {
+      "ID": 7,
+      "Item": "Soda"
+    },
+    {
+      "ID": 8,
+      "Item": "Milkshake"
+    },
+    {
+      "ID": 9,
+      "Item": "Apple juice"
+    },
+    {
+      "ID": 10,
+      "Item": "Mango juice"
+    }
+  ],
+  "HouseHold_supplies": [
+    {
+      "ID": 1,
+      "Item": "Paper towels"
+    },
+    {
+      "ID": 2,
+      "Item": "Laundry detergent"
+    },
+    {
+      "ID": 3,
+      "Item": "Dish soap"
+    },
+    {
+      "ID": 4,
+      "Item": "Trash bags"
+    },
+    {
+      "ID": 5,
+      "Item": "Cleaning spray"
+    }
+  ],
+  "Personal_care_products": [
+    {
+      "ID": 1,
+      "Item": "Toothpaste"
+    },
+    {
+      "ID": 2,
+      "Item": "Shampoo"
+    },
+    {
+      "ID": 3,
+      "Item": "Body lotion"
+    },
+    {
+      "ID": 4,
+      "Item": "Deodorant"
+    },
+    {
+      "ID": 5,
+      "Item": "Face wash"
+    }
+  ],
+  "Health_care": [
+    {
+      "ID": 1,
+      "Item": "First aid kit"
+    },
+    {
+      "ID": 2,
+      "Item": "Thermometer"
+    },
+    {
+      "ID": 3,
+      "Item": "Pain killers"
+    },
+    {
+      "ID": 4,
+      "Item": "Band-aids"
+    },
+    {
+      "ID": 5,
+      "Item": "Antiseptic solution"
+    }
+  ],
+  "Office_or_school_supplies": [
+    {
+      "ID": 1,
+      "Item": "Notebook"
+    },
+    {
+      "ID": 2,
+      "Item": "Pen"
+    },
+    {
+      "ID": 3,
+      "Item": "Stapler"
+    },
+    {
+      "ID": 4,
+      "Item": "Sticky notes"
+    },
+    {
+      "ID": 5,
+      "Item": "Highlighters"
+    }
+  ],
+  "Entertainment": [
+    {
+      "ID": 1,
+      "Item": "Playing cards"
+    },
+    {
+      "ID": 2,
+      "Item": "Board game"
+    },
+    {
+      "ID": 3,
+      "Item": "Video game"
+    }
+  ],
+  "Clothing_accessories": [
+    {
+      "ID": 1,
+      "Item": "Belt"
+    },
+    {
+      "ID": 2,
+      "Item": "Scarf"
+    },
+    {
+      "ID": 3,
+      "Item": "Hat"
+    },
+    {
+      "ID": 4,
+      "Item": "Sunglasses"
+    },
+    {
+      "ID": 2,
+      "Item": "Watch"
+    }
+  ],
+  "Tech": [
+    {
+      "ID": 1,
+      "Item": "Charging cable"
+    },
+    {
+      "ID": 2,
+      "Item": "Batteries"
+    },
+    {
+      "ID": 2,
+      "Item": "Phone case"
+    }
+  ],
+  "Misc": [
+    {
+      "Id": 1,
+      "Item": "Clown Shoes"
+    },
+    {
+      "ID": 2,
+      "Item": "Sledgehammer"
+    },
+    {
+      "ID": 3,
+      "Item": "Cool stick"
+    }
+  ]
+}

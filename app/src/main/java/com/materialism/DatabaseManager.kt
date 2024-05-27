@@ -238,4 +238,62 @@ class DatabaseManager(context: Context) {
     return database!!.delete(
         DatabaseHelper.TABLE_ITEM, "${DatabaseHelper.COLUMN_ITEM_ID} =?", arrayOf(id.toString()))
   }
+
+  // Quest CRUD Operations
+  fun addQuest(
+      type: Int,
+      weight: Int,
+      categoryId: Int
+  ): Long {
+      val values = ContentValues()
+      values.put(DatabaseHelper.COLUMN_QUEST_TYPE, type)
+      values.put(DatabaseHelper.COLUMN_QUEST_WEIGHT, weight)
+      values.put(DatabaseHelper.COLUMN_QUEST_CATEGORY_ID, categoryId)
+      return database!!.insert(DatabaseHelper.TABLE_QUEST, null, values)
+  }
+
+  fun getQuest(id: Int): Cursor {
+      val columns =
+          arrayOf(
+              DatabaseHelper.COLUMN_QUEST_ID,
+              DatabaseHelper.COLUMN_QUEST_TYPE,
+              DatabaseHelper.COLUMN_QUEST_WEIGHT,
+              DatabaseHelper.COLUMN_QUEST_CATEGORY_ID)
+      return database!!.query(
+          DatabaseHelper.TABLE_QUEST,
+          columns,
+          "${DatabaseHelper.COLUMN_QUEST_ID} =?",
+          arrayOf(id.toString()),
+          null,
+          null,
+          null)
+  }
+
+  // QuestItem CRUD Operations
+
+  fun addQuestItem(
+      name: String,
+      categoryId: Int
+  ): Long {
+      val values = ContentValues()
+      values.put(DatabaseHelper.COLUMN_QUESTITEM_NAME, name)
+      values.put(DatabaseHelper.COLUMN_QUESTITEM_CATEGORY_ID, categoryId)
+      return database!!.insert(DatabaseHelper.TABLE_QUESTITEM, null, values)
+  }
+
+  fun getQuestItem(id: Int): Cursor {
+    val columns =
+      arrayOf(
+              DatabaseHelper.COLUMN_QUESTITEM_ID,
+              DatabaseHelper.COLUMN_QUESTITEM_NAME,
+              DatabaseHelper.COLUMN_QUESTITEM_CATEGORY_ID)
+    return database!!.query(
+          DatabaseHelper.TABLE_QUESTITEM,
+          columns,
+          "${DatabaseHelper.COLUMN_QUESTITEM_ID} =?",
+          arrayOf(id.toString()),
+          null,
+          null,
+          null)
+  }
 }

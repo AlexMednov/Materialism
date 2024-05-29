@@ -40,7 +40,7 @@ class DesignMainPageActivity : AppCompatActivity() {
     binding.recyclerView.adapter = ItemAdapter(items, false)
 
     binding.fab.setOnClickListener {
-      val intent = Intent(this, DesignAddItemActivity::class.java)
+      val intent = Intent(this, AddItemActivity::class.java)
       startActivity(intent)
     }
 

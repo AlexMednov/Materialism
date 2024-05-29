@@ -17,6 +17,9 @@ class DatabaseHelper(context: Context) :
     const val COLUMN_USER_NAME = "name"
     const val COLUMN_USER_EMAIL = "emailAddress"
     const val COLUMN_USER_REGISTERED = "isRegistered"
+    const val COLUMN_USER_SCORE = "score"
+    const val COLUMN_USER_KARMA = "karma"
+
 
     // Category table
     const val TABLE_CATEGORY = "Category"
@@ -45,6 +48,20 @@ class DatabaseHelper(context: Context) :
     const val COLUMN_ITEM_USER_ID = "userId"
     const val COLUMN_ITEM_CATEGORY_ID = "categoryId"
     const val COLUMN_ITEM_SUBCATEGORY_ID = "subcategoryId"
+
+    // Quest table
+    const val TABLE_QUEST = "Quest"
+    const val COLUMN_QUEST_ID = "id"
+    const val COLUMN_QUEST_TYPE = "type"
+    const val COLUMN_QUEST_WEIGHT = "weight"
+    const val COLUMN_QUEST_CATEGORY_ID = "categoryId"
+
+    // QuestItem table
+    const val TABLE_QUESTITEM = "QuestItem"
+    const val COLUMN_QUESTITEM_ID = "id"
+    const val COLUMN_QUESTITEM_NAME = "name"
+    const val COLUMN_QUESTITEM_CATEGORY_ID = "categoryId"
+
   }
 
   override fun onCreate(db: SQLiteDatabase) {
@@ -54,7 +71,9 @@ class DatabaseHelper(context: Context) :
                 $COLUMN_USER_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 $COLUMN_USER_NAME TEXT NOT NULL,
                 $COLUMN_USER_EMAIL TEXT,
-                $COLUMN_USER_REGISTERED BOOLEAN NOT NULL
+                $COLUMN_USER_REGISTERED BOOLEAN NOT NULL,
+                $COLUMN_USER_SCORE INTEGER NOT NULL,
+                $COLUMN_USER_KARMA INTEGER NOT NULL
             );
         """
 
@@ -98,10 +117,33 @@ class DatabaseHelper(context: Context) :
             );
         """
 
+      val createQuestTable =
+        """
+            CREATE TABLE $TABLE_QUEST (
+                $COLUMN_QUEST_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                $COLUMN_QUEST_TYPE INTEGER NOT NULL,
+                $COLUMN_QUEST_WEIGHT INTEGER NOT NULL,
+                $COLUMN_QUEST_CATEGORY_ID INTEGER NOT NULL,
+                FOREIGN KEY($COLUMN_QUEST_CATEGORY_ID) REFERENCES $TABLE_CATEGORY($COLUMN_CATEGORY_ID)
+            );
+        """
+
+      val createQuestItemTable =
+        """
+            CREATE TABLE $TABLE_QUESTITEM (
+                $COLUMN_QUESTITEM_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                $COLUMN_QUESTITEM_NAME TEXT NOT NULL,
+                $COLUMN_QUESTITEM_CATEGORY_ID INTEGER NOT NULL,
+                FOREIGN KEY($COLUMN_QUESTITEM_CATEGORY_ID) REFERENCES $TABLE_CATEGORY($COLUMN_CATEGORY_ID)
+            );
+        """
+
     db.execSQL(createUserTable)
     db.execSQL(createCategoryTable)
     db.execSQL(createSubcategoryTable)
     db.execSQL(createItemTable)
+    db.execSQL(createQuestTable)
+    db.execSQL(createQuestItemTable)
   }
 
   override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -109,6 +151,8 @@ class DatabaseHelper(context: Context) :
     db.execSQL("DROP TABLE IF EXISTS $TABLE_SUBCATEGORY")
     db.execSQL("DROP TABLE IF EXISTS $TABLE_CATEGORY")
     db.execSQL("DROP TABLE IF EXISTS $TABLE_USER")
+    db.execSQL("DROP TABLE IF EXISTS $TABLE_QUEST")
+    db.execSQL("DROP TABLE IF EXISTS $TABLE_QUESTITEM")
     onCreate(db)
   }
 }

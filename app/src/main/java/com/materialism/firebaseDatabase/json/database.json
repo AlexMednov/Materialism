@@ -1,0 +1,58 @@
+{
+  "Users": {
+    "UserID1": {
+      "name": "User Name",
+      "emailAddress": "user@example.com",
+      "isRegistered": true,
+      "score": 0,
+      "karma": 0
+    }
+
+  },
+  "Items": {
+    "ItemID1": {
+      "name": "Item Name",
+      "imageURI": "http://example.com/image.jpg",
+      "description": "Item description",
+      "location": "Item location",
+      "isPublic": true,
+      "isLoaned": false,
+      "dateTimeAdded": "2024-05-29T12:00:00Z",
+      "dateTimeModified": "2024-05-29T12:00:00Z",
+      "userId": "UserID1",
+      "categoryId": "CategoryID1",
+      "subcategoryId": "SubcategoryID1"
+    }
+
+  },
+  "Categories": {
+    "CategoryID1": {
+      "name": "Category Name",
+      "description": "Category description",
+      "isDefault": true,
+      "subcategories": {
+        "SubcategoryID1": {
+          "name": "Subcategory Name",
+          "description": "Subcategory description"
+        }
+
+      }
+    }
+
+  },
+  "Quests": {
+    "QuestID1": {
+      "type": 1,
+      "weight": 10,
+      "categoryId": "CategoryID1"
+    }
+
+  },
+  "QuestItems": {
+    "QuestItemID1": {
+      "name": "Quest Item Name",
+      "categoryId": "CategoryID1"
+    }
+
+  }
+}

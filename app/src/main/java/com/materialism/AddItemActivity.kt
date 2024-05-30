@@ -11,7 +11,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.Spinner
-import android.widget.TextView
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -43,29 +42,25 @@ class AddItemActivity : AppCompatActivity() {
 
     DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
 
-    binding.backButton.setOnClickListener {
-      finish()
-    }
+    binding.backButton.setOnClickListener { finish() }
 
     binding.menuButton.setOnClickListener { DrawerUtils.openDrawer(drawerLayout) }
 
     // Registers a photo picker activity launcher in single-select mode.
     val pickMedia =
-      registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        val thumbnail = findViewById<View>(R.id.image_placeholder) as ImageView
-        // Callback is invoked after the user selects a media item or closes the
-        // photo picker.
-        if (uri != null) {
-          imageUri = uri.toString()
-          val bitmap = getThumbnail(uri)
-          thumbnail.setImageBitmap(bitmap)
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+          val thumbnail = findViewById<View>(R.id.image_placeholder) as ImageView
+          // Callback is invoked after the user selects a media item or closes the
+          // photo picker.
+          if (uri != null) {
+            imageUri = uri.toString()
+            val bitmap = getThumbnail(uri)
+            thumbnail.setImageBitmap(bitmap)
+          }
         }
-      }
 
     binding.selectPictureButton.setOnClickListener {
-      pickMedia.launch(
-        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-      )
+      pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
     val categoriesCursor = databaseManager.getAllCategories()
@@ -89,25 +84,27 @@ class AddItemActivity : AppCompatActivity() {
 
     binding.addItemButton.setOnClickListener {
       val itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
-      val itemDescription: String = findViewById<EditText>(R.id.description_edit_text).text.toString()
-      val isPublic = findViewById<RadioButton>(R.id.private_no_button).isChecked //not private == public
+      val itemDescription: String =
+          findViewById<EditText>(R.id.description_edit_text).text.toString()
+      val isPublic =
+          findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
       val currentDate = LocalDate.now().toString()
       val categoryId = categoryMap[findViewById<Spinner>(R.id.category_spinner).toString()]
 
       try {
         if (categoryId != null) {
           databaseManager.addItem(
-            itemName,
-            imageUri,
-            itemDescription,
-            null,
-            isPublic,
-            false,
-            currentDate,
-            currentDate,
-            0,
-            categoryId,
-            null)
+              itemName,
+              imageUri,
+              itemDescription,
+              null,
+              isPublic,
+              false,
+              currentDate,
+              currentDate,
+              0,
+              categoryId,
+              null)
         }
       } catch (e: SQLException) {
         print(e.toString())
@@ -130,8 +127,8 @@ class AddItemActivity : AppCompatActivity() {
       return null
     }
     val originalSize =
-      if (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) onlyBoundsOptions.outHeight
-      else onlyBoundsOptions.outWidth
+        if (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) onlyBoundsOptions.outHeight
+        else onlyBoundsOptions.outWidth
     val ratio = if (originalSize > THUMBNAIL_SIZE) originalSize / THUMBNAIL_SIZE else 1.0
     val bitmapOptions = BitmapFactory.Options()
     bitmapOptions.inSampleSize = getPowerOfTwoForSampleRatio(ratio)

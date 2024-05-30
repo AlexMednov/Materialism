@@ -6,9 +6,6 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.flexbox.FlexboxLayout
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.io.File
 
 data class Category(val name: String)
 
@@ -96,14 +93,12 @@ class AddCategoryActivity : AppCompatActivity() {
     if (categoriesCursor.moveToFirst()) {
       do {
         val key = categoriesCursor.getString(categoriesCursor.getColumnIndexOrThrow("name"))
-        if (key == categoryName)  {
+        if (key == categoryName) {
           val categoryId = categoriesCursor.getInt(categoriesCursor.getColumnIndexOrThrow("id"))
           databaseManager.deleteCategory(categoryId)
         }
       } while (categoriesCursor.moveToNext())
       categoriesCursor.close()
     }
-
   }
-
 }

@@ -27,7 +27,7 @@
             android:exported="false"
             android:label="@string/title_activity_register"
             android:theme="@style/Theme.Materialism" />
-		<activity
+		    <activity
             android:name=".AddItemActivity"
             android:exported="false"
             android:label="@string/add_item_activity"
@@ -38,9 +38,14 @@
             android:label="@string/title_activity_design_main_page"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".DesignAddItemActivity"
+            android:name=".ViewFriendsActivity"
             android:exported="false"
-            android:label="@string/title_activity_add_item"
+            android:label="@string/title_activity_view_friends"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".AddFriendsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_friends"
             android:theme="@style/Theme.Materialism" />
         <activity
             android:name=".ViewItemsActivity"

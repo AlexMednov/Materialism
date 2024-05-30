@@ -60,7 +60,8 @@
                 android:padding="12dp"
                 android:src="@drawable/ic_people"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/people" />
+                android:contentDescription="@string/people"
+                android:onClick="openViewFriendsActivity" />
         </LinearLayout>
 
         <!-- List of items using RecyclerView -->

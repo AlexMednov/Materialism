@@ -41,6 +41,12 @@ class AddItemActivity : AppCompatActivity() {
 
     DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
 
+    binding.backButton.setOnClickListener {
+      finish()
+    }
+
+    binding.menuButton.setOnClickListener { DrawerUtils.openDrawer(drawerLayout) }
+
     // Registers a photo picker activity launcher in single-select mode.
     val pickMedia =
       registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -59,12 +65,6 @@ class AddItemActivity : AppCompatActivity() {
         PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
       )
     }
-
-    binding.backButton.setOnClickListener {
-      finish()
-    }
-
-    binding.menuButton.setOnClickListener { DrawerUtils.openDrawer(drawerLayout) }
 
     val categoriesCursor = databaseManager.getAllCategories()
     val categoryMap = mutableMapOf<String, Int>()
@@ -92,9 +92,9 @@ class AddItemActivity : AppCompatActivity() {
 
       try {
         databaseManager.addItem(
-          itemName.toString(),
+          itemName,
           imageUri,
-          itemDescription.toString(),
+          itemDescription,
           null,
           false,
           false,

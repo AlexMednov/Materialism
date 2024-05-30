@@ -14,8 +14,6 @@ data class Category(val name: String)
 
 class AddCategoryActivity : AppCompatActivity() {
   private lateinit var flexboxLayout: FlexboxLayout
-  private val gson = Gson()
-  private val categoriesFileName = "categories.json"
   private var databaseManager = DatabaseManager(this)
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,7 +92,18 @@ class AddCategoryActivity : AppCompatActivity() {
   }
 
   private fun deleteCategory(categoryName: String) {
-    databaseManager.deleteCategory(0)
+    val categoriesCursor = databaseManager.getAllCategories()
+    if (categoriesCursor.moveToFirst()) {
+      do {
+        val key = categoriesCursor.getString(categoriesCursor.getColumnIndexOrThrow("name"))
+        if (key == categoryName)  {
+          val categoryId = categoriesCursor.getInt(categoriesCursor.getColumnIndexOrThrow("id"))
+          databaseManager.deleteCategory(categoryId)
+        }
+      } while (categoriesCursor.moveToNext())
+      categoriesCursor.close()
+    }
+
   }
 
 }

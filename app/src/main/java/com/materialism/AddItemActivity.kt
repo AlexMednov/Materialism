@@ -41,6 +41,25 @@ class AddItemActivity : AppCompatActivity() {
 
     DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
 
+    // Registers a photo picker activity launcher in single-select mode.
+    val pickMedia =
+      registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        val thumbnail = findViewById<View>(R.id.image_placeholder) as ImageView
+        // Callback is invoked after the user selects a media item or closes the
+        // photo picker.
+        if (uri != null) {
+          imageUri = uri.toString()
+          val bitmap = getThumbnail(uri)
+          thumbnail.setImageBitmap(bitmap)
+        }
+      }
+
+    binding.selectPictureButton.setOnClickListener {
+      pickMedia.launch(
+        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+      )
+    }
+
     binding.backButton.setOnClickListener {
       finish()
     }
@@ -50,7 +69,7 @@ class AddItemActivity : AppCompatActivity() {
     val categoriesCursor = databaseManager.getAllCategories()
     val categoryMap = mutableMapOf<String, Int>()
     val categoryArray = ArrayList<String>()
-    categoryArray.add("<Select a category>")
+    categoryArray.add("< Select a category >")
 
     if (categoriesCursor.moveToFirst()) {
       do {
@@ -66,30 +85,9 @@ class AddItemActivity : AppCompatActivity() {
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     binding.categorySpinner.adapter = adapter
 
-    // Registers a photo picker activity launcher in single-select mode.
-    val pickMedia =
-      registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        val thumbnail = findViewById<View>(R.id.image_placeholder) as ImageView
-        // Callback is invoked after the user selects a media item or closes the
-        // photo picker.
-        if (uri != null) {
-          imageUri = uri.toString()
-          val bitmap = getThumbnail(uri)
-          thumbnail.setImageBitmap(bitmap)
-        }
-      }
-
-    binding.selectPictureButton.setOnClickListener {
-      View.OnClickListener {
-        pickMedia.launch(
-          PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-        )
-      }
-    }
-
     binding.addItemButton.setOnClickListener {
-      var itemName: EditText = findViewById(R.id.name_edit_text)
-      var itemDescription: EditText = findViewById(R.id.description_edit_text)
+      var itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
+      var itemDescription: String = findViewById<EditText>(R.id.description_edit_text).text.toString()
       var currentDate = LocalDate.now().toString()
 
       try {

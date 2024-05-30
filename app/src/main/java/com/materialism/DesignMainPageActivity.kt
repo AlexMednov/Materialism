@@ -32,9 +32,9 @@ class DesignMainPageActivity : AppCompatActivity() {
     binding.exp.text = "Exp: 10/20"
 
     val items =
-        listOf(
-            Item("Item 1", "Description 1", "Category 1", "Location 1", "Date 1"),
-            Item("Item 2", "Description 2", "Category 2", "Location 2", "Date 2"))
+      listOf(
+        Item("Item 1", "Description 1", "Category 1", "Location 1", "Date 1"),
+        Item("Item 2", "Description 2", "Category 2", "Location 2", "Date 2"))
 
     binding.recyclerView.layoutManager = LinearLayoutManager(this)
     binding.recyclerView.adapter = ItemAdapter(items, false)
@@ -52,6 +52,12 @@ class DesignMainPageActivity : AppCompatActivity() {
   // Method to handle the click event for the library icon
   fun openViewItemsActivity(view: View) {
     val intent = Intent(this, ViewItemsActivity::class.java)
+    startActivity(intent)
+  }
+
+  // Method to handle the click event for the people icon
+  fun openViewFriendsActivity(view: View) {
+    val intent = Intent(this, ViewFriendsActivity::class.java)
     startActivity(intent)
   }
 }

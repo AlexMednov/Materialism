@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -86,9 +87,10 @@ class AddItemActivity : AppCompatActivity() {
     binding.categorySpinner.adapter = adapter
 
     binding.addItemButton.setOnClickListener {
-      var itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
-      var itemDescription: String = findViewById<EditText>(R.id.description_edit_text).text.toString()
-      var currentDate = LocalDate.now().toString()
+      val itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
+      val itemDescription: String = findViewById<EditText>(R.id.description_edit_text).text.toString()
+      val isPublic = findViewById<RadioButton>(R.id.private_no_button).isChecked //not private == public
+      val currentDate = LocalDate.now().toString()
 
       try {
         databaseManager.addItem(
@@ -96,7 +98,7 @@ class AddItemActivity : AppCompatActivity() {
           imageUri,
           itemDescription,
           null,
-          false,
+          isPublic,
           false,
           currentDate,
           currentDate,

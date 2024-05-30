@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RadioButton
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -74,10 +75,10 @@ class AddItemActivity : AppCompatActivity() {
 
     if (categoriesCursor.moveToFirst()) {
       do {
-        val key = categoriesCursor.getString(categoriesCursor.getColumnIndexOrThrow("name"))
-        val value = categoriesCursor.getInt(categoriesCursor.getColumnIndexOrThrow("id"))
-        categoryMap[key] = value
-        categoryArray.add(key)
+        val name = categoriesCursor.getString(categoriesCursor.getColumnIndexOrThrow("name"))
+        val id = categoriesCursor.getInt(categoriesCursor.getColumnIndexOrThrow("id"))
+        categoryMap[name] = id
+        categoryArray.add(name)
       } while (categoriesCursor.moveToNext())
       categoriesCursor.close()
     }
@@ -91,20 +92,23 @@ class AddItemActivity : AppCompatActivity() {
       val itemDescription: String = findViewById<EditText>(R.id.description_edit_text).text.toString()
       val isPublic = findViewById<RadioButton>(R.id.private_no_button).isChecked //not private == public
       val currentDate = LocalDate.now().toString()
+      val categoryId = categoryMap[findViewById<Spinner>(R.id.category_spinner).toString()]
 
       try {
-        databaseManager.addItem(
-          itemName,
-          imageUri,
-          itemDescription,
-          null,
-          isPublic,
-          false,
-          currentDate,
-          currentDate,
-          0,
-          0,
-          null)
+        if (categoryId != null) {
+          databaseManager.addItem(
+            itemName,
+            imageUri,
+            itemDescription,
+            null,
+            isPublic,
+            false,
+            currentDate,
+            currentDate,
+            0,
+            categoryId,
+            null)
+        }
       } catch (e: SQLException) {
         print(e.toString())
       }

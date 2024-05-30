@@ -6,34 +6,30 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.flexbox.FlexboxLayout
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.io.File
 
 data class Category(val name: String)
 
 class AddCategoryActivity : AppCompatActivity() {
   private lateinit var flexboxLayout: FlexboxLayout
-  private val gson = Gson()
-  private val categoriesFileName = "categories.json"
+  private var databaseManager = DatabaseManager(this)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_add_category)
+    databaseManager.open()
 
     flexboxLayout = findViewById(R.id.flexbox_layout)
 
     // Load and display existing categories
-      loadCategories().forEach { addCategoryView(it.name) }
+    loadCategories().forEach { addCategoryView(it) }
 
     val addCategoryButton = findViewById<Button>(R.id.add_category_button)
     addCategoryButton.setOnClickListener {
       val categoryNameEditText = findViewById<EditText>(R.id.category_name)
       val categoryName = categoryNameEditText.text.toString()
       if (categoryName.isNotBlank()) {
-        val category = Category(categoryName)
         addCategoryView(categoryName)
-        saveCategory(category)
+        saveCategory(categoryName)
         categoryNameEditText.text.clear()
       }
     }
@@ -73,45 +69,36 @@ class AddCategoryActivity : AppCompatActivity() {
     }
   }
 
-  private fun saveCategory(category: Category) {
-    val categories = loadCategories().toMutableList()
-    categories.add(category)
-    saveCategories(categories)
+  private fun loadCategories(): ArrayList<String> {
+    val categoriesCursor = databaseManager.getAllCategories()
+    val categoryArray = ArrayList<String>()
+
+    if (categoriesCursor.moveToFirst()) {
+      do {
+        val key = categoriesCursor.getString(categoriesCursor.getColumnIndexOrThrow("name"))
+        categoryArray.add(key)
+      } while (categoriesCursor.moveToNext())
+      categoriesCursor.close()
+    }
+
+    return categoryArray
   }
 
-  private fun saveCategories(categories: List<Category>) {
-    val categoriesJson = gson.toJson(categories)
-    applicationContext.openFileOutput(categoriesFileName, MODE_PRIVATE).use {
-      it.write(categoriesJson.toByteArray())
-    }
-  }
-
-  private fun loadCategories(): List<Category> {
-    val file = File(applicationContext.filesDir, categoriesFileName)
-    if (!file.exists()) {
-      return emptyList()
-    }
-    return applicationContext.openFileInput(categoriesFileName).bufferedReader().use { reader ->
-      val type = object : TypeToken<List<Category>>() {}.type
-      val data = reader.readText()
-      if (data.trim().startsWith("[")) {
-        gson.fromJson(data, type)
-      } else {
-        listOf(gson.fromJson(data, Category::class.java))
-      }
-    }
+  private fun saveCategory(categoryName: String) {
+    databaseManager.addCategory(categoryName, null, false)
   }
 
   private fun deleteCategory(categoryName: String) {
-    val categories = loadCategories().toMutableList()
-    val iterator = categories.iterator()
-    while (iterator.hasNext()) {
-      val category = iterator.next()
-      if (category.name == categoryName) {
-        iterator.remove()
-        break
-      }
+    val categoriesCursor = databaseManager.getAllCategories()
+    if (categoriesCursor.moveToFirst()) {
+      do {
+        val key = categoriesCursor.getString(categoriesCursor.getColumnIndexOrThrow("name"))
+        if (key == categoryName) {
+          val categoryId = categoriesCursor.getInt(categoriesCursor.getColumnIndexOrThrow("id"))
+          databaseManager.deleteCategory(categoryId)
+        }
+      } while (categoriesCursor.moveToNext())
+      categoriesCursor.close()
     }
-    saveCategories(categories)
   }
 }

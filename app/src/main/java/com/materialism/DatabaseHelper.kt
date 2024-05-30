@@ -20,7 +20,6 @@ class DatabaseHelper(context: Context) :
     const val COLUMN_USER_SCORE = "score"
     const val COLUMN_USER_KARMA = "karma"
 
-
     // Category table
     const val TABLE_CATEGORY = "Category"
     const val COLUMN_CATEGORY_ID = "id"
@@ -61,7 +60,6 @@ class DatabaseHelper(context: Context) :
     const val COLUMN_QUESTITEM_ID = "id"
     const val COLUMN_QUESTITEM_NAME = "name"
     const val COLUMN_QUESTITEM_CATEGORY_ID = "categoryId"
-
   }
 
   override fun onCreate(db: SQLiteDatabase) {
@@ -117,7 +115,7 @@ class DatabaseHelper(context: Context) :
             );
         """
 
-      val createQuestTable =
+    val createQuestTable =
         """
             CREATE TABLE $TABLE_QUEST (
                 $COLUMN_QUEST_ID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -128,7 +126,7 @@ class DatabaseHelper(context: Context) :
             );
         """
 
-      val createQuestItemTable =
+    val createQuestItemTable =
         """
             CREATE TABLE $TABLE_QUESTITEM (
                 $COLUMN_QUESTITEM_ID INTEGER PRIMARY KEY AUTOINCREMENT,

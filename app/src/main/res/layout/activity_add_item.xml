@@ -98,32 +98,36 @@
             android:text="@string/private_label"
             android:textColor="@android:color/black" />
 
-        <CheckBox
-            android:id="@+id/private_yes_checkbox"
+        <RadioGroup
+            android:id="@+id/private_radio_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/private_label"
-            android:layout_marginTop="8dp"
             android:layout_alignParentStart="true"
-            android:text="@string/private_yes"
-            android:textColor="@android:color/black" />
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/private_yes_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/private_yes"
+                android:textColor="@android:color/black" />
 
-        <CheckBox
-            android:id="@+id/private_no_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/private_label"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@id/private_yes_checkbox"
-            android:text="@string/private_no"
-            android:textColor="@android:color/black" />
+            <RadioButton
+                android:id="@+id/private_no_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/private_no"
+                android:textColor="@android:color/black" />
+        </RadioGroup>
 
         <!-- Add Item Button -->
         <Button
             android:id="@+id/add_item_button"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/private_yes_checkbox"
+            android:layout_below="@id/private_radio_buttons"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:background="@drawable/button_background"

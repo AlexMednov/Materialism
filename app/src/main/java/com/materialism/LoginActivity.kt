@@ -27,4 +27,10 @@ class LoginActivity : ComponentActivity() {
                 startActivity(intent)
             })
     }
+
+//    fun writeData() {
+//        val database = FirebaseDatabase.getInstance().reference
+//        val message = User()
+//        database.child("User").push().setValue(message)
+//    } Example of how to input data into
 }

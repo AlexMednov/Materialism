@@ -26,7 +26,7 @@ class AddItemActivity : AppCompatActivity() {
   private lateinit var drawerLayout: DrawerLayout
   private lateinit var navView: NavigationView
 
-  private lateinit var databaseManager: DatabaseManager
+  private var databaseManager = DatabaseManager(this)
   private val THUMBNAIL_SIZE = 480
   private var imageUri = ""
 
@@ -34,6 +34,7 @@ class AddItemActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     binding = ActivityAddItemBinding.inflate(layoutInflater)
     setContentView(binding.root)
+    databaseManager.open()
 
     drawerLayout = findViewById(R.id.drawer_layout)
     navView = findViewById(R.id.nav_view)
@@ -46,15 +47,29 @@ class AddItemActivity : AppCompatActivity() {
 
     binding.menuButton.setOnClickListener { DrawerUtils.openDrawer(drawerLayout) }
 
-    val categories = resources.getStringArray(R.array.categories_array)
-    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+    val categoriesCursor = databaseManager.getAllCategories()
+    val categoryMap = mutableMapOf<String, Int>()
+    val categoryArray = ArrayList<String>()
+    categoryArray.add("<Select a category>")
+
+    if (categoriesCursor.moveToFirst()) {
+      do {
+        val key = categoriesCursor.getString(categoriesCursor.getColumnIndexOrThrow("name"))
+        val value = categoriesCursor.getInt(categoriesCursor.getColumnIndexOrThrow("id"))
+        categoryMap[key] = value
+        categoryArray.add(key)
+      } while (categoriesCursor.moveToNext())
+      categoriesCursor.close()
+    }
+
+    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryArray)
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     binding.categorySpinner.adapter = adapter
 
     // Registers a photo picker activity launcher in single-select mode.
     val pickMedia =
       registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        val thumbnail = findViewById<View>(R.id.image_thumbnail) as ImageView
+        val thumbnail = findViewById<View>(R.id.image_placeholder) as ImageView
         // Callback is invoked after the user selects a media item or closes the
         // photo picker.
         if (uri != null) {
@@ -73,8 +88,8 @@ class AddItemActivity : AppCompatActivity() {
     }
 
     binding.addItemButton.setOnClickListener {
-      var itemName: EditText = findViewById(R.id.item_name)
-      var itemDescription: EditText = findViewById(R.id.item_description)
+      var itemName: EditText = findViewById(R.id.name_edit_text)
+      var itemDescription: EditText = findViewById(R.id.description_edit_text)
       var currentDate = LocalDate.now().toString()
 
       try {
@@ -91,8 +106,7 @@ class AddItemActivity : AppCompatActivity() {
           0,
           null)
       } catch (e: SQLException) {
-        val errorText = findViewById<View>(R.id.error_text) as TextView
-        errorText.text = e.toString()
+        print(e.toString())
       }
 
       // send to previous page

@@ -86,6 +86,23 @@ class DatabaseManager(context: Context) {
         null)
   }
 
+    fun getAllCategories(): Cursor {
+        val columns =
+            arrayOf(
+                DatabaseHelper.COLUMN_CATEGORY_ID,
+                DatabaseHelper.COLUMN_CATEGORY_NAME,
+                DatabaseHelper.COLUMN_CATEGORY_DESCRIPTION,
+                DatabaseHelper.COLUMN_CATEGORY_DEFAULT)
+        return database!!.query(
+            DatabaseHelper.TABLE_CATEGORY,
+            columns,
+            null,
+            null,
+            null,
+            null,
+            null)
+    }
+
   fun updateCategory(id: Int, name: String, description: String?, isDefault: Boolean): Int {
     val values = ContentValues()
     values.put(DatabaseHelper.COLUMN_CATEGORY_NAME, name)

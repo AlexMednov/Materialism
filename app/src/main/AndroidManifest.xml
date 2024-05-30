@@ -27,7 +27,7 @@
             android:exported="false"
             android:label="@string/title_activity_register"
             android:theme="@style/Theme.Materialism" />
-		    <activity
+        <activity
             android:name=".AddItemActivity"
             android:exported="false"
             android:label="@string/add_item_activity"
@@ -36,11 +36,6 @@
             android:name=".DesignMainPageActivity"
             android:exported="false"
             android:label="@string/title_activity_design_main_page"
-            android:theme="@style/Theme.Materialism" />
-        <activity
-            android:name=".AddItemActivity"
-            android:exported="false"
-            android:label="@string/title_activity_add_item"
             android:theme="@style/Theme.Materialism" />
         <activity
             android:name=".ViewItemsActivity"

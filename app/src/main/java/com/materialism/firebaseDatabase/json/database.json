@@ -1,58 +1,20 @@
 {
-  "Users": {
-    "UserID1": {
-      "name": "User Name",
-      "emailAddress": "user@example.com",
-      "isRegistered": true,
-      "score": 0,
-      "karma": 0
-    }
-
-  },
-  "Items": {
-    "ItemID1": {
-      "name": "Item Name",
-      "imageURI": "http://example.com/image.jpg",
-      "description": "Item description",
-      "location": "Item location",
-      "isPublic": true,
-      "isLoaned": false,
-      "dateTimeAdded": "2024-05-29T12:00:00Z",
-      "dateTimeModified": "2024-05-29T12:00:00Z",
-      "userId": "UserID1",
-      "categoryId": "CategoryID1",
-      "subcategoryId": "SubcategoryID1"
-    }
-
-  },
-  "Categories": {
-    "CategoryID1": {
-      "name": "Category Name",
-      "description": "Category description",
-      "isDefault": true,
-      "subcategories": {
-        "SubcategoryID1": {
-          "name": "Subcategory Name",
-          "description": "Subcategory description"
-        }
-
-      }
-    }
-
-  },
-  "Quests": {
-    "QuestID1": {
-      "type": 1,
-      "weight": 10,
-      "categoryId": "CategoryID1"
-    }
-
-  },
-  "QuestItems": {
-    "QuestItemID1": {
-      "name": "Quest Item Name",
-      "categoryId": "CategoryID1"
-    }
-
-  }
+  "Quest": [
+    {"id": 1, "type": "Daily", "weight": 7, "categoryId": 1}
+  ],
+  "Category": [
+    {"id": 1, "name": "Groceries", "description": "Typically found in grocery stores", "isDefault": true}
+  ],
+  "QuestItem": [
+    {"id": 1, "name": "Apple", "categoryId": 1}
+  ],
+  "SubCategory": [
+    {"id": 1, "name": "Fruits", "description": "Typically grow on trees", "categoryId": 1}
+  ],
+  "User": [
+    {"id": 1, "name": "User", "email": "user.email@email.com", "hashedPassword": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "isRegistered": false, "score": 5432, "karma": 2345}
+  ],
+  "Item": [
+    {"id": 1, "name": "Pickle jar", "imageURI": "jar/pickles.png", "description": "No pickles", "Location": "Dubai", "isPublic": true, "isLoaned": false, "dateAdded": "12-12-2012", "dateModified": "01-01-2020", "userId": 1, "categoryId": 1, "subCategoryId": 1}
+  ]
 }

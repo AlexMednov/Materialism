@@ -8,6 +8,8 @@
     <string name="title_activity_add_item">AddItemActivity</string>
     <string name="title_activity_view_items">ViewItemsActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_view_friends">ViewFriendsActivity</string>
+    <string name="title_activity_add_friends">AddFriendsActivity</string>
     <string name="flag">Flag</string>
     <string name="people">People</string>
     <string name="item_name">Item name</string>

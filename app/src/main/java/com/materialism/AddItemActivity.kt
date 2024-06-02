@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.ActivityAddItemBinding
+import com.materialism.utils.DrawerUtils
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.time.LocalDate

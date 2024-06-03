@@ -3,12 +3,14 @@ package com.materialism
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.DesignMainPageActivityBinding
 import com.materialism.sampledata.Item
+import com.materialism.utils.DrawerUtils
 
 class DesignMainPageActivity : AppCompatActivity() {
 
@@ -31,10 +33,10 @@ class DesignMainPageActivity : AppCompatActivity() {
     binding.progressBar.max = 20
     binding.exp.text = "Exp: 10/20"
 
-    val items =
-      listOf(
-        Item("Item 1", "Description 1", "Category 1", "Location 1", "Date 1"),
-        Item("Item 2", "Description 2", "Category 2", "Location 2", "Date 2"))
+    val items = listOf(
+      Item("Item 1", "Description 1", "Category 1", "Location 1", "Date 1"),
+      Item("Item 2", "Description 2", "Category 2", "Location 2", "Date 2")
+    )
 
     binding.recyclerView.layoutManager = LinearLayoutManager(this)
     binding.recyclerView.adapter = ItemAdapter(items, false)
@@ -45,8 +47,13 @@ class DesignMainPageActivity : AppCompatActivity() {
     }
 
     binding.libraryIcon.setOnClickListener { openViewItemsActivity(it) }
-
     binding.icMenu.setOnClickListener { DrawerUtils.openDrawer(drawerLayout) }
+
+    val icFlag = findViewById<ImageButton>(R.id.ic_flag)
+    icFlag.setOnClickListener {
+      val intent = Intent(this, RequestActivity::class.java)
+      startActivity(intent)
+    }
   }
 
   // Method to handle the click event for the library icon

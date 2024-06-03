@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 
 class DatabaseManager(context: Context) {
   private val dbHelper = DatabaseHelper(context)
@@ -49,7 +50,7 @@ class DatabaseManager(context: Context) {
     values.put(DatabaseHelper.COLUMN_USER_EMAIL, email)
     values.put(DatabaseHelper.COLUMN_USER_REGISTERED, isRegistered)
     return database!!.update(
-        DatabaseHelper.TABLE_USER,git 
+        DatabaseHelper.TABLE_USER,
         values,
         "${DatabaseHelper.COLUMN_USER_ID} =?",
         arrayOf(id.toString()))
@@ -87,12 +88,14 @@ class DatabaseManager(context: Context) {
   }
 
   fun getAllCategories(): Cursor {
+  Log.d("DatabaseManager", "Fetching categories from local database")
     val columns =
         arrayOf(
             DatabaseHelper.COLUMN_CATEGORY_ID,
             DatabaseHelper.COLUMN_CATEGORY_NAME,
             DatabaseHelper.COLUMN_CATEGORY_DESCRIPTION,
             DatabaseHelper.COLUMN_CATEGORY_DEFAULT)
+  Log.d("DatabaseManager", "Categories fetched successfully")
     return database!!.query(DatabaseHelper.TABLE_CATEGORY, columns, null, null, null, null, null)
   }
 

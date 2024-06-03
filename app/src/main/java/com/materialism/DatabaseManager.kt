@@ -49,7 +49,7 @@ class DatabaseManager(context: Context) {
     values.put(DatabaseHelper.COLUMN_USER_EMAIL, email)
     values.put(DatabaseHelper.COLUMN_USER_REGISTERED, isRegistered)
     return database!!.update(
-        DatabaseHelper.TABLE_USER,
+        DatabaseHelper.TABLE_USER,git 
         values,
         "${DatabaseHelper.COLUMN_USER_ID} =?",
         arrayOf(id.toString()))

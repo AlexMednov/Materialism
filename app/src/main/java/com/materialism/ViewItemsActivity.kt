@@ -17,11 +17,13 @@ class ViewItemsActivity : AppCompatActivity() {
   private lateinit var itemAdapter: ItemAdapter
   private lateinit var drawerLayout: DrawerLayout
   private lateinit var navView: NavigationView
+  private var databaseManager = DatabaseManager(this)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityViewItemsBinding.inflate(layoutInflater)
     setContentView(binding.root)
+    databaseManager.open()
 
     drawerLayout = findViewById(R.id.drawer_layout)
     navView = findViewById(R.id.nav_view)
@@ -56,18 +58,40 @@ class ViewItemsActivity : AppCompatActivity() {
   }
 
   private fun setupRecyclerView() {
-    itemAdapter = ItemAdapter(getItems(), true) // Pass true to show edit button
+    itemAdapter = ItemAdapter(getAllItems(), true) // Pass true to show edit button
     binding.recyclerView.apply {
       layoutManager = LinearLayoutManager(this@ViewItemsActivity)
       adapter = itemAdapter
     }
   }
 
-  private fun getItems(): List<Item> {
-    return listOf(
-        Item("Apple", "Fruit", "Food", "Location A", "2023-05-21"),
-        Item("Banana", "Fruit", "Food", "Location B", "2023-05-22"),
-        Item("Porsche 911", "Vehicle", "Car", "Location C", "2023-05-23"),
-        Item("Star Wars", "lego set", "Lego", "Location D", "2023-05-24"))
+  private fun getAllItems(): ArrayList<Item> {
+    val itemsCursor = databaseManager.getAllItems()
+    val itemsArray = ArrayList<Item>()
+
+    if (itemsCursor.moveToFirst()) {
+      do {
+        val itemName = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("name"))
+        val itemDescription = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
+        val itemCategoryId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("categoryId"))
+        val itemLocation = "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
+        val itemDateTimeAdded = "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
+
+        val categoryCursor = databaseManager.getCategory(itemCategoryId)
+        var categoryName = "Category: "
+        if (categoryCursor.moveToFirst()) {
+          val colIndex = categoryCursor.getColumnIndexOrThrow("name")
+          if (colIndex != -1) {
+            categoryName += categoryCursor.getString(colIndex)
+          }
+        }
+
+        val item = Item(itemName, itemDescription, categoryName, itemLocation, itemDateTimeAdded)
+
+        itemsArray.add(item)
+      } while (itemsCursor.moveToNext())
+      itemsCursor.close()
+    }
+    return itemsArray
   }
 }

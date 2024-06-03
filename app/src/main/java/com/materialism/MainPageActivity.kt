@@ -65,7 +65,7 @@ class MainPageActivity : AppCompatActivity() {
         if (categoryCursor.moveToFirst()) {
           val colIndex = categoryCursor.getColumnIndexOrThrow("name")
           if (colIndex != -1) {
-            categoryName += categoryCursor.getString(itemCategoryId)
+            categoryName += categoryCursor.getString(colIndex)
           }
         }
 

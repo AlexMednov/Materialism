@@ -110,7 +110,7 @@ class AddItemActivity : AppCompatActivity() {
     }
 
     // send to previous page
-    val intent = Intent(this, AddItemActivity::class.java)
+    val intent = Intent(this, MainPageActivity::class.java)
     startActivity(intent)
   }
 

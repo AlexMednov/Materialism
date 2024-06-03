@@ -7,9 +7,17 @@ import android.widget.Button
 import androidx.activity.ComponentActivity
 
 class MainPageActivity : ComponentActivity() {
+
+    private val databaseAdapter = DatabaseAdapter(DatabaseManager(this))
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main_page_activity)
+
+    databaseAdapter.databaseManager.open()
+    databaseAdapter.syncCategories()
+    databaseAdapter.syncSubCategories()
+    databaseAdapter.syncQuests()
+    databaseAdapter.syncQuestItems()
 
     val categoryButton = findViewById<Button>(R.id.category_button)
 

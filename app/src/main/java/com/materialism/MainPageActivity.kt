@@ -7,19 +7,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
-import com.materialism.databinding.DesignMainPageActivityBinding
+import com.materialism.databinding.MainPageActivityBinding
 import com.materialism.sampledata.Item
 
 class MainPageActivity : AppCompatActivity() {
 
-  private lateinit var binding: DesignMainPageActivityBinding
+  private lateinit var binding: MainPageActivityBinding
   private lateinit var drawerLayout: DrawerLayout
   private lateinit var navView: NavigationView
   private var databaseManager = DatabaseManager(this)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    binding = DesignMainPageActivityBinding.inflate(layoutInflater)
+    binding = MainPageActivityBinding.inflate(layoutInflater)
     setContentView(binding.root)
     databaseManager.open()
 

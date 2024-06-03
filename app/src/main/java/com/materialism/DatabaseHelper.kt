@@ -9,7 +9,7 @@ class DatabaseHelper(context: Context) :
 
   companion object {
     const val DATABASE_NAME = "inventory.db"
-    const val DATABASE_VERSION = 1
+    const val DATABASE_VERSION = 2
 
     // User table
     const val TABLE_USER = "User"
@@ -100,6 +100,7 @@ class DatabaseHelper(context: Context) :
             CREATE TABLE $TABLE_ITEM (
                 $COLUMN_ITEM_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 $COLUMN_ITEM_NAME TEXT NOT NULL,
+                $COLUMN_ITEM_IMAGE_URI TEXT NOT NULL,
                 $COLUMN_ITEM_DESCRIPTION TEXT,
                 $COLUMN_ITEM_LOCATION TEXT,
                 $COLUMN_ITEM_PUBLIC BOOLEAN NOT NULL,

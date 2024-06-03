@@ -2,8 +2,11 @@ package com.materialism
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
+import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,8 +45,7 @@ class DesignMainPageActivity : AppCompatActivity() {
     binding.recyclerView.adapter = ItemAdapter(items, false)
 
     binding.fab.setOnClickListener {
-      val intent = Intent(this, AddItemActivity::class.java)
-      startActivity(intent)
+      showFabOptionsMenu(it)
     }
 
     binding.libraryIcon.setOnClickListener { openViewItemsActivity(it) }
@@ -54,6 +56,33 @@ class DesignMainPageActivity : AppCompatActivity() {
       val intent = Intent(this, RequestActivity::class.java)
       startActivity(intent)
     }
+  }
+
+  private fun showFabOptionsMenu(view: View) {
+    val popup = PopupMenu(this, view)
+    val inflater: MenuInflater = popup.menuInflater
+    inflater.inflate(R.menu.menu_fab_options, popup.menu)
+    popup.setOnMenuItemClickListener { item: MenuItem ->
+      when (item.itemId) {
+        R.id.action_add_item -> {
+          val intent = Intent(this, AddItemActivity::class.java)
+          startActivity(intent)
+          true
+        }
+        R.id.action_add_category -> {
+          val intent = Intent(this, AddCategoryActivity::class.java)
+          startActivity(intent)
+          true
+        }
+        R.id.action_add_subcategory -> {
+          val intent = Intent(this, AddSubcategoryActivity::class.java)
+          startActivity(intent)
+          true
+        }
+        else -> false
+      }
+    }
+    popup.show()
   }
 
   // Method to handle the click event for the library icon

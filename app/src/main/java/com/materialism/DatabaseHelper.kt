@@ -9,7 +9,7 @@ class DatabaseHelper(context: Context) :
 
   companion object {
     const val DATABASE_NAME = "inventory.db"
-    const val DATABASE_VERSION = 1
+    const val DATABASE_VERSION = 2
 
     // User table
     const val TABLE_USER = "User"
@@ -100,6 +100,7 @@ class DatabaseHelper(context: Context) :
             CREATE TABLE $TABLE_ITEM (
                 $COLUMN_ITEM_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 $COLUMN_ITEM_NAME TEXT NOT NULL,
+                $COLUMN_ITEM_IMAGE_URI TEXT NOT NULL,
                 $COLUMN_ITEM_DESCRIPTION TEXT,
                 $COLUMN_ITEM_LOCATION TEXT,
                 $COLUMN_ITEM_PUBLIC BOOLEAN NOT NULL,
@@ -142,6 +143,42 @@ class DatabaseHelper(context: Context) :
     db.execSQL(createItemTable)
     db.execSQL(createQuestTable)
     db.execSQL(createQuestItemTable)
+
+      val addDefaultCategories =
+          """
+            INSERT INTO $TABLE_CATEGORY (
+                $COLUMN_CATEGORY_NAME,
+                $COLUMN_CATEGORY_DESCRIPTION,
+                $COLUMN_CATEGORY_DEFAULT
+            ) VALUES (
+                "Groceries",
+                "For the items you buy at the grocery store",
+                1
+            ),
+            (
+                "Trinkets",
+                "For the interesting items you collect",
+                1
+            ),
+            (
+                "Cars",
+                "For vehicles that you own",
+                1
+            );
+        """
+
+      val addDefaultItems =
+          """
+            CREATE TABLE $TABLE_QUESTITEM (
+                $COLUMN_QUESTITEM_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                $COLUMN_QUESTITEM_NAME TEXT NOT NULL,
+                $COLUMN_QUESTITEM_CATEGORY_ID INTEGER NOT NULL,
+                FOREIGN KEY($COLUMN_QUESTITEM_CATEGORY_ID) REFERENCES $TABLE_CATEGORY($COLUMN_CATEGORY_ID)
+            );
+        """
+
+      db.execSQL(addDefaultCategories)
+
   }
 
   override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

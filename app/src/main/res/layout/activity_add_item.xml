@@ -57,12 +57,25 @@
             android:textColor="@android:color/black"
             />
 
+        <!-- Select Picture Button -->
+        <Button
+            android:id="@+id/take_picture_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/select_picture_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/green"
+            android:text="@string/take_picture"
+            android:textColor="@android:color/black"
+            />
+
         <!-- Name EditText -->
         <EditText
             android:id="@+id/name_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/select_picture_button"
+            android:layout_below="@id/take_picture_button"
             android:layout_marginTop="16dp"
             android:hint="@string/name_hint"
             android:background="@drawable/edit_text_background"

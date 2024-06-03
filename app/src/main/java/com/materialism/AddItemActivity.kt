@@ -87,7 +87,8 @@ class AddItemActivity : AppCompatActivity() {
       findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
     val currentDate = LocalDate.now().toString()
 
-    val categoryId = getCategoriesMap()[findViewById<Spinner>(R.id.category_spinner).toString()]
+    val categoryName = findViewById<Spinner>(R.id.category_spinner).getSelectedItem().toString()
+    val categoryId = getCategoriesMap()[categoryName]
 
     try {
       if (categoryId != null) {
@@ -109,7 +110,8 @@ class AddItemActivity : AppCompatActivity() {
     }
 
     // send to previous page
-    finish()
+    val intent = Intent(this, AddItemActivity::class.java)
+    startActivity(intent)
   }
 
   private fun getCategoriesForSpinner(): ArrayList<String> {
@@ -131,8 +133,6 @@ class AddItemActivity : AppCompatActivity() {
   private fun getCategoriesMap(): Map<String, Int> {
     val categoriesCursor = databaseManager.getAllCategories()
     val categoryMap = mutableMapOf<String, Int>()
-    val categoryArray = ArrayList<String>()
-    categoryArray.add("< Select a category >")
 
     if (categoriesCursor.moveToFirst()) {
       do {

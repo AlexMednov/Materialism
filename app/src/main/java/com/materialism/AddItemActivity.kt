@@ -1,10 +1,12 @@
 package com.materialism
 
+import android.content.Intent
 import android.database.SQLException
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -64,56 +66,85 @@ class AddItemActivity : AppCompatActivity() {
       pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
+    binding.takePictureButton.setOnClickListener {
+      val intent = Intent(this, CameraActivity::class.java)
+      startActivity(intent)
+    }
+
+    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, getCategoriesForSpinner())
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    binding.categorySpinner.adapter = adapter
+
+    binding.addItemButton.setOnClickListener {
+      addItem()
+    }
+  }
+
+  private fun addItem() {
+    val itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
+    val itemDescription: String =
+      findViewById<EditText>(R.id.description_edit_text).text.toString()
+    val isPublic =
+      findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
+    val currentDate = LocalDate.now().toString()
+
+    val categoryName = findViewById<Spinner>(R.id.category_spinner).getSelectedItem().toString()
+    val categoryId = getCategoriesMap()[categoryName]
+
+    try {
+      if (categoryId != null) {
+        databaseManager.addItem(
+          itemName,
+          imageUri,
+          itemDescription,
+          null,
+          isPublic,
+          false,
+          currentDate,
+          currentDate,
+          0,
+          categoryId,
+          null)
+      }
+    } catch (e: SQLException) {
+      Log.e("SQLException", e.toString())
+    }
+
+    // send to previous page
+    val intent = Intent(this, MainPageActivity::class.java)
+    startActivity(intent)
+  }
+
+  private fun getCategoriesForSpinner(): ArrayList<String> {
     val categoriesCursor = databaseManager.getAllCategories()
-    val categoryMap = mutableMapOf<String, Int>()
     val categoryArray = ArrayList<String>()
     categoryArray.add("< Select a category >")
 
     if (categoriesCursor.moveToFirst()) {
       do {
         val name = categoriesCursor.getString(categoriesCursor.getColumnIndexOrThrow("name"))
-        val id = categoriesCursor.getInt(categoriesCursor.getColumnIndexOrThrow("id"))
-        categoryMap[name] = id
         categoryArray.add(name)
       } while (categoriesCursor.moveToNext())
       categoriesCursor.close()
     }
 
-    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryArray)
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-    binding.categorySpinner.adapter = adapter
+    return categoryArray
+  }
 
-    binding.addItemButton.setOnClickListener {
-      val itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
-      val itemDescription: String =
-          findViewById<EditText>(R.id.description_edit_text).text.toString()
-      val isPublic =
-          findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
-      val currentDate = LocalDate.now().toString()
-      val categoryId = categoryMap[findViewById<Spinner>(R.id.category_spinner).toString()]
+  private fun getCategoriesMap(): Map<String, Int> {
+    val categoriesCursor = databaseManager.getAllCategories()
+    val categoryMap = mutableMapOf<String, Int>()
 
-      try {
-        if (categoryId != null) {
-          databaseManager.addItem(
-              itemName,
-              imageUri,
-              itemDescription,
-              null,
-              isPublic,
-              false,
-              currentDate,
-              currentDate,
-              0,
-              categoryId,
-              null)
-        }
-      } catch (e: SQLException) {
-        print(e.toString())
-      }
-
-      // send to previous page
-      finish()
+    if (categoriesCursor.moveToFirst()) {
+      do {
+        val name = categoriesCursor.getString(categoriesCursor.getColumnIndexOrThrow("name"))
+        val id = categoriesCursor.getInt(categoriesCursor.getColumnIndexOrThrow("id"))
+        categoryMap[name] = id
+      } while (categoriesCursor.moveToNext())
+      categoriesCursor.close()
     }
+
+    return categoryMap
   }
 
   @Throws(FileNotFoundException::class, IOException::class)

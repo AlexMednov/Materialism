@@ -214,6 +214,31 @@ class DatabaseManager(context: Context) {
         null)
   }
 
+    fun getAllItems(): Cursor {
+        val columns =
+            arrayOf(
+                DatabaseHelper.COLUMN_ITEM_ID,
+                DatabaseHelper.COLUMN_ITEM_NAME,
+                DatabaseHelper.COLUMN_ITEM_IMAGE_URI,
+                DatabaseHelper.COLUMN_ITEM_DESCRIPTION,
+                DatabaseHelper.COLUMN_ITEM_LOCATION,
+                DatabaseHelper.COLUMN_ITEM_PUBLIC,
+                DatabaseHelper.COLUMN_ITEM_LOANED,
+                DatabaseHelper.COLUMN_ITEM_DATE_ADDED,
+                DatabaseHelper.COLUMN_ITEM_DATE_MODIFIED,
+                DatabaseHelper.COLUMN_ITEM_USER_ID,
+                DatabaseHelper.COLUMN_ITEM_CATEGORY_ID,
+                DatabaseHelper.COLUMN_ITEM_SUBCATEGORY_ID)
+        return database!!.query(
+            DatabaseHelper.TABLE_ITEM,
+            columns,
+            null,
+            null,
+            null,
+            null,
+            null)
+    }
+
   fun updateItem(
       id: Int,
       name: String,

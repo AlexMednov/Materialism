@@ -1,4 +1,4 @@
-package com.materialism
+package com.materialism.utils
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.widget.Button
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.materialism.R
 
 object DrawerUtils {
 

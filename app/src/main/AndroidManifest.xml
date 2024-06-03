@@ -48,9 +48,24 @@
             android:label="@string/title_activity_view_items"
             android:theme="@style/Theme.Materialism" />
         <activity
+            android:name=".RequestActivity"
+            android:exported="false"
+            android:label="@string/title_activity_request_page"
+            android:theme="@style/Theme.Materialism" />
+        <activity
             android:name=".AddCategoryActivity"
             android:exported="false"
             android:label="@string/title_activity_add_item"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".AddSubcategoryActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_subcategory"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".ViewCategoriesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_subcategory"
             android:theme="@style/Theme.Materialism" />
         <activity
             android:name=".LoginActivity"

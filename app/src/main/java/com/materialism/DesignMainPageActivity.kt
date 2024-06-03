@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.DesignMainPageActivityBinding
 import com.materialism.sampledata.Item
+import com.materialism.utils.DrawerUtils
 
 class DesignMainPageActivity : AppCompatActivity() {
 

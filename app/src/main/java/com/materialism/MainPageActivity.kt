@@ -2,6 +2,7 @@ package com.materialism
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -53,20 +54,27 @@ class MainPageActivity : AppCompatActivity() {
 
     if (itemsCursor.moveToFirst()) {
       do {
-        val itemName = itemsCursor.getColumnIndexOrThrow("name").toString()
-        val itemDescription = itemsCursor.getColumnIndexOrThrow("description").toString()
-        val itemCategoryId = itemsCursor.getColumnIndexOrThrow("categoryId")
-        val itemLocation = itemsCursor.getColumnIndexOrThrow("location").toString()
-        val itemDateTimeAdded = itemsCursor.getColumnIndexOrThrow("dateTimeAdded").toString()
+        val itemName = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("name"))
+        val itemDescription = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
+        val itemCategoryId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("categoryId"))
+        val itemLocation = "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
+        val itemDateTimeAdded = "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
 
         val categoryCursor = databaseManager.getCategory(itemCategoryId)
-        val categoryName = categoryCursor.getColumnIndexOrThrow("name").toString()
+        var categoryName = "Category: "
+        if (categoryCursor.moveToFirst()) {
+          val colIndex = categoryCursor.getColumnIndexOrThrow("name")
+          if (colIndex != -1) {
+            categoryName += categoryCursor.getString(itemCategoryId)
+          }
+        }
 
-        itemsArray.add(Item(itemName, itemDescription, categoryName, itemLocation, itemDateTimeAdded))
+        val item = Item(itemName, itemDescription, categoryName, itemLocation, itemDateTimeAdded)
+
+        itemsArray.add(item)
       } while (itemsCursor.moveToNext())
       itemsCursor.close()
     }
-
     return itemsArray
   }
 
@@ -84,7 +92,7 @@ class MainPageActivity : AppCompatActivity() {
 
   // Method to handle the click event for the people icon
   fun openViewFriendsActivity(view: View) {
-    val intent = Intent(this, ViewFriendsActivity::class.java)
+    val intent = Intent(this, AddCategoryActivity::class.java)
     startActivity(intent)
   }
 }

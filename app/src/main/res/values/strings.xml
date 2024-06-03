@@ -59,4 +59,5 @@
         <item>Descending order</item>
     </string-array>
     <string name="add_item_activity">AddItemActivity</string>
+    <string name="take_picture">Take picture</string>
 </resources>

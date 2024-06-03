@@ -6,6 +6,8 @@
     <string name="history">History</string>
     <string name="title_activity_design_main_page">DesignMainPageActivity</string>
     <string name="title_activity_add_item">AddItemActivity</string>
+    <string name="title_activity_add_subcategory">AddSubcategoryActivity</string>
+    <string name="title_activity_view_categories">ViewCategoriesActivity</string>
     <string name="title_activity_view_items">ViewItemsActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_view_friends">ViewFriendsActivity</string>

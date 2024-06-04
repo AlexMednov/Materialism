@@ -40,7 +40,7 @@ Scrum:
 -Burndown charts NEED to be there
 
 
-**This sprint demo is marked as insufficient, if next time we have a flawless Jira scrum environment.**
+**This sprint demo is marked as insufficient, unless next time we have a flawless Jira scrum environment.**
 
 -No single responsibility should be on the shoulders of a single person. 
 

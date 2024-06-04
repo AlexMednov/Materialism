@@ -1,0 +1,46 @@
+Jan, Martijn, project team
+
+9:49 - 10:05
+
+We started by Showing the app
+
+-Registration feature
+-validates email
+-checks registered username
+-checks password length
+
+-premade categories are automatically imported
+
+-picture is taken, but still needs to be selected
+
+-location is null, to be implemented
+
+-showing item list, with sorts
+
+-sorting by date added, as well as every field
+
+-incoming requests, currently placeholders
+
+-last sprint was only connectivity
+
+-view specific item details by tapping on it is not yet available 
+
+-images don't show up on items list at the moment
+
+-FIX ONE THING AT A TIME
+
+Scrum:
+
+-we broke things down into smaller tasks, but we overplanned and have a lot of open issues
+
+-at the beginning of a sprint, the work is broken down and put into tasks
+
+-Estimations of hours need to be done at the start of the sprint, not as we work
+
+-Burndown charts NEED to be there
+
+
+**This sprint demo is marked as insufficient, if next time we have a flawless Jira scrum environment.**
+
+-No single responsibility should be on the shoulders of a single person. 
+

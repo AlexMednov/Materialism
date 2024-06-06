@@ -144,8 +144,8 @@ class DatabaseHelper(context: Context) :
     db.execSQL(createQuestTable)
     db.execSQL(createQuestItemTable)
 
-      val addDefaultCategories =
-          """
+    val addDefaultCategories =
+        """
             INSERT INTO $TABLE_CATEGORY (
                 $COLUMN_CATEGORY_NAME,
                 $COLUMN_CATEGORY_DESCRIPTION,
@@ -167,8 +167,8 @@ class DatabaseHelper(context: Context) :
             );
         """
 
-      val addDefaultItems =
-          """
+    val addDefaultItems =
+        """
             CREATE TABLE $TABLE_QUESTITEM (
                 $COLUMN_QUESTITEM_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 $COLUMN_QUESTITEM_NAME TEXT NOT NULL,
@@ -177,8 +177,7 @@ class DatabaseHelper(context: Context) :
             );
         """
 
-      db.execSQL(addDefaultCategories)
-
+    db.execSQL(addDefaultCategories)
   }
 
   override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

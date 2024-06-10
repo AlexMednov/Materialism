@@ -2,11 +2,9 @@ package com.materialism
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
@@ -61,7 +59,7 @@ class MainPageActivity : AppCompatActivity() {
     binding.libraryIcon.setOnClickListener { openViewItemsActivity(it) }
     binding.icMenu.setOnClickListener { DrawerUtils.openDrawer(drawerLayout) }
 
-    val icFlag = findViewById<ImageButton>(R.id.ic_flag)
+    val icFlag = findViewById<ImageButton>(R.id.ic_history)
     icFlag.setOnClickListener {
       val intent = Intent(this, RequestActivity::class.java)
       startActivity(intent)
@@ -139,7 +137,7 @@ class MainPageActivity : AppCompatActivity() {
 
   // Method to handle the click event for the people icon
   fun openViewFriendsActivity(view: View) {
-    val intent = Intent(this, AddCategoryActivity::class.java)
+    val intent = Intent(this, ViewFriendsActivity::class.java)
     startActivity(intent)
   }
 }

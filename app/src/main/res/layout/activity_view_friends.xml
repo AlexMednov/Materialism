@@ -51,77 +51,16 @@
                 android:focusable="true" />
         </LinearLayout>
 
-        <!-- List of friends -->
-        <ScrollView
+        <!-- RecyclerView for items -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <!-- Repeat this block for each friend item -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="8dp">
-
-                    <ImageView
-                        android:id="@+id/friend_avatar"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/avatar_placeholder" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/friend_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Name Surname"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:textColor="#000000" />
-
-                        <TextView
-                            android:id="@+id/friend_location"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Location: Emmen"
-                            android:textSize="14sp"
-                            android:textColor="#777777" />
-
-                        <TextView
-                            android:id="@+id/friend_items"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Items: 240"
-                            android:textSize="14sp"
-                            android:textColor="#777777" />
-                    </LinearLayout>
-                </LinearLayout>
-                <!-- End of repeat block -->
-
-            </LinearLayout>
-        </ScrollView>
-
-        <!-- Bottom navigation -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#F5F5F5"
-            android:padding="16dp">
-        </LinearLayout>
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true" />
     </LinearLayout>
 
     <!-- Navigation Drawer -->

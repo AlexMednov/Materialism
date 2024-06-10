@@ -43,6 +43,11 @@
             android:label="@string/title_activity_add_friends"
             android:theme="@style/Theme.Materialism" />
         <activity
+            android:name=".ViewFriendProfileActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_friends"
+            android:theme="@style/Theme.Materialism" />
+        <activity
             android:name=".ViewItemsActivity"
             android:exported="false"
             android:label="@string/title_activity_view_items"

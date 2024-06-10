@@ -4,11 +4,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.getValue
 import android.database.Cursor
 import android.util.Log
-import com.materialism.firebaseDatabase.data.Category
-import com.materialism.firebaseDatabase.data.SubCategory
-import com.materialism.firebaseDatabase.data.Quest
-import com.materialism.firebaseDatabase.data.QuestItem
-import com.materialism.firebaseDatabase.data.Item
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.materialism.firebaseDatabase.data.*
 
 
 class DatabaseAdapter(val databaseManager: DatabaseManager) {
@@ -136,6 +135,135 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
         }.addOnFailureListener { exception ->
             // Handle any errors
             Log.e("SyncQuestItems", "Error retrieving quest items from Firebase: ${exception.message}")
+        }
+    }
+
+    fun getFriendsUserIds(loggedInUserId: String, callback: (List<String>) -> Unit) {
+        val databaseReference = FirebaseDatabase.getInstance().getReference("Friend")
+        databaseReference.child(loggedInUserId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val friendsUserIds = mutableListOf<String>()
+                    for (snapshot in dataSnapshot.children) {
+                        val friendId = snapshot.getValue(String::class.java)
+                        if (friendId != null && friendId != loggedInUserId) {
+                            friendsUserIds.add(friendId)
+                        }
+                    }
+                    callback(friendsUserIds)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle error
+                }
+            })
+    }
+
+    fun getUsersInformation(userIds: List<String>, callback: (List<User>) -> Unit) {
+        val databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+        val users = mutableListOf<User>()
+
+        userIds.forEach { userId ->
+            databaseReference.child(userId)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        val user = dataSnapshot.getValue(User::class.java)
+                        if (user != null) {
+                            users.add(user)
+                        }
+
+                        if (users.size == userIds.size) {
+                            callback(users)
+                        }
+                    }
+
+                    override fun onCancelled(databaseError: DatabaseError) {
+                        // Handle error
+                    }
+                })
+        }
+    }
+
+    fun getItemsForUsers(userIds: List<String>, callback: (List<Item>) -> Unit) {
+        val databaseReference = FirebaseDatabase.getInstance().getReference("Items")
+        val items = mutableListOf<Item>()
+
+        userIds.forEach { userId ->
+            databaseReference.orderByChild("userId").equalTo(userId)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        for (snapshot in dataSnapshot.children) {
+                            val item = snapshot.getValue(Item::class.java)
+                            if (item != null) {
+                                items.add(item)
+                            }
+                        }
+
+                        if (userIds.indexOf(userId) == userIds.size - 1) {
+                            callback(items)
+                        }
+                    }
+
+                    override fun onCancelled(databaseError: DatabaseError) {
+                        // Handle error
+                    }
+                })
+        }
+    }
+
+    fun getSingleUserInformation(friendUserId: String, callback: (User?) -> Unit) {
+        val databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+        databaseReference.child(friendUserId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val user = dataSnapshot.getValue(User::class.java)
+                    callback(user)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle error
+                    callback(null)
+                }
+            })
+    }
+
+    fun getItemsForSingleUser(friendUserId: String, callback: (List<Item>) -> Unit) {
+        val databaseReference = FirebaseDatabase.getInstance().getReference("Items")
+        databaseReference.orderByChild("userId").equalTo(friendUserId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val items = mutableListOf<Item>()
+                    for (snapshot in dataSnapshot.children) {
+                        val item = snapshot.getValue(Item::class.java)
+                        if (item != null) {
+                            items.add(item)
+                        }
+                    }
+                    callback(items)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle error
+                    callback(emptyList())
+                }
+            })
+    }
+
+    fun fetchFriendInformationAndItems(friendUserId: String) {
+        getSingleUserInformation(friendUserId) { user ->
+            if (user != null) {
+                // User information retrieved.
+                println("User Info: $user")
+
+                // Now retrieve the items for this user.
+                getItemsForSingleUser(friendUserId) { items ->
+                    // Process or display items associated with the friend.
+                    println("Items: $items")
+                }
+            } else {
+                // Handle the case where user information retrieval failed.
+                println("Failed to retrieve user information.")
+            }
         }
     }
 }

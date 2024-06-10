@@ -28,4 +28,13 @@ class AddFriendsActivity : AppCompatActivity() {
             drawerLayout.openDrawer(GravityCompat.START)
         }
     }
+
+    // Functions to:
+    // check all associated userIds with the current, logged-in user's Id
+
+    // if association already added, deny
+
+    //
+
+    // Function to remove friend
 }

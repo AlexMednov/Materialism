@@ -20,6 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.ActivityAddItemBinding
 import com.materialism.utils.DrawerUtils
+import com.materialism.utils.ImageRenderer
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.time.LocalDate
@@ -31,6 +32,7 @@ class AddItemActivity : AppCompatActivity() {
   private lateinit var navView: NavigationView
 
   private var databaseManager = DatabaseManager(this)
+  private var imageRenderer = ImageRenderer(this.contentResolver)
   private val THUMBNAIL_SIZE = 480
   private var imageUri = ""
 
@@ -57,7 +59,7 @@ class AddItemActivity : AppCompatActivity() {
           // photo picker.
           if (uri != null) {
             imageUri = uri.toString()
-            val bitmap = getThumbnail(uri)
+            val bitmap = imageRenderer.getThumbnail(uri, THUMBNAIL_SIZE)
             thumbnail.setImageBitmap(bitmap)
           }
         }
@@ -145,32 +147,4 @@ class AddItemActivity : AppCompatActivity() {
     return categoryMap
   }
 
-  @Throws(FileNotFoundException::class, IOException::class)
-  fun getThumbnail(uri: Uri?): Bitmap? {
-    var input = this.contentResolver.openInputStream(uri!!)
-    val onlyBoundsOptions = BitmapFactory.Options()
-    onlyBoundsOptions.inJustDecodeBounds = true
-    onlyBoundsOptions.inPreferredConfig = Bitmap.Config.ARGB_8888 // optional
-    BitmapFactory.decodeStream(input, null, onlyBoundsOptions)
-    input!!.close()
-    if (onlyBoundsOptions.outWidth == -1 || onlyBoundsOptions.outHeight == -1) {
-      return null
-    }
-    val originalSize =
-        if (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) onlyBoundsOptions.outHeight
-        else onlyBoundsOptions.outWidth
-    val ratio = if (originalSize > THUMBNAIL_SIZE) originalSize / THUMBNAIL_SIZE else 1.0
-    val bitmapOptions = BitmapFactory.Options()
-    bitmapOptions.inSampleSize = getPowerOfTwoForSampleRatio(ratio)
-    bitmapOptions.inPreferredConfig = Bitmap.Config.ARGB_8888 //
-    input = this.contentResolver.openInputStream(uri)
-    val bitmap = BitmapFactory.decodeStream(input, null, bitmapOptions)
-    input!!.close()
-    return bitmap
-  }
-
-  private fun getPowerOfTwoForSampleRatio(ratio: Number): Int {
-    val k = ratio.toInt()
-    return if (k == 0) 1 else k
-  }
 }

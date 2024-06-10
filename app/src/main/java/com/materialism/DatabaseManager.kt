@@ -88,14 +88,14 @@ class DatabaseManager(context: Context) {
   }
 
   fun getAllCategories(): Cursor {
-  Log.d("DatabaseManager", "Fetching categories from local database")
+    Log.d("DatabaseManager", "Fetching categories from local database")
     val columns =
         arrayOf(
             DatabaseHelper.COLUMN_CATEGORY_ID,
             DatabaseHelper.COLUMN_CATEGORY_NAME,
             DatabaseHelper.COLUMN_CATEGORY_DESCRIPTION,
             DatabaseHelper.COLUMN_CATEGORY_DEFAULT)
-  Log.d("DatabaseManager", "Categories fetched successfully")
+    Log.d("DatabaseManager", "Categories fetched successfully")
     return database!!.query(DatabaseHelper.TABLE_CATEGORY, columns, null, null, null, null, null)
   }
 
@@ -214,30 +214,23 @@ class DatabaseManager(context: Context) {
         null)
   }
 
-    fun getAllItems(): Cursor {
-        val columns =
-            arrayOf(
-                DatabaseHelper.COLUMN_ITEM_ID,
-                DatabaseHelper.COLUMN_ITEM_NAME,
-                DatabaseHelper.COLUMN_ITEM_IMAGE_URI,
-                DatabaseHelper.COLUMN_ITEM_DESCRIPTION,
-                DatabaseHelper.COLUMN_ITEM_LOCATION,
-                DatabaseHelper.COLUMN_ITEM_PUBLIC,
-                DatabaseHelper.COLUMN_ITEM_LOANED,
-                DatabaseHelper.COLUMN_ITEM_DATE_ADDED,
-                DatabaseHelper.COLUMN_ITEM_DATE_MODIFIED,
-                DatabaseHelper.COLUMN_ITEM_USER_ID,
-                DatabaseHelper.COLUMN_ITEM_CATEGORY_ID,
-                DatabaseHelper.COLUMN_ITEM_SUBCATEGORY_ID)
-        return database!!.query(
-            DatabaseHelper.TABLE_ITEM,
-            columns,
-            null,
-            null,
-            null,
-            null,
-            null)
-    }
+  fun getAllItems(): Cursor {
+    val columns =
+        arrayOf(
+            DatabaseHelper.COLUMN_ITEM_ID,
+            DatabaseHelper.COLUMN_ITEM_NAME,
+            DatabaseHelper.COLUMN_ITEM_IMAGE_URI,
+            DatabaseHelper.COLUMN_ITEM_DESCRIPTION,
+            DatabaseHelper.COLUMN_ITEM_LOCATION,
+            DatabaseHelper.COLUMN_ITEM_PUBLIC,
+            DatabaseHelper.COLUMN_ITEM_LOANED,
+            DatabaseHelper.COLUMN_ITEM_DATE_ADDED,
+            DatabaseHelper.COLUMN_ITEM_DATE_MODIFIED,
+            DatabaseHelper.COLUMN_ITEM_USER_ID,
+            DatabaseHelper.COLUMN_ITEM_CATEGORY_ID,
+            DatabaseHelper.COLUMN_ITEM_SUBCATEGORY_ID)
+    return database!!.query(DatabaseHelper.TABLE_ITEM, columns, null, null, null, null, null)
+  }
 
   fun updateItem(
       id: Int,

@@ -20,7 +20,7 @@ class LoginActivity : ComponentActivity() {
           val intent = Intent(this, MainPageActivity::class.java)
           startActivity(intent)
         })
-    
+
     registerTextView.setOnClickListener(
         View.OnClickListener {
           val intent = Intent(this, RegisterActivity::class.java)

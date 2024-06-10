@@ -47,7 +47,12 @@ class RegisterActivity : AppCompatActivity() {
     }
   }
 
-  private fun validateInputs(email: String, username: String, password: String, confirmPassword: String): Boolean {
+  private fun validateInputs(
+      email: String,
+      username: String,
+      password: String,
+      confirmPassword: String
+  ): Boolean {
     if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
       etEmail.error = "Please enter a valid email"
       return false
@@ -67,36 +72,63 @@ class RegisterActivity : AppCompatActivity() {
     return true
   }
 
-  private fun checkIfUserExists(email: String, username: String, password: String, location: String) {
+  private fun checkIfUserExists(
+      email: String,
+      username: String,
+      password: String,
+      location: String
+  ) {
     val database = FirebaseDatabase.getInstance().reference.child("User")
 
     // Check by email
-    database.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
-      override fun onDataChange(snapshot: DataSnapshot) {
-        if (snapshot.exists()) {
-          Toast.makeText(this@RegisterActivity, "Email already registered", Toast.LENGTH_SHORT).show()
-        } else {
-          // Check by username
-          database.orderByChild("name").equalTo(username).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-              if (snapshot.exists()) {
-                Toast.makeText(this@RegisterActivity, "Username already taken", Toast.LENGTH_SHORT).show()
-              } else {
-                createUser(email, username, password, location)
+    database
+        .orderByChild("email")
+        .equalTo(email)
+        .addListenerForSingleValueEvent(
+            object : ValueEventListener {
+              override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                  Toast.makeText(
+                          this@RegisterActivity, "Email already registered", Toast.LENGTH_SHORT)
+                      .show()
+                } else {
+                  // Check by username
+                  database
+                      .orderByChild("name")
+                      .equalTo(username)
+                      .addListenerForSingleValueEvent(
+                          object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                              if (snapshot.exists()) {
+                                Toast.makeText(
+                                        this@RegisterActivity,
+                                        "Username already taken",
+                                        Toast.LENGTH_SHORT)
+                                    .show()
+                              } else {
+                                createUser(email, username, password, location)
+                              }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                              Toast.makeText(
+                                      this@RegisterActivity,
+                                      "Database error: ${error.message}",
+                                      Toast.LENGTH_SHORT)
+                                  .show()
+                            }
+                          })
+                }
               }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-              Toast.makeText(this@RegisterActivity, "Database error: ${error.message}", Toast.LENGTH_SHORT).show()
-            }
-          })
-        }
-      }
-
-      override fun onCancelled(error: DatabaseError) {
-        Toast.makeText(this@RegisterActivity, "Database error: ${error.message}", Toast.LENGTH_SHORT).show()
-      }
-    })
+              override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(
+                        this@RegisterActivity,
+                        "Database error: ${error.message}",
+                        Toast.LENGTH_SHORT)
+                    .show()
+              }
+            })
   }
 
   private fun createUser(email: String, username: String, password: String, location: String) {
@@ -107,7 +139,14 @@ class RegisterActivity : AppCompatActivity() {
     val salt = PasswordUtils.generateSalt()
     val hashedPassword = PasswordUtils.hashPassword(password, salt)
 
-    val user = User(id = userId.hashCode(), name = username, email = email, hashedPassword = hashedPassword, isRegistered = true, location = location)
+    val user =
+        User(
+            id = userId.hashCode(),
+            name = username,
+            email = email,
+            hashedPassword = hashedPassword,
+            isRegistered = true,
+            location = location)
 
     database.child("User").child(userId).setValue(user).addOnCompleteListener { task ->
       if (task.isSuccessful) {

@@ -71,21 +71,19 @@ class AddItemActivity : AppCompatActivity() {
       startActivity(intent)
     }
 
-    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, getCategoriesForSpinner())
+    val adapter =
+        ArrayAdapter(this, android.R.layout.simple_spinner_item, getCategoriesForSpinner())
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     binding.categorySpinner.adapter = adapter
 
-    binding.addItemButton.setOnClickListener {
-      addItem()
-    }
+    binding.addItemButton.setOnClickListener { addItem() }
   }
 
   private fun addItem() {
     val itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
-    val itemDescription: String =
-      findViewById<EditText>(R.id.description_edit_text).text.toString()
+    val itemDescription: String = findViewById<EditText>(R.id.description_edit_text).text.toString()
     val isPublic =
-      findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
+        findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
     val currentDate = LocalDate.now().toString()
 
     val categoryName = findViewById<Spinner>(R.id.category_spinner).getSelectedItem().toString()
@@ -94,17 +92,17 @@ class AddItemActivity : AppCompatActivity() {
     try {
       if (categoryId != null) {
         databaseManager.addItem(
-          itemName,
-          imageUri,
-          itemDescription,
-          null,
-          isPublic,
-          false,
-          currentDate,
-          currentDate,
-          0,
-          categoryId,
-          null)
+            itemName,
+            imageUri,
+            itemDescription,
+            null,
+            isPublic,
+            false,
+            currentDate,
+            currentDate,
+            0,
+            categoryId,
+            null)
       }
     } catch (e: SQLException) {
       Log.e("SQLException", e.toString())

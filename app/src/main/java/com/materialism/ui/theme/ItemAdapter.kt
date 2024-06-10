@@ -60,4 +60,24 @@ class ItemAdapter(private var items: List<Item>, private val showEditButton: Boo
     items = items.sortedByDescending { it.name }
     notifyDataSetChanged()
   }
+
+  fun sortByLocationAsc() {
+    items = items.sortedBy { it.location }
+    notifyDataSetChanged()
+  }
+
+  fun sortByLocationDesc() {
+    items = items.sortedByDescending { it.location }
+    notifyDataSetChanged()
+  }
+
+  fun sortByDateAsc() {
+    items = items.sortedBy { it.date }
+    notifyDataSetChanged()
+  }
+
+  fun sortByDateDesc() {
+    items = items.sortedByDescending { it.date }
+    notifyDataSetChanged()
+  }
 }

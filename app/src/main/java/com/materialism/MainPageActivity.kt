@@ -2,11 +2,9 @@ package com.materialism
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
@@ -33,14 +31,14 @@ class MainPageActivity : AppCompatActivity() {
 
     drawerLayout = findViewById(R.id.drawer_layout)
     navView = findViewById(R.id.nav_view)
-    
+
     databaseAdapter.databaseManager.open()
     databaseAdapter.syncCategories()
     databaseAdapter.syncSubCategories()
     databaseAdapter.syncQuests()
     databaseAdapter.syncQuestItems()
 
-    //val categoryButton = findViewById<Button>(R.id.category_button)
+    // val categoryButton = findViewById<Button>(R.id.category_button)
 
     DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
 
@@ -54,9 +52,7 @@ class MainPageActivity : AppCompatActivity() {
     binding.recyclerView.layoutManager = LinearLayoutManager(this)
     binding.recyclerView.adapter = ItemAdapter(items, false)
 
-    binding.fab.setOnClickListener {
-      showFabOptionsMenu(it)
-    }
+    binding.fab.setOnClickListener { showFabOptionsMenu(it) }
 
     binding.libraryIcon.setOnClickListener { openViewItemsActivity(it) }
     binding.icMenu.setOnClickListener { DrawerUtils.openDrawer(drawerLayout) }
@@ -75,10 +71,13 @@ class MainPageActivity : AppCompatActivity() {
     if (itemsCursor.moveToFirst()) {
       do {
         val itemName = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("name"))
-        val itemDescription = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
+        val itemDescription =
+            itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
         val itemCategoryId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("categoryId"))
-        val itemLocation = "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
-        val itemDateTimeAdded = "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
+        val itemLocation =
+            "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
+        val itemDateTimeAdded =
+            "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
 
         val categoryCursor = databaseManager.getCategory(itemCategoryId)
         var categoryName = "Category: "

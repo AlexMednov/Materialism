@@ -11,11 +11,12 @@ import com.materialism.R
 object DrawerUtils {
 
   fun setupDrawerContent(
-    activity: Activity,
-    navigationView: NavigationView,
-    drawerLayout: DrawerLayout
+      activity: Activity,
+      navigationView: NavigationView,
+      drawerLayout: DrawerLayout
   ) {
-    val headerView = LayoutInflater.from(activity).inflate(R.layout.burger_menu_layout, navigationView, false)
+    val headerView =
+        LayoutInflater.from(activity).inflate(R.layout.burger_menu_layout, navigationView, false)
     navigationView.addHeaderView(headerView)
 
     headerView.findViewById<Button>(R.id.nav_profile).setOnClickListener {

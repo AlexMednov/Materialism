@@ -33,12 +33,19 @@ class MainPageActivity : AppCompatActivity() {
 
     drawerLayout = findViewById(R.id.drawer_layout)
     navView = findViewById(R.id.nav_view)
-    
+
     databaseAdapter.databaseManager.open()
     databaseAdapter.syncCategories()
     databaseAdapter.syncSubCategories()
     databaseAdapter.syncQuests()
     databaseAdapter.syncQuestItems()
+
+    //testing getting friend information
+
+
+
+
+
 
     //val categoryButton = findViewById<Button>(R.id.category_button)
 

@@ -1,14 +1,21 @@
 package com.materialism
 
+import android.graphics.Bitmap
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.materialism.databinding.ItemLayoutBinding
 import com.materialism.databinding.ItemLayoutMainPageBinding
 import com.materialism.sampledata.Item
+import com.materialism.utils.ImageRenderer
 
-class ItemAdapter(private var items: List<Item>, private val showEditButton: Boolean) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ItemAdapter(
+    private var items: List<Item>,
+    private val showEditButton: Boolean,
+    private val imageRenderer: ImageRenderer
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
     return if (showEditButton) {
@@ -23,13 +30,22 @@ class ItemAdapter(private var items: List<Item>, private val showEditButton: Boo
 
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     val item = items[position]
+    val imageUri = item.imageUri
+    var image: Bitmap? = null
+    try {
+      image = imageRenderer.getThumbnail(item.imageUri.toUri(), 240)
+    } catch (e: Exception) {
+      Log.e("ImageRenderer", e.toString())
+    }
     if (holder is EditViewHolder) {
+      holder.binding.itemImage.setImageBitmap(image)
       holder.binding.itemName.text = item.name
       holder.binding.itemDescription.text = item.description
       holder.binding.itemCategory.text = item.category
       holder.binding.itemLocation.text = item.location
       holder.binding.itemDate.text = item.date
     } else if (holder is NoEditViewHolder) {
+      holder.binding.itemImage.setImageBitmap(image)
       holder.binding.itemName.text = item.name
       holder.binding.itemDescription.text = item.description
       holder.binding.itemCategory.text = item.category

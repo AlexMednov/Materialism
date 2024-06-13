@@ -40,7 +40,15 @@ class ViewItemsActivity : AppCompatActivity() {
 
   private fun setupSortSpinner() {
     val sortOptions =
-        arrayOf("Sort by Category", "Sort by Name Ascending", "Sort by Name Descending")
+        arrayOf(
+            "Sort by Category",
+            "Sort by Name Ascending",
+            "Sort by Name Descending",
+            "Sort by Location Ascending",
+            "Sort by Location Descending",
+            "Sort by Date Ascending",
+            "Sort by Date Descending",
+        )
     val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, sortOptions)
     binding.sortSpinner.adapter = adapter
 
@@ -51,6 +59,10 @@ class ViewItemsActivity : AppCompatActivity() {
               0 -> itemAdapter.sortByCategory()
               1 -> itemAdapter.sortByNameAsc()
               2 -> itemAdapter.sortByNameDesc()
+              3 -> itemAdapter.sortByLocationAsc()
+              4 -> itemAdapter.sortByLocationDesc()
+              5 -> itemAdapter.sortByDateAsc()
+              6 -> itemAdapter.sortByDateDesc()
             }
           }
 
@@ -73,10 +85,13 @@ class ViewItemsActivity : AppCompatActivity() {
     if (itemsCursor.moveToFirst()) {
       do {
         val itemName = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("name"))
-        val itemDescription = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
+        val itemDescription =
+            itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
         val itemCategoryId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("categoryId"))
-        val itemLocation = "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
-        val itemDateTimeAdded = "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
+        val itemLocation =
+            "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
+        val itemDateTimeAdded =
+            "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
 
         val categoryCursor = databaseManager.getCategory(itemCategoryId)
         var categoryName = "Category: "

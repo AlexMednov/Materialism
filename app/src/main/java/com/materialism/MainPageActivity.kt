@@ -41,8 +41,13 @@ class MainPageActivity : AppCompatActivity() {
     databaseAdapter.syncSubCategories()
     databaseAdapter.syncQuests()
     databaseAdapter.syncQuestItems()
+<<<<<<< SCRUM-43-local-db-to-firebase-db
+    
+    //val categoryButton = findViewById<Button>(R.id.category_button)
+=======
 
     // val categoryButton = findViewById<Button>(R.id.category_button)
+>>>>>>> development
 
     DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
 

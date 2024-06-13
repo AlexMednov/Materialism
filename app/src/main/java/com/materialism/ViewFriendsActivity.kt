@@ -56,5 +56,14 @@ class ViewFriendsActivity : AppCompatActivity() {
         )
         friendAdapter.submitList(dummyFriends)
     }
+<<<<<<< SCRUM-43-local-db-to-firebase-db
+
+    // Function to check all associated userIds with the current, logged-in user's Id, and retrieve associated users' information
+    // Get all
+    // Get One
+
+    // Function to remove friend
+=======
   }
+>>>>>>> development
 }

@@ -32,7 +32,7 @@ class AddItemActivity : AppCompatActivity() {
   private lateinit var navView: NavigationView
 
   private var databaseManager = DatabaseManager(this)
-  private var imageRenderer = ImageRenderer(this.contentResolver)
+  private lateinit var imageRenderer: ImageRenderer
   private val THUMBNAIL_SIZE = 480
   private var imageUri = ""
 
@@ -40,6 +40,7 @@ class AddItemActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     binding = ActivityAddItemBinding.inflate(layoutInflater)
     setContentView(binding.root)
+    imageRenderer = ImageRenderer(this.contentResolver)
     databaseManager.open()
 
     drawerLayout = findViewById(R.id.drawer_layout)

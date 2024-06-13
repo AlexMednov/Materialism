@@ -11,6 +11,7 @@ import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.ActivityViewItemsBinding
 import com.materialism.sampledata.Item
 import com.materialism.utils.DrawerUtils
+import com.materialism.utils.ImageRenderer
 
 class ViewItemsActivity : AppCompatActivity() {
 
@@ -19,6 +20,8 @@ class ViewItemsActivity : AppCompatActivity() {
   private lateinit var drawerLayout: DrawerLayout
   private lateinit var navView: NavigationView
   private var databaseManager = DatabaseManager(this)
+
+  private var imageRenderer = ImageRenderer(this.contentResolver)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -71,7 +74,7 @@ class ViewItemsActivity : AppCompatActivity() {
   }
 
   private fun setupRecyclerView() {
-    itemAdapter = ItemAdapter(getAllItems(), true) // Pass true to show edit button
+    itemAdapter = ItemAdapter(getAllItems(), true, imageRenderer) // Pass true to show edit button
     binding.recyclerView.apply {
       layoutManager = LinearLayoutManager(this@ViewItemsActivity)
       adapter = itemAdapter
@@ -87,6 +90,7 @@ class ViewItemsActivity : AppCompatActivity() {
         val itemName = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("name"))
         val itemDescription =
             itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
+        val imageUri = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("imageURI"))
         val itemCategoryId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("categoryId"))
         val itemLocation =
             "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
@@ -102,7 +106,7 @@ class ViewItemsActivity : AppCompatActivity() {
           }
         }
 
-        val item = Item(itemName, itemDescription, categoryName, itemLocation, itemDateTimeAdded)
+        val item = Item(itemName, itemDescription, imageUri, categoryName, itemLocation, itemDateTimeAdded)
 
         itemsArray.add(item)
       } while (itemsCursor.moveToNext())

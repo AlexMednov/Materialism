@@ -28,8 +28,7 @@
                 android:src="@drawable/ic_menu"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/menu"
-                android:onClick="openDrawer" />
-
+                />
             <View
                 android:layout_width="0dp"
                 android:layout_height="48dp"

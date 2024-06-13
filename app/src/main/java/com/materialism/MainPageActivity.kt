@@ -2,12 +2,15 @@ package com.materialism
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
@@ -38,9 +41,15 @@ class MainPageActivity : AppCompatActivity() {
     databaseAdapter.syncQuests()
     databaseAdapter.syncQuestItems()
 
-    // val categoryButton = findViewById<Button>(R.id.category_button)
-
+    Log.d("MainPageActivity", "Setting up drawer content")
     DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
+
+    val menuIcon: ImageView = findViewById(R.id.ic_menu)
+
+    menuIcon.setOnClickListener {
+      Log.d("MainPageActivity", "Menu icon clicked, opening drawer")
+      drawerLayout.openDrawer(GravityCompat.START)
+    }
 
     binding.level.text = "Level: 1"
     binding.progressBar.progress = 10
@@ -72,12 +81,12 @@ class MainPageActivity : AppCompatActivity() {
       do {
         val itemName = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("name"))
         val itemDescription =
-            itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
+          itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
         val itemCategoryId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("categoryId"))
         val itemLocation =
-            "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
+          "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
         val itemDateTimeAdded =
-            "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
+          "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
 
         val categoryCursor = databaseManager.getCategory(itemCategoryId)
         var categoryName = "Category: "

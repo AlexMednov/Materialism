@@ -54,12 +54,12 @@ class AddCategoryActivity : AppCompatActivity() {
   }
 
   private fun addCategoryView(categoryName: String) {
-    val textView = TextView(this)  // Initialize textView here
+    val textView = TextView(this) // Initialize textView here
     textView.text = categoryName
     textView.tag = categoryName // Set tag to identify the view later
-    val params = FlexboxLayout.LayoutParams(
-      FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT
-    )
+    val params =
+        FlexboxLayout.LayoutParams(
+            FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
     params.setMargins(10, 10, 10, 10) // Add margins
     textView.layoutParams = params
 

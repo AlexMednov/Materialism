@@ -11,6 +11,7 @@ import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.ActivityViewItemsBinding
 import com.materialism.sampledata.Item
 import com.materialism.utils.DrawerUtils
+import com.materialism.utils.ImageRenderer
 
 class ViewItemsActivity : AppCompatActivity() {
 
@@ -19,6 +20,8 @@ class ViewItemsActivity : AppCompatActivity() {
   private lateinit var drawerLayout: DrawerLayout
   private lateinit var navView: NavigationView
   private var databaseManager = DatabaseManager(this)
+
+  private var imageRenderer = ImageRenderer(this.contentResolver)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -40,7 +43,15 @@ class ViewItemsActivity : AppCompatActivity() {
 
   private fun setupSortSpinner() {
     val sortOptions =
-        arrayOf("Sort by Category", "Sort by Name Ascending", "Sort by Name Descending")
+        arrayOf(
+            "Sort by Category",
+            "Sort by Name Ascending",
+            "Sort by Name Descending",
+            "Sort by Location Ascending",
+            "Sort by Location Descending",
+            "Sort by Date Ascending",
+            "Sort by Date Descending",
+        )
     val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, sortOptions)
     binding.sortSpinner.adapter = adapter
 
@@ -51,6 +62,10 @@ class ViewItemsActivity : AppCompatActivity() {
               0 -> itemAdapter.sortByCategory()
               1 -> itemAdapter.sortByNameAsc()
               2 -> itemAdapter.sortByNameDesc()
+              3 -> itemAdapter.sortByLocationAsc()
+              4 -> itemAdapter.sortByLocationDesc()
+              5 -> itemAdapter.sortByDateAsc()
+              6 -> itemAdapter.sortByDateDesc()
             }
           }
 
@@ -59,7 +74,7 @@ class ViewItemsActivity : AppCompatActivity() {
   }
 
   private fun setupRecyclerView() {
-    itemAdapter = ItemAdapter(getAllItems(), true) // Pass true to show edit button
+    itemAdapter = ItemAdapter(getAllItems(), true, imageRenderer) // Pass true to show edit button
     binding.recyclerView.apply {
       layoutManager = LinearLayoutManager(this@ViewItemsActivity)
       adapter = itemAdapter
@@ -73,10 +88,14 @@ class ViewItemsActivity : AppCompatActivity() {
     if (itemsCursor.moveToFirst()) {
       do {
         val itemName = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("name"))
-        val itemDescription = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
+        val itemDescription =
+            itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
+        val imageUri = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("imageURI"))
         val itemCategoryId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("categoryId"))
-        val itemLocation = "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
-        val itemDateTimeAdded = "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
+        val itemLocation =
+            "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
+        val itemDateTimeAdded =
+            "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
 
         val categoryCursor = databaseManager.getCategory(itemCategoryId)
         var categoryName = "Category: "
@@ -87,7 +106,8 @@ class ViewItemsActivity : AppCompatActivity() {
           }
         }
 
-        val item = Item(itemName, itemDescription, categoryName, itemLocation, itemDateTimeAdded)
+        val item =
+            Item(itemName, itemDescription, imageUri, categoryName, itemLocation, itemDateTimeAdded)
 
         itemsArray.add(item)
       } while (itemsCursor.moveToNext())

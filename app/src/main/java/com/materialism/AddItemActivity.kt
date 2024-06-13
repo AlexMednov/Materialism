@@ -2,9 +2,6 @@ package com.materialism
 
 import android.content.Intent
 import android.database.SQLException
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -20,8 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.ActivityAddItemBinding
 import com.materialism.utils.DrawerUtils
-import java.io.FileNotFoundException
-import java.io.IOException
+import com.materialism.utils.ImageRenderer
 import java.time.LocalDate
 
 class AddItemActivity : AppCompatActivity() {
@@ -31,6 +27,7 @@ class AddItemActivity : AppCompatActivity() {
   private lateinit var navView: NavigationView
 
   private var databaseManager = DatabaseManager(this)
+  private lateinit var imageRenderer: ImageRenderer
   private val THUMBNAIL_SIZE = 480
   private var imageUri = ""
 
@@ -38,6 +35,7 @@ class AddItemActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     binding = ActivityAddItemBinding.inflate(layoutInflater)
     setContentView(binding.root)
+    imageRenderer = ImageRenderer(this.contentResolver)
     databaseManager.open()
 
     drawerLayout = findViewById(R.id.drawer_layout)
@@ -57,7 +55,7 @@ class AddItemActivity : AppCompatActivity() {
           // photo picker.
           if (uri != null) {
             imageUri = uri.toString()
-            val bitmap = getThumbnail(uri)
+            val bitmap = imageRenderer.getThumbnail(uri, THUMBNAIL_SIZE)
             thumbnail.setImageBitmap(bitmap)
           }
         }
@@ -71,21 +69,19 @@ class AddItemActivity : AppCompatActivity() {
       startActivity(intent)
     }
 
-    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, getCategoriesForSpinner())
+    val adapter =
+        ArrayAdapter(this, android.R.layout.simple_spinner_item, getCategoriesForSpinner())
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     binding.categorySpinner.adapter = adapter
 
-    binding.addItemButton.setOnClickListener {
-      addItem()
-    }
+    binding.addItemButton.setOnClickListener { addItem() }
   }
 
   private fun addItem() {
     val itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
-    val itemDescription: String =
-      findViewById<EditText>(R.id.description_edit_text).text.toString()
+    val itemDescription: String = findViewById<EditText>(R.id.description_edit_text).text.toString()
     val isPublic =
-      findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
+        findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
     val currentDate = LocalDate.now().toString()
 
     val categoryName = findViewById<Spinner>(R.id.category_spinner).getSelectedItem().toString()
@@ -94,17 +90,17 @@ class AddItemActivity : AppCompatActivity() {
     try {
       if (categoryId != null) {
         databaseManager.addItem(
-          itemName,
-          imageUri,
-          itemDescription,
-          null,
-          isPublic,
-          false,
-          currentDate,
-          currentDate,
-          0,
-          categoryId,
-          null)
+            itemName,
+            imageUri,
+            itemDescription,
+            null,
+            isPublic,
+            false,
+            currentDate,
+            currentDate,
+            0,
+            categoryId,
+            null)
       }
     } catch (e: SQLException) {
       Log.e("SQLException", e.toString())
@@ -145,34 +141,5 @@ class AddItemActivity : AppCompatActivity() {
     }
 
     return categoryMap
-  }
-
-  @Throws(FileNotFoundException::class, IOException::class)
-  fun getThumbnail(uri: Uri?): Bitmap? {
-    var input = this.contentResolver.openInputStream(uri!!)
-    val onlyBoundsOptions = BitmapFactory.Options()
-    onlyBoundsOptions.inJustDecodeBounds = true
-    onlyBoundsOptions.inPreferredConfig = Bitmap.Config.ARGB_8888 // optional
-    BitmapFactory.decodeStream(input, null, onlyBoundsOptions)
-    input!!.close()
-    if (onlyBoundsOptions.outWidth == -1 || onlyBoundsOptions.outHeight == -1) {
-      return null
-    }
-    val originalSize =
-        if (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) onlyBoundsOptions.outHeight
-        else onlyBoundsOptions.outWidth
-    val ratio = if (originalSize > THUMBNAIL_SIZE) originalSize / THUMBNAIL_SIZE else 1.0
-    val bitmapOptions = BitmapFactory.Options()
-    bitmapOptions.inSampleSize = getPowerOfTwoForSampleRatio(ratio)
-    bitmapOptions.inPreferredConfig = Bitmap.Config.ARGB_8888 //
-    input = this.contentResolver.openInputStream(uri)
-    val bitmap = BitmapFactory.decodeStream(input, null, bitmapOptions)
-    input!!.close()
-    return bitmap
-  }
-
-  private fun getPowerOfTwoForSampleRatio(ratio: Number): Int {
-    val k = ratio.toInt()
-    return if (k == 0) 1 else k
   }
 }

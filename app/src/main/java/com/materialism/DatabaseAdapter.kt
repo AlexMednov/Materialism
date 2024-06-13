@@ -156,31 +156,65 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
     }
 
     //passes
+//    fun getFriendsUserIds(loggedInUserId: Int, callback: (List<Int>) -> Unit) {
+//        val databaseReference = FirebaseDatabase.getInstance().getReference("Friend")
+//        databaseReference.child(loggedInUserId.toString())
+//            .addListenerForSingleValueEvent(object : ValueEventListener {
+//                override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                    val friendsUserIds = mutableListOf<Int>()
+//                    Log.d("MainActivity", "DataSnapshot Friends: ${dataSnapshot.value}")
+//
+//                    for (snapshot in dataSnapshot.children) {
+//                        val userId1 = snapshot.child("userId1").getValue(Int::class.java)
+//                        val userId2 = snapshot.child("userId2").getValue(Int::class.java)
+//                        Log.d("MainActivity", "UserId1: $userId1, UserId2: $userId2")
+//
+//                        if (userId1 != null && userId2 != null) {
+//                            if (userId1 == loggedInUserId && userId2 != loggedInUserId) {
+//                                friendsUserIds.add(userId2)
+//                            } else if (userId2 == loggedInUserId && userId1 != loggedInUserId) {
+//                                friendsUserIds.add(userId1)
+//                            }
+//                        }
+//                    }
+//                    Log.d("MainActivity", "Final Friends User IDs: $friendsUserIds")
+//                    callback(friendsUserIds)
+//                }
+//
+//                override fun onCancelled(databaseError: DatabaseError) {
+//                    // Handle error
+//                    Log.e("MainActivity", "Database error: ${databaseError.message}")
+//                }
+//            })
+//    }
+
     fun getFriendsUserIds(loggedInUserId: Int, callback: (List<Int>) -> Unit) {
         val databaseReference = FirebaseDatabase.getInstance().getReference("Friend")
-        databaseReference.child(loggedInUserId.toString())
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val friendsUserIds = mutableListOf<Int>()
-                    Log.d("MainActivity", "DataSnapshot Friends: ${dataSnapshot.value}")
-
-                    for (snapshot in dataSnapshot.children) {
-                        val friendId = snapshot.getValue(Int::class.java)
-                        Log.d("MainActivity", "Friend ID: $friendId")
-
-                        if (friendId != null && friendId != loggedInUserId) {
-                            friendsUserIds.add(friendId)
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val friendsUserIds = mutableListOf<Int>()
+                for (snapshot in dataSnapshot.children) {
+                    // Getting the friends map
+                    val friendMap = snapshot.value as? Map<String, Long>
+                    if (friendMap != null) {
+                        val userId1 = friendMap["userId1"]?.toInt()
+                        val userId2 = friendMap["userId2"]?.toInt()
+                        if (userId1 != null && userId2 != null) {
+                            if (userId1 == loggedInUserId && userId2 != loggedInUserId) {
+                                friendsUserIds.add(userId2)
+                            } else if (userId2 == loggedInUserId && userId1 != loggedInUserId) {
+                                friendsUserIds.add(userId1)
+                            }
                         }
                     }
-                    Log.d("MainActivity", "Final Friends User IDs: $friendsUserIds")
-                    callback(friendsUserIds)
                 }
+                callback(friendsUserIds)
+            }
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle error
-                    Log.e("MainActivity", "Database error: ${databaseError.message}")
-                }
-            })
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle error
+            }
+        })
     }
 
     //passes, however all users are retrieved before filtering
@@ -188,8 +222,6 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
         val databaseReference = FirebaseDatabase.getInstance().getReference("User")
         val users = mutableListOf<User>()
         val userIdSet = userIds.toSet() // Use a set for faster lookups
-
-        Log.d("MainActivity", "Fetching Users for IDs: $userIds")
 
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -245,7 +277,6 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                    Log.e("MainActivity", "Database error: ${dataSnapshot}")
                     if (dataSnapshot.exists()) {
                         for (snapshot in dataSnapshot.children) {
                             val user = snapshot.getValue(User::class.java)
@@ -259,7 +290,6 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
 
                 override fun onCancelled(databaseError: DatabaseError) {
                     // Handle error
-                    Log.e("MainActivity", "Database error: ${databaseError.message}")
                     callback(null)
                 }
             })
@@ -300,13 +330,10 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
 
     fun getAllFriendsInfoAndItemInfo() {
         getFriendsUserIds(loggedInUserId) { friendsUserIds ->
-            Log.d("MainActivity", "Friends User IDs: $friendsUserIds")
             //get all friends' items
             getUsersInformation(friendsUserIds) { users ->
-                Log.d("MainActivity", "Users: $users")
                 // get all friends' tems
                 getItemsForUsers(friendsUserIds) { items ->
-                    Log.d("MainActivity", "Items: $items")
                 }
             }
         }

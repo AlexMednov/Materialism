@@ -41,8 +41,10 @@ class MainPageActivity : AppCompatActivity() {
     databaseAdapter.syncQuestItems()
 
     var exampleFriendUserId = 2011884291
-    databaseAdapter.getItemsForSingleUser(exampleFriendUserId) { items ->
-      Log.d("MainActivity", "Items: $items")
+    var loggedInUserId = 1 //dummy logged in userId
+
+    databaseAdapter.getFriendsUserIds(loggedInUserId) { friendsUserIds ->
+
     }
     //val categoryButton = findViewById<Button>(R.id.category_button)
 

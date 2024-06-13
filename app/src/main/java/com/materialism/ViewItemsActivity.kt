@@ -21,12 +21,13 @@ class ViewItemsActivity : AppCompatActivity() {
   private lateinit var navView: NavigationView
   private var databaseManager = DatabaseManager(this)
 
-  private var imageRenderer = ImageRenderer(this.contentResolver)
+  private lateinit var imageRenderer: ImageRenderer
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityViewItemsBinding.inflate(layoutInflater)
     setContentView(binding.root)
+    imageRenderer = ImageRenderer(this.contentResolver)
     databaseManager.open()
 
     drawerLayout = findViewById(R.id.drawer_layout)

@@ -1,8 +1,11 @@
 package com.materialism
 
+import android.content.ContentResolver
 import android.content.Intent
 import android.database.SQLException
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
@@ -13,11 +16,15 @@ import android.widget.Spinner
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.ActivityAddItemBinding
 import com.materialism.utils.DrawerUtils
 import com.materialism.utils.ImageRenderer
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 import java.time.LocalDate
 
 class AddItemActivity : AppCompatActivity() {
@@ -57,6 +64,22 @@ class AddItemActivity : AppCompatActivity() {
             imageUri = uri.toString()
             val bitmap = imageRenderer.getThumbnail(uri, THUMBNAIL_SIZE)
             thumbnail.setImageBitmap(bitmap)
+
+            val newUri = copyUriToPictures(uri)
+            if (newUri != null) {
+              imageUri = newUri.toString()
+            } else {
+              Log.e("FileCopy", "Failed to copy file to Pictures directory")
+            }
+
+            // Persist the permission to access the URI
+            val contentResolver = applicationContext.contentResolver
+            val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            try {
+              contentResolver.takePersistableUriPermission(uri, takeFlags)
+            } catch (e: SecurityException) {
+              Log.e("PersistURI", "No persistable permission grants found for URI: $uri", e)
+            }
           }
         }
 
@@ -109,6 +132,25 @@ class AddItemActivity : AppCompatActivity() {
     // send to previous page
     val intent = Intent(this, MainPageActivity::class.java)
     startActivity(intent)
+  }
+
+  private fun copyUriToPictures(uri: Uri): Uri? {
+    val contentResolver: ContentResolver = applicationContext.contentResolver
+    val picturesDir = ContextCompat.getExternalFilesDirs(applicationContext, Environment.DIRECTORY_PICTURES)[0]
+    val fileName = "image_${System.currentTimeMillis()}.jpg"
+    val inputStream: InputStream? = contentResolver.openInputStream(uri)
+    val file = File(picturesDir, fileName)
+
+    return try {
+      val outputStream = FileOutputStream(file)
+      inputStream?.copyTo(outputStream)
+      outputStream.close()
+      inputStream?.close()
+      Uri.fromFile(file)
+    } catch (e: Exception) {
+      Log.e("FileCopy", "Error copying file: ${e.message}", e)
+      null
+    }
   }
 
   private fun getCategoriesForSpinner(): ArrayList<String> {

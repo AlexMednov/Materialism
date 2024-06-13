@@ -13,6 +13,7 @@
     <string name="title_activity_view_friends">ViewFriendsActivity</string>
     <string name="title_activity_add_friends">AddFriendsActivity</string>
     <string name="title_activity_request_page">RequestActivity</string>
+    <string name="title_activity_view_friend_profile">ViewFriendProfileActivity</string>
     <string name="flag">Flag</string>
     <string name="people">People</string>
     <string name="item_name">Item name</string>

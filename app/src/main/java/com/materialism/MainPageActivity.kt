@@ -40,13 +40,10 @@ class MainPageActivity : AppCompatActivity() {
     databaseAdapter.syncQuests()
     databaseAdapter.syncQuestItems()
 
-    //testing getting friend information
-
-
-
-
-
-
+    var exampleFriendUserId = 2011884291
+    databaseAdapter.getItemsForSingleUser(exampleFriendUserId) { items ->
+      Log.d("MainActivity", "Items: $items")
+    }
     //val categoryButton = findViewById<Button>(R.id.category_button)
 
     DrawerUtils.setupDrawerContent(this, navView, drawerLayout)

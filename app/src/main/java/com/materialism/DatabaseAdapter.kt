@@ -1,8 +1,6 @@
 package com.materialism
 
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.getValue
-import android.database.Cursor
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

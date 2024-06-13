@@ -14,8 +14,6 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
 
     // Get categories from Firebase and write them to SQLite if they do not already exist
     fun syncCategories() {
-        Log.d("SyncCategories", "Starting synchronization")
-
         firebaseDatabase.child("Category").get().addOnSuccessListener { dataSnapshot ->
             dataSnapshot.children.forEach { categorySnapshot ->
                 try {
@@ -28,28 +26,20 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
                                 category.description,
                                 category.isDefault
                             )
-                            Log.d("SyncCategories", "Category added: ${category.name}")
-                        } else {
-                            Log.d("SyncCategories", "Category already exists: ${category.name}")
                         }
                     }
                 } catch (e: Exception) {
-                    Log.e("SyncCategories", "Error processing category: ${e.message}")
+
                 }
             }
         }.addOnFailureListener { exception ->
-            Log.e(
-                "SyncCategories",
-                "Error retrieving categories from Firebase: ${exception.message}"
-            )
+
         }
     }
 
 
     // Get subcategories from Firebase and write them to SQLite if they do not already exist
     fun syncSubCategories() {
-        Log.d("SyncSubCategories", "Starting synchronization")
-
         firebaseDatabase.child("SubCategory").get().addOnSuccessListener { dataSnapshot ->
             dataSnapshot.children.forEach { subcategorySnapshot ->
                 try {
@@ -58,23 +48,14 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
                         val localSubCategoryCursor = databaseManager.getSubcategory(subcategory.id)
                         if (!localSubCategoryCursor.moveToFirst()) {
                             databaseManager.addSubcategory(subcategory.name, subcategory.categoryId)
-                            Log.d("SyncSubCategories", "SubCategory added: ${subcategory.name}")
-                        } else {
-                            Log.d(
-                                "SyncSubCategories",
-                                "SubCategory already exists: ${subcategory.name}"
-                            )
                         }
                     }
                 } catch (e: Exception) {
-                    Log.e("SyncCategories", "Error processing category: ${e.message}")
+
                 }
             }
         }.addOnFailureListener { exception ->
-            Log.e(
-                "SyncSubCategories",
-                "Error retrieving subcategories from Firebase: ${exception.message}"
-            )
+
         }
     }
 
@@ -102,8 +83,6 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
 
     // Get quests from Firebase and write them to SQLite if they do not already exist
     fun syncQuests() {
-        Log.d("SyncQuests", "Starting synchronization")
-
         firebaseDatabase.child("Quests").get().addOnSuccessListener { dataSnapshot ->
             dataSnapshot.children.forEach { questSnapshot ->
                 try {
@@ -113,17 +92,14 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
                         if (!localQuestCursor.moveToFirst()) {
                             databaseManager.addQuest(quest.type, quest.weight, quest.categoryId)
                             Log.d("SyncQuests", "Quest added: ${quest.type}")
-                        } else {
-                            Log.d("SyncQuests", "Quest already exists: ${quest.type}")
                         }
                     }
                 } catch (e: Exception) {
-                    Log.e("SyncQuests", "Error processing category: ${e.message}")
+
                 }
             }
         }.addOnFailureListener { exception ->
             // Handle any errors
-            Log.e("SyncQuests", "Error retrieving quests from Firebase: ${exception.message}")
         }
     }
 
@@ -137,68 +113,31 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
                         val localQuestItemCursor = databaseManager.getQuestItem(questItem.id)
                         if (!localQuestItemCursor.moveToFirst()) {
                             databaseManager.addQuestItem(questItem.name, questItem.categoryId)
-                            Log.d("SyncQuestItems", "Category added: ${questItem.name}")
-                        } else {
-                            Log.d("SyncQuestItems", "QuestItem already exists: ${questItem.name}")
                         }
                     }
                 } catch (e: Exception) {
-                    Log.e("SyncQuestItems", "Error processing quest item: ${e.message}")
+
                 }
             }
         }.addOnFailureListener { exception ->
             // Handle any errors
-            Log.e(
-                "SyncQuestItems",
-                "Error retrieving quest items from Firebase: ${exception.message}"
-            )
         }
     }
 
-    //passes
-//    fun getFriendsUserIds(loggedInUserId: Int, callback: (List<Int>) -> Unit) {
-//        val databaseReference = FirebaseDatabase.getInstance().getReference("Friend")
-//        databaseReference.child(loggedInUserId.toString())
-//            .addListenerForSingleValueEvent(object : ValueEventListener {
-//                override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                    val friendsUserIds = mutableListOf<Int>()
-//                    Log.d("MainActivity", "DataSnapshot Friends: ${dataSnapshot.value}")
-//
-//                    for (snapshot in dataSnapshot.children) {
-//                        val userId1 = snapshot.child("userId1").getValue(Int::class.java)
-//                        val userId2 = snapshot.child("userId2").getValue(Int::class.java)
-//                        Log.d("MainActivity", "UserId1: $userId1, UserId2: $userId2")
-//
-//                        if (userId1 != null && userId2 != null) {
-//                            if (userId1 == loggedInUserId && userId2 != loggedInUserId) {
-//                                friendsUserIds.add(userId2)
-//                            } else if (userId2 == loggedInUserId && userId1 != loggedInUserId) {
-//                                friendsUserIds.add(userId1)
-//                            }
-//                        }
-//                    }
-//                    Log.d("MainActivity", "Final Friends User IDs: $friendsUserIds")
-//                    callback(friendsUserIds)
-//                }
-//
-//                override fun onCancelled(databaseError: DatabaseError) {
-//                    // Handle error
-//                    Log.e("MainActivity", "Database error: ${databaseError.message}")
-//                }
-//            })
-//    }
-
     fun getFriendsUserIds(loggedInUserId: Int, callback: (List<Int>) -> Unit) {
         val databaseReference = FirebaseDatabase.getInstance().getReference("Friend")
+
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val friendsUserIds = mutableListOf<Int>()
+
                 for (snapshot in dataSnapshot.children) {
                     // Getting the friends map
                     val friendMap = snapshot.value as? Map<String, Long>
                     if (friendMap != null) {
                         val userId1 = friendMap["userId1"]?.toInt()
                         val userId2 = friendMap["userId2"]?.toInt()
+                        Log.d("MainActivity", "UserId1: $userId1, UserId2: $userId2")
                         if (userId1 != null && userId2 != null) {
                             if (userId1 == loggedInUserId && userId2 != loggedInUserId) {
                                 friendsUserIds.add(userId2)

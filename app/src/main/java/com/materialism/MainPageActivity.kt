@@ -39,13 +39,7 @@ class MainPageActivity : AppCompatActivity() {
     databaseAdapter.syncSubCategories()
     databaseAdapter.syncQuests()
     databaseAdapter.syncQuestItems()
-
-    var exampleFriendUserId = 2011884291
-    var loggedInUserId = 1 //dummy logged in userId
-
-    databaseAdapter.getFriendsUserIds(loggedInUserId) { friendsUserIds ->
-
-    }
+    
     //val categoryButton = findViewById<Button>(R.id.category_button)
 
     DrawerUtils.setupDrawerContent(this, navView, drawerLayout)

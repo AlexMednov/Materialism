@@ -2,9 +2,6 @@ package com.materialism
 
 import android.content.Intent
 import android.database.SQLException
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -21,8 +18,6 @@ import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.ActivityAddItemBinding
 import com.materialism.utils.DrawerUtils
 import com.materialism.utils.ImageRenderer
-import java.io.FileNotFoundException
-import java.io.IOException
 import java.time.LocalDate
 
 class AddItemActivity : AppCompatActivity() {
@@ -147,5 +142,4 @@ class AddItemActivity : AppCompatActivity() {
 
     return categoryMap
   }
-
 }

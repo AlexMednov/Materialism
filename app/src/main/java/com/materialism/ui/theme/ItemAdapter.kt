@@ -11,8 +11,11 @@ import com.materialism.databinding.ItemLayoutMainPageBinding
 import com.materialism.sampledata.Item
 import com.materialism.utils.ImageRenderer
 
-class ItemAdapter(private var items: List<Item>, private val showEditButton: Boolean, private val imageRenderer: ImageRenderer) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ItemAdapter(
+    private var items: List<Item>,
+    private val showEditButton: Boolean,
+    private val imageRenderer: ImageRenderer
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
     return if (showEditButton) {

@@ -106,7 +106,8 @@ class ViewItemsActivity : AppCompatActivity() {
           }
         }
 
-        val item = Item(itemName, itemDescription, imageUri, categoryName, itemLocation, itemDateTimeAdded)
+        val item =
+            Item(itemName, itemDescription, imageUri, categoryName, itemLocation, itemDateTimeAdded)
 
         itemsArray.add(item)
       } while (itemsCursor.moveToNext())

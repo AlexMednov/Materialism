@@ -2,18 +2,12 @@ package com.materialism
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.MainPageActivityBinding
 import com.materialism.sampledata.Item
 import com.materialism.utils.DrawerUtils
@@ -21,8 +15,6 @@ import com.materialism.utils.DrawerUtils
 class MainPageActivity : AppCompatActivity() {
 
   private lateinit var binding: MainPageActivityBinding
-  private lateinit var drawerLayout: DrawerLayout
-  private lateinit var navView: NavigationView
   private var databaseManager = DatabaseManager(this)
   private var databaseAdapter = DatabaseAdapter(databaseManager)
 
@@ -32,23 +24,17 @@ class MainPageActivity : AppCompatActivity() {
     setContentView(binding.root)
     databaseManager.open()
 
-    drawerLayout = findViewById(R.id.drawer_layout)
-    navView = findViewById(R.id.nav_view)
-
     databaseAdapter.databaseManager.open()
     databaseAdapter.syncCategories()
     databaseAdapter.syncSubCategories()
     databaseAdapter.syncQuests()
     databaseAdapter.syncQuestItems()
 
-    Log.d("MainPageActivity", "Setting up drawer content")
-    DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
-
-    val menuIcon: ImageView = findViewById(R.id.ic_menu)
+    val menuIcon: ImageButton = findViewById(R.id.ic_menu)
+    DrawerUtils.setupPopupMenu(this, menuIcon)
 
     menuIcon.setOnClickListener {
-      Log.d("MainPageActivity", "Menu icon clicked, opening drawer")
-      drawerLayout.openDrawer(GravityCompat.START)
+      DrawerUtils.setupPopupMenu(this, menuIcon)
     }
 
     binding.level.text = "Level: 1"
@@ -64,7 +50,6 @@ class MainPageActivity : AppCompatActivity() {
     binding.fab.setOnClickListener { showFabOptionsMenu(it) }
 
     binding.libraryIcon.setOnClickListener { openViewItemsActivity(it) }
-    binding.icMenu.setOnClickListener { DrawerUtils.openDrawer(drawerLayout) }
 
     val icFlag = findViewById<ImageButton>(R.id.ic_flag)
     icFlag.setOnClickListener {
@@ -110,7 +95,7 @@ class MainPageActivity : AppCompatActivity() {
     val popup = PopupMenu(this, view)
     val inflater: MenuInflater = popup.menuInflater
     inflater.inflate(R.menu.menu_fab_options, popup.menu)
-    popup.setOnMenuItemClickListener { item: MenuItem ->
+    popup.setOnMenuItemClickListener { item ->
       when (item.itemId) {
         R.id.action_add_item -> {
           val intent = Intent(this, AddItemActivity::class.java)

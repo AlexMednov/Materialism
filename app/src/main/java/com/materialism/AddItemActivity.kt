@@ -7,17 +7,15 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.Spinner
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.ActivityAddItemBinding
 import com.materialism.utils.DrawerUtils
 import java.io.FileNotFoundException
@@ -27,9 +25,6 @@ import java.time.LocalDate
 class AddItemActivity : AppCompatActivity() {
 
   private lateinit var binding: ActivityAddItemBinding
-  private lateinit var drawerLayout: DrawerLayout
-  private lateinit var navView: NavigationView
-
   private var databaseManager = DatabaseManager(this)
   private val THUMBNAIL_SIZE = 480
   private var imageUri = ""
@@ -40,27 +35,23 @@ class AddItemActivity : AppCompatActivity() {
     setContentView(binding.root)
     databaseManager.open()
 
-    drawerLayout = findViewById(R.id.drawer_layout)
-    navView = findViewById(R.id.nav_view)
-
-    DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
+    val menuIcon: ImageButton = findViewById(R.id.menu_button)
+    DrawerUtils.setupPopupMenu(this, menuIcon)
 
     binding.backButton.setOnClickListener { finish() }
 
-    binding.menuButton.setOnClickListener { DrawerUtils.openDrawer(drawerLayout) }
-
     // Registers a photo picker activity launcher in single-select mode.
     val pickMedia =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-          val thumbnail = findViewById<View>(R.id.image_placeholder) as ImageView
-          // Callback is invoked after the user selects a media item or closes the
-          // photo picker.
-          if (uri != null) {
-            imageUri = uri.toString()
-            val bitmap = getThumbnail(uri)
-            thumbnail.setImageBitmap(bitmap)
-          }
+      registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        val thumbnail = findViewById<ImageView>(R.id.image_placeholder)
+        // Callback is invoked after the user selects a media item or closes the
+        // photo picker.
+        if (uri != null) {
+          imageUri = uri.toString()
+          val bitmap = getThumbnail(uri)
+          thumbnail.setImageBitmap(bitmap)
         }
+      }
 
     binding.selectPictureButton.setOnClickListener {
       pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -72,7 +63,7 @@ class AddItemActivity : AppCompatActivity() {
     }
 
     val adapter =
-        ArrayAdapter(this, android.R.layout.simple_spinner_item, getCategoriesForSpinner())
+      ArrayAdapter(this, android.R.layout.simple_spinner_item, getCategoriesForSpinner())
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     binding.categorySpinner.adapter = adapter
 
@@ -83,26 +74,26 @@ class AddItemActivity : AppCompatActivity() {
     val itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
     val itemDescription: String = findViewById<EditText>(R.id.description_edit_text).text.toString()
     val isPublic =
-        findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
+      findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
     val currentDate = LocalDate.now().toString()
 
-    val categoryName = findViewById<Spinner>(R.id.category_spinner).getSelectedItem().toString()
+    val categoryName = findViewById<Spinner>(R.id.category_spinner).selectedItem.toString()
     val categoryId = getCategoriesMap()[categoryName]
 
     try {
       if (categoryId != null) {
         databaseManager.addItem(
-            itemName,
-            imageUri,
-            itemDescription,
-            null,
-            isPublic,
-            false,
-            currentDate,
-            currentDate,
-            0,
-            categoryId,
-            null)
+          itemName,
+          imageUri,
+          itemDescription,
+          null,
+          isPublic,
+          false,
+          currentDate,
+          currentDate,
+          0,
+          categoryId,
+          null)
       }
     } catch (e: SQLException) {
       Log.e("SQLException", e.toString())
@@ -157,8 +148,8 @@ class AddItemActivity : AppCompatActivity() {
       return null
     }
     val originalSize =
-        if (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) onlyBoundsOptions.outHeight
-        else onlyBoundsOptions.outWidth
+      if (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) onlyBoundsOptions.outHeight
+      else onlyBoundsOptions.outWidth
     val ratio = if (originalSize > THUMBNAIL_SIZE) originalSize / THUMBNAIL_SIZE else 1.0
     val bitmapOptions = BitmapFactory.Options()
     bitmapOptions.inSampleSize = getPowerOfTwoForSampleRatio(ratio)

@@ -93,16 +93,6 @@
             android:background="@drawable/edit_text_background"
             android:padding="12dp" />
 
-        <!-- Private Text -->
-        <TextView
-            android:id="@+id/private_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/category_text"
-            android:layout_marginTop="16dp"
-            android:text="@string/private_label"
-            android:textColor="@android:color/black" />
-
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView

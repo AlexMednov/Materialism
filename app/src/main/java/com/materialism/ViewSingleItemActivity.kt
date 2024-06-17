@@ -41,7 +41,7 @@ class ViewSingleItemActivity : AppCompatActivity() {
     binding.descriptionText.text = it.description
     binding.locationText.text = it.location
     binding.categoryText.text = it.category
-    binding.dateText.text = it.name
+    binding.dateText.text = it.date
 
   }
 

@@ -33,7 +33,6 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
         }
         .addOnFailureListener { exception -> }
   }
-
   // Get subcategories from Firebase and write them to SQLite if they do not already exist
   fun syncSubCategories() {
     firebaseDatabase

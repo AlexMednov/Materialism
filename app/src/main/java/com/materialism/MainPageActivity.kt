@@ -3,14 +3,11 @@ package com.materialism
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.navigation.NavigationView
 import com.materialism.databinding.MainPageActivityBinding
 import com.materialism.sampledata.Item
 import com.materialism.utils.DrawerUtils
@@ -19,8 +16,6 @@ import com.materialism.utils.ImageRenderer
 class MainPageActivity : AppCompatActivity() {
 
   private lateinit var binding: MainPageActivityBinding
-  private lateinit var drawerLayout: DrawerLayout
-  private lateinit var navView: NavigationView
   private var databaseManager = DatabaseManager(this)
   private var databaseAdapter = DatabaseAdapter(databaseManager)
 
@@ -33,16 +28,18 @@ class MainPageActivity : AppCompatActivity() {
     imageRenderer = ImageRenderer(this.contentResolver)
     databaseManager.open()
 
-    drawerLayout = findViewById(R.id.drawer_layout)
-    navView = findViewById(R.id.nav_view)
-
     databaseAdapter.databaseManager.open()
     databaseAdapter.syncCategories()
     databaseAdapter.syncSubCategories()
     databaseAdapter.syncQuests()
     databaseAdapter.syncQuestItems()
 
-    DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
+    val menuIcon: ImageButton = findViewById(R.id.ic_menu)
+    DrawerUtils.setupPopupMenu(this, menuIcon)
+
+    menuIcon.setOnClickListener {
+      DrawerUtils.setupPopupMenu(this, menuIcon)
+    }
 
     binding.level.text = "Level: 1"
     binding.progressBar.progress = 10
@@ -57,7 +54,6 @@ class MainPageActivity : AppCompatActivity() {
     binding.fab.setOnClickListener { showFabOptionsMenu(it) }
 
     binding.libraryIcon.setOnClickListener { openViewItemsActivity(it) }
-    binding.icMenu.setOnClickListener { DrawerUtils.openDrawer(drawerLayout) }
 
     val icFlag = findViewById<ImageButton>(R.id.ic_history)
     icFlag.setOnClickListener {
@@ -73,14 +69,12 @@ class MainPageActivity : AppCompatActivity() {
     if (itemsCursor.moveToFirst()) {
       do {
         val itemName = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("name"))
-        val itemDescription =
-            itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
-        val imageUri = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("imageURI"))
+        val itemDescription = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
         val itemCategoryId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("categoryId"))
         val itemLocation =
-            "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
+          "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
         val itemDateTimeAdded =
-            "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
+          "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
 
         val categoryCursor = databaseManager.getCategory(itemCategoryId)
         var categoryName = "Category: "
@@ -105,7 +99,7 @@ class MainPageActivity : AppCompatActivity() {
     val popup = PopupMenu(this, view)
     val inflater: MenuInflater = popup.menuInflater
     inflater.inflate(R.menu.menu_fab_options, popup.menu)
-    popup.setOnMenuItemClickListener { item: MenuItem ->
+    popup.setOnMenuItemClickListener { item ->
       when (item.itemId) {
         R.id.action_add_item -> {
           val intent = Intent(this, AddItemActivity::class.java)

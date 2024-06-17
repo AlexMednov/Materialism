@@ -2,34 +2,19 @@ package com.materialism
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.navigation.NavigationView
 import com.materialism.utils.DrawerUtils
 
 class ViewFriendsActivity : AppCompatActivity() {
-
-    private lateinit var drawerLayout: DrawerLayout
-    private lateinit var navigationView: NavigationView
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var friendAdapter: FriendAdapter
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_view_friends)
 
-    drawerLayout = findViewById(R.id.drawer_layout)
-    navigationView = findViewById(R.id.nav_view)
-    val menuIcon: ImageView = findViewById(R.id.menu_icon)
-    val addFriendIcon: ImageView = findViewById(R.id.add_friend_icon)
+    val menuIcon: ImageButton = findViewById(R.id.menu_icon)
+    val addFriendIcon: ImageButton = findViewById(R.id.add_friend_icon)
 
-    // Initialize the DrawerUtils to setup the drawer content
-    DrawerUtils.setupDrawerContent(this, navigationView, drawerLayout)
-
-    menuIcon.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
+    DrawerUtils.setupPopupMenu(this, menuIcon)
 
         addFriendIcon.setOnClickListener {
             val intent = Intent(this, AddFriendsActivity::class.java)

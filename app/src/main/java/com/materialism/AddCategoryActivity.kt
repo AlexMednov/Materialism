@@ -4,17 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.flexbox.FlexboxLayout
-import com.google.android.material.navigation.NavigationView
 import com.materialism.utils.DrawerUtils
 
 class AddCategoryActivity : AppCompatActivity() {
-  private lateinit var drawerLayout: DrawerLayout
-  private lateinit var navView: NavigationView
+
   private lateinit var flexboxLayout: FlexboxLayout
   private var databaseManager = DatabaseManager(this)
 
@@ -23,11 +20,10 @@ class AddCategoryActivity : AppCompatActivity() {
     setContentView(R.layout.activity_add_category)
     databaseManager.open()
 
-    drawerLayout = findViewById(R.id.drawer_layout)
-    navView = findViewById(R.id.nav_view)
     flexboxLayout = findViewById(R.id.flexbox_layout)
 
-    DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
+    val menuIcon: ImageButton = findViewById(R.id.ic_menu)
+    DrawerUtils.setupPopupMenu(this, menuIcon)
 
     val addCategoryButton = findViewById<Button>(R.id.add_category_button)
     addCategoryButton.setOnClickListener {
@@ -46,20 +42,18 @@ class AddCategoryActivity : AppCompatActivity() {
       startActivity(intent)
     }
 
-    val icMenu = findViewById<ImageView>(R.id.ic_menu)
-    icMenu.setOnClickListener { DrawerUtils.openDrawer(drawerLayout) }
-
     // Load and display existing categories
     loadCategories().forEach { addCategoryView(it) }
   }
 
   private fun addCategoryView(categoryName: String) {
-    val textView = TextView(this) // Initialize textView here
+    val textView = TextView(this)
     textView.text = categoryName
     textView.tag = categoryName // Set tag to identify the view later
-    val params =
-        FlexboxLayout.LayoutParams(
-            FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
+    val params = FlexboxLayout.LayoutParams(
+      FlexboxLayout.LayoutParams.WRAP_CONTENT,
+      FlexboxLayout.LayoutParams.WRAP_CONTENT
+    )
     params.setMargins(10, 10, 10, 10) // Add margins
     textView.layoutParams = params
 

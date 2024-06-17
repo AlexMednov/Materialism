@@ -37,7 +37,6 @@ data class User(
     val score: Int = 0,
     val karma: Int = 0,
     val location: String? = null
-<<<<<<< SCRUM-43-local-db-to-firebase-db
 ) {
     constructor() : this(
         id = 0,
@@ -50,16 +49,12 @@ data class User(
         location = null
         )
 }
-=======
-)
->>>>>>> development
 
 data class Category(
     val description: String? = null,
     val id: Int = 0,
     val isDefault: Boolean = false,
     val name: String = "Default category"
-<<<<<<< SCRUM-43-local-db-to-firebase-db
 ) {
     constructor() : this(
         description = null,
@@ -68,16 +63,12 @@ data class Category(
         name = "Default category"
     )
 }
-=======
-)
->>>>>>> development
 
 data class SubCategory(
     val id: Int = 0,
     val name: String = "Default name",
     val description: String? = null,
     val categoryId: Int = 0
-<<<<<<< SCRUM-43-local-db-to-firebase-db
 ) {
     constructor() : this(
         id = 0,
@@ -86,9 +77,6 @@ data class SubCategory(
         categoryId = 0
     )
 }
-=======
-)
->>>>>>> development
 
 data class Item(
     val id: Int = 0,
@@ -98,7 +86,6 @@ data class Item(
     val location: String? = null,
     val isPublic: Boolean = false,
     val isLoaned: Boolean = false,
-<<<<<<< SCRUM-43-local-db-to-firebase-db
     val dateAdded: String = "",
     val dateModified: String = "",
     val userId: Int = 0,
@@ -130,11 +117,3 @@ data class Friend(
         userId2 = 1
     )
 }
-=======
-    val dateAdded: Date,
-    val dateModified: Date? = null,
-    val userId: Int = 0,
-    val categoryId: Int = 0,
-    val subcategoryId: Int = 0
-)
->>>>>>> development

@@ -24,7 +24,6 @@ class AddFriendsActivity : AppCompatActivity() {
     // Initialize the DrawerUtils to setup the drawer content
     DrawerUtils.setupDrawerContent(this, navigationView, drawerLayout)
 
-<<<<<<< SCRUM-43-local-db-to-firebase-db
         menuIcon.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
@@ -38,8 +37,4 @@ class AddFriendsActivity : AppCompatActivity() {
     //
 
     // Function to remove friend
-=======
-    menuIcon.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
-  }
->>>>>>> development
 }

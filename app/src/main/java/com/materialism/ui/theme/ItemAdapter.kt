@@ -16,6 +16,7 @@ class ItemAdapter(
     private val showEditButton: Boolean,
     private val imageRenderer: ImageRenderer
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+  private var onClickListener: OnClickListener? = null
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
     return if (showEditButton) {
@@ -44,6 +45,9 @@ class ItemAdapter(
       holder.binding.itemCategory.text = item.category
       holder.binding.itemLocation.text = item.location
       holder.binding.itemDate.text = item.date
+      holder.itemView.setOnClickListener {
+        onClickListener?.onClick(position, item)
+      }
     } else if (holder is NoEditViewHolder) {
       holder.binding.itemImage.setImageBitmap(image)
       holder.binding.itemName.text = item.name
@@ -51,10 +55,23 @@ class ItemAdapter(
       holder.binding.itemCategory.text = item.category
       holder.binding.itemLocation.text = item.location
       holder.binding.itemDate.text = item.date
+      holder.itemView.setOnClickListener {
+        onClickListener?.onClick(position, item)
+      }
     }
   }
 
   override fun getItemCount() = items.size
+
+  // Set the click listener for the adapter
+  fun setOnClickListener(listener: OnClickListener?) {
+    this.onClickListener = listener
+  }
+
+  // Interface for the click listener
+  interface OnClickListener {
+    fun onClick(position: Int, itemModel: Item)
+  }
 
   class EditViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 

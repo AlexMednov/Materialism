@@ -41,13 +41,6 @@ class MainPageActivity : AppCompatActivity() {
     databaseAdapter.syncSubCategories()
     databaseAdapter.syncQuests()
     databaseAdapter.syncQuestItems()
-<<<<<<< SCRUM-43-local-db-to-firebase-db
-    
-    //val categoryButton = findViewById<Button>(R.id.category_button)
-=======
-
-    // val categoryButton = findViewById<Button>(R.id.category_button)
->>>>>>> development
 
     DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
 
@@ -59,7 +52,14 @@ class MainPageActivity : AppCompatActivity() {
     val items = getAllItems()
 
     binding.recyclerView.layoutManager = LinearLayoutManager(this)
-    binding.recyclerView.adapter = ItemAdapter(items, false, imageRenderer)
+    val itemAdapter = ItemAdapter(items, false, imageRenderer)
+    binding.recyclerView.adapter = itemAdapter
+    itemAdapter.setOnClickListener(object :
+      ItemAdapter.OnClickListener {
+      override fun onClick(position: Int, itemModel: Item) {
+
+      }
+    })
 
     binding.fab.setOnClickListener { showFabOptionsMenu(it) }
 
@@ -150,6 +150,19 @@ class MainPageActivity : AppCompatActivity() {
   // Method to handle the click event for the people icon
   fun openViewFriendsActivity(view: View) {
     val intent = Intent(this, ViewFriendsActivity::class.java)
+    startActivity(intent)
+  }
+
+  // Method to handle the click event for the recycle list
+  fun openViewSingleItemActivity(view: View, position: Int, itemModel: Item) {
+    val intent = Intent(this, ViewSingleItemActivity::class.java)
+
+    intent.putExtra("imageUri", itemModel.imageUri)
+    intent.putExtra("name", itemModel.name)
+    intent.putExtra("description", itemModel.description)
+    intent.putExtra("category", itemModel.category)
+    intent.putExtra("location", itemModel.location)
+    intent.putExtra("date", itemModel.date)
     startActivity(intent)
   }
 }

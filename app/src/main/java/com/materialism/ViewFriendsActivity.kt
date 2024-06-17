@@ -1,69 +1,59 @@
-package com.materialism
+package com.materialism.utils
 
+import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
-import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.navigation.NavigationView
-import com.materialism.utils.DrawerUtils
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.PopupWindow
+import com.materialism.R
+import com.materialism.SupportActivity
 
-class ViewFriendsActivity : AppCompatActivity() {
+object DrawerUtils {
 
-    private lateinit var drawerLayout: DrawerLayout
-    private lateinit var navigationView: NavigationView
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var friendAdapter: FriendAdapter
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_view_friends)
-
-    drawerLayout = findViewById(R.id.drawer_layout)
-    navigationView = findViewById(R.id.nav_view)
-    val menuIcon: ImageView = findViewById(R.id.menu_icon)
-    val addFriendIcon: ImageView = findViewById(R.id.add_friend_icon)
-
-    // Initialize the DrawerUtils to setup the drawer content
-    DrawerUtils.setupDrawerContent(this, navigationView, drawerLayout)
-
-    menuIcon.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
-
-        addFriendIcon.setOnClickListener {
-            val intent = Intent(this, AddFriendsActivity::class.java)
-            startActivity(intent)
+    fun setupPopupMenu(activity: Activity, menuIcon: ImageButton) {
+        menuIcon.setOnClickListener {
+            showPopupMenu(activity, it)
         }
-
-        // Set up RecyclerView for friend list
-        recyclerView = findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        friendAdapter = FriendAdapter { friend ->
-            val intent = Intent(this, ViewFriendProfileActivity::class.java)
-            startActivity(intent)
-        }
-        recyclerView.adapter = friendAdapter
-
-        // Load dummy data
-        loadDummyData()
     }
 
-    private fun loadDummyData() {
-        val dummyFriends = listOf(
-            Friend("Name Surname", "Location: Emmen", "Items: 240"),
-            // Add more dummy friends here
-        )
-        friendAdapter.submitList(dummyFriends)
+    private fun showPopupMenu(activity: Activity, view: View) {
+        val inflater = activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = inflater.inflate(R.layout.burger_menu_layout, null)
+
+        val width = LinearLayout.LayoutParams.WRAP_CONTENT
+        val height = LinearLayout.LayoutParams.WRAP_CONTENT
+        val focusable = true
+        val popupWindow = PopupWindow(popupView, width, height, focusable)
+
+        popupWindow.showAsDropDown(view)
+
+        val navProfile = popupView.findViewById<Button>(R.id.nav_profile)
+        val navSettings = popupView.findViewById<Button>(R.id.nav_settings)
+        val navSupport = popupView.findViewById<Button>(R.id.nav_support)
+        val navLogout = popupView.findViewById<Button>(R.id.nav_logout)
+
+        navProfile.setOnClickListener {
+            popupWindow.dismiss()
+            // Add navigation logic here
+        }
+
+        navSettings.setOnClickListener {
+            popupWindow.dismiss()
+            // Add navigation logic here
+        }
+
+        navSupport.setOnClickListener {
+            popupWindow.dismiss()
+            val intent = Intent(activity, SupportActivity::class.java)
+            activity.startActivity(intent)
+        }
+
+        navLogout.setOnClickListener {
+            popupWindow.dismiss()
+            // Add navigation logic here
+        }
     }
-<<<<<<< SCRUM-43-local-db-to-firebase-db
-
-    // Function to check all associated userIds with the current, logged-in user's Id, and retrieve associated users' information
-    // Get all
-    // Get One
-
-    // Function to remove friend
-=======
-  }
->>>>>>> development
 }

@@ -34,9 +34,6 @@ class MainPageActivity : AppCompatActivity() {
     databaseAdapter.syncQuests()
     databaseAdapter.syncQuestItems()
 
-    val menuIcon: ImageButton = findViewById(R.id.ic_menu)
-    DrawerUtils.setupPopupMenu(this, menuIcon)
-
     menuIcon.setOnClickListener {
       DrawerUtils.setupPopupMenu(this, menuIcon)
     }

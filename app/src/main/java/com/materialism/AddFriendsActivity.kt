@@ -10,8 +10,14 @@ class AddFriendsActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_add_friends)
-    
-    val menuIcon: ImageButton = findViewById(R.id.menu_icon)
-    DrawerUtils.setupPopupMenu(this, menuIcon)
+
+    drawerLayout = findViewById(R.id.drawer_layout)
+    navigationView = findViewById(R.id.nav_view)
+    val menuIcon: ImageView = findViewById(R.id.menu_icon)
+
+    // Initialize the DrawerUtils to setup the drawer content
+    DrawerUtils.setupDrawerContent(this, navigationView, drawerLayout)
+
+    menuIcon.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
   }
 }

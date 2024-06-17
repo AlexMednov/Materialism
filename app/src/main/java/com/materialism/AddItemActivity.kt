@@ -46,14 +46,32 @@ class AddItemActivity : AppCompatActivity() {
 
     // Registers a photo picker activity launcher in single-select mode.
     val pickMedia =
-      registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        val thumbnail = findViewById<ImageView>(R.id.image_placeholder)
-        // Callback is invoked after the user selects a media item or closes the
-        // photo picker.
-        if (uri != null) {
-          imageUri = uri.toString()
-          val bitmap = getThumbnail(uri)
-          thumbnail.setImageBitmap(bitmap)
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+          val thumbnail = findViewById<View>(R.id.image_placeholder) as ImageView
+          // Callback is invoked after the user selects a media item or closes the
+          // photo picker.
+          if (uri != null) {
+            imageUri = uri.toString()
+            val bitmap = imageRenderer.getThumbnail(uri, THUMBNAIL_SIZE)
+            thumbnail.setImageBitmap(bitmap)
+
+            val newUri = copyUriToPictures(uri)
+            if (newUri != null) {
+              imageUri = newUri.toString()
+            } else {
+              Log.e("FileCopy", "Failed to copy file to Pictures directory")
+            }
+
+            // Persist the permission to access the URI
+            val contentResolver = applicationContext.contentResolver
+            val takeFlags: Int =
+                Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            try {
+              contentResolver.takePersistableUriPermission(uri, takeFlags)
+            } catch (e: SecurityException) {
+              Log.e("PersistURI", "No persistable permission grants found for URI: $uri", e)
+            }
+          }
         }
       }
 
@@ -77,6 +95,7 @@ class AddItemActivity : AppCompatActivity() {
   private fun addItem() {
     val itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
     val itemDescription: String = findViewById<EditText>(R.id.description_edit_text).text.toString()
+    val itemLocation: String = findViewById<EditText>(R.id.location_edit_text).text.toString()
     val isPublic =
       findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
     val currentDate = LocalDate.now().toString()
@@ -87,17 +106,17 @@ class AddItemActivity : AppCompatActivity() {
     try {
       if (categoryId != null) {
         databaseManager.addItem(
-          itemName,
-          imageUri,
-          itemDescription,
-          null,
-          isPublic,
-          false,
-          currentDate,
-          currentDate,
-          0,
-          categoryId,
-          null)
+            itemName,
+            imageUri,
+            itemDescription,
+            itemLocation,
+            isPublic,
+            false,
+            currentDate,
+            currentDate,
+            0,
+            categoryId,
+            null)
       }
     } catch (e: SQLException) {
       Log.e("SQLException", e.toString())
@@ -110,7 +129,8 @@ class AddItemActivity : AppCompatActivity() {
 
   private fun copyUriToPictures(uri: Uri): Uri? {
     val contentResolver: ContentResolver = applicationContext.contentResolver
-    val picturesDir = ContextCompat.getExternalFilesDirs(applicationContext, Environment.DIRECTORY_PICTURES)[0]
+    val picturesDir =
+        ContextCompat.getExternalFilesDirs(applicationContext, Environment.DIRECTORY_PICTURES)[0]
     val fileName = "image_${System.currentTimeMillis()}.jpg"
     val inputStream: InputStream? = contentResolver.openInputStream(uri)
     val file = File(picturesDir, fileName)

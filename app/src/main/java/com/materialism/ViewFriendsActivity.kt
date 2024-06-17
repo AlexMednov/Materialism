@@ -31,30 +31,30 @@ class ViewFriendsActivity : AppCompatActivity() {
 
     menuIcon.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
 
-        addFriendIcon.setOnClickListener {
-            val intent = Intent(this, AddFriendsActivity::class.java)
-            startActivity(intent)
-        }
-
-        // Set up RecyclerView for friend list
-        recyclerView = findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        friendAdapter = FriendAdapter { friend ->
-            val intent = Intent(this, ViewFriendProfileActivity::class.java)
-            startActivity(intent)
-        }
-        recyclerView.adapter = friendAdapter
-
-        // Load dummy data
-        loadDummyData()
+    addFriendIcon.setOnClickListener {
+        val intent = Intent(this, AddFriendsActivity::class.java)
+        startActivity(intent)
     }
 
-    private fun loadDummyData() {
-        val dummyFriends = listOf(
-            Friend("Name Surname", "Location: Emmen", "Items: 240"),
-            // Add more dummy friends here
-        )
-        friendAdapter.submitList(dummyFriends)
+    // Set up RecyclerView for friend list
+    recyclerView = findViewById(R.id.recycler_view)
+    recyclerView.layoutManager = LinearLayoutManager(this)
+    friendAdapter = FriendAdapter { friend ->
+        val intent = Intent(this, ViewFriendProfileActivity::class.java)
+        startActivity(intent)
     }
+    recyclerView.adapter = friendAdapter
+
+    // Load dummy data
+    loadDummyData()
   }
+
+  private fun loadDummyData() {
+    val dummyFriends = listOf(
+        Friend("Name Surname", "Location: Emmen", "Items: 240"),
+        // Add more dummy friends here
+    )
+    friendAdapter.submitList(dummyFriends)
+  }
+
 }

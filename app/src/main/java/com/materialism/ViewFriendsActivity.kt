@@ -2,13 +2,8 @@ package com.materialism
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.navigation.NavigationView
 import com.materialism.utils.DrawerUtils
 import com.materialism.DatabaseAdapter
 
@@ -24,7 +19,6 @@ class ViewFriendsActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_view_friends)
-
     databaseManager.open()
 
     drawerLayout = findViewById(R.id.drawer_layout)
@@ -40,26 +34,23 @@ class ViewFriendsActivity : AppCompatActivity() {
 
     menuIcon.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
 
-        addFriendIcon.setOnClickListener {
-            val intent = Intent(this, AddFriendsActivity::class.java)
-            startActivity(intent)
-        }
+    DrawerUtils.setupPopupMenu(this, menuIcon)
 
-        // Set up RecyclerView for friend list
-        recyclerView = findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        friendAdapter = FriendAdapter { friend ->
-            val intent = Intent(this, ViewFriendProfileActivity::class.java)
-            startActivity(intent)
-        }
-        recyclerView.adapter = friendAdapter
-
-
+    addFriendIcon.setOnClickListener {
+      val intent = Intent(this, AddFriendsActivity::class.java)
+      startActivity(intent)
+    }
         loadFriendsData(loggedInUserId = 1)
     }
+    recyclerView.adapter = friendAdapter
 
-    private fun loadDummyData() {
-        val dummyFriends = listOf(
+    // Load dummy data
+    loadDummyData()
+  }
+
+  private fun loadDummyData() {
+    val dummyFriends =
+        listOf(
             Friend("Name Surname", "Location: Emmen", "Items: 240"),
             // Add more dummy friends here
         )
@@ -78,5 +69,4 @@ class ViewFriendsActivity : AppCompatActivity() {
             }
         }
     }
-
 }

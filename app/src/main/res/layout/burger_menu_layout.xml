@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#4192D9"
     android:padding="20dp">
@@ -15,7 +15,9 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:layout_marginBottom="16dp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true" />
 
     <Button
         android:id="@+id/nav_settings"
@@ -26,7 +28,9 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:layout_marginBottom="16dp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true" />
 
     <Button
         android:id="@+id/nav_support"
@@ -37,7 +41,9 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:layout_marginBottom="16dp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true" />
 
     <Button
         android:id="@+id/nav_logout"
@@ -48,5 +54,7 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:layout_marginBottom="16dp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true" />
 </LinearLayout>

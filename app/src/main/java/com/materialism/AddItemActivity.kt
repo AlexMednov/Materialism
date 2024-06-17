@@ -51,33 +51,33 @@ class AddItemActivity : AppCompatActivity() {
 
     // Registers a photo picker activity launcher in single-select mode.
     val pickMedia =
-      registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        val thumbnail: ImageView = findViewById(R.id.image_placeholder)
-        // Callback is invoked after the user selects a media item or closes the
-        // photo picker.
-        if (uri != null) {
-          imageUri = uri.toString()
-          val bitmap = imageRenderer.getThumbnail(uri, THUMBNAIL_SIZE)
-          thumbnail.setImageBitmap(bitmap)
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+          val thumbnail: ImageView = findViewById(R.id.image_placeholder)
+          // Callback is invoked after the user selects a media item or closes the
+          // photo picker.
+          if (uri != null) {
+            imageUri = uri.toString()
+            val bitmap = imageRenderer.getThumbnail(uri, THUMBNAIL_SIZE)
+            thumbnail.setImageBitmap(bitmap)
 
-          val newUri = copyUriToPictures(uri)
-          if (newUri != null) {
-            imageUri = newUri.toString()
-          } else {
-            Log.e("FileCopy", "Failed to copy file to Pictures directory")
-          }
+            val newUri = copyUriToPictures(uri)
+            if (newUri != null) {
+              imageUri = newUri.toString()
+            } else {
+              Log.e("FileCopy", "Failed to copy file to Pictures directory")
+            }
 
-          // Persist the permission to access the URI
-          val contentResolver = applicationContext.contentResolver
-          val takeFlags: Int =
-            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-          try {
-            contentResolver.takePersistableUriPermission(uri, takeFlags)
-          } catch (e: SecurityException) {
-            Log.e("PersistURI", "No persistable permission grants found for URI: $uri", e)
+            // Persist the permission to access the URI
+            val contentResolver = applicationContext.contentResolver
+            val takeFlags: Int =
+                Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            try {
+              contentResolver.takePersistableUriPermission(uri, takeFlags)
+            } catch (e: SecurityException) {
+              Log.e("PersistURI", "No persistable permission grants found for URI: $uri", e)
+            }
           }
         }
-      }
 
     binding.selectPictureButton.setOnClickListener {
       pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -89,7 +89,7 @@ class AddItemActivity : AppCompatActivity() {
     }
 
     val adapter =
-      ArrayAdapter(this, android.R.layout.simple_spinner_item, getCategoriesForSpinner())
+        ArrayAdapter(this, android.R.layout.simple_spinner_item, getCategoriesForSpinner())
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     binding.categorySpinner.adapter = adapter
 
@@ -101,7 +101,7 @@ class AddItemActivity : AppCompatActivity() {
     val itemDescription: String = findViewById<EditText>(R.id.description_edit_text).text.toString()
     val itemLocation: String = findViewById<EditText>(R.id.location_edit_text).text.toString()
     val isPublic =
-      findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
+        findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
     val currentDate = LocalDate.now().toString()
 
     val categoryName = findViewById<Spinner>(R.id.category_spinner).selectedItem.toString()
@@ -195,8 +195,8 @@ class AddItemActivity : AppCompatActivity() {
       return null
     }
     val originalSize =
-      if (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) onlyBoundsOptions.outHeight
-      else onlyBoundsOptions.outWidth
+        if (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) onlyBoundsOptions.outHeight
+        else onlyBoundsOptions.outWidth
     val ratio = if (originalSize > THUMBNAIL_SIZE) originalSize / THUMBNAIL_SIZE else 1.0
     val bitmapOptions = BitmapFactory.Options()
     bitmapOptions.inSampleSize = getPowerOfTwoForSampleRatio(ratio)

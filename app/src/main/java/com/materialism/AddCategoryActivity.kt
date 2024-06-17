@@ -50,10 +50,9 @@ class AddCategoryActivity : AppCompatActivity() {
     val textView = TextView(this)
     textView.text = categoryName
     textView.tag = categoryName // Set tag to identify the view later
-    val params = FlexboxLayout.LayoutParams(
-      FlexboxLayout.LayoutParams.WRAP_CONTENT,
-      FlexboxLayout.LayoutParams.WRAP_CONTENT
-    )
+    val params =
+        FlexboxLayout.LayoutParams(
+            FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
     params.setMargins(10, 10, 10, 10) // Add margins
     textView.layoutParams = params
 

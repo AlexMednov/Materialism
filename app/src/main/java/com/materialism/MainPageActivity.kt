@@ -36,9 +36,7 @@ class MainPageActivity : AppCompatActivity() {
     databaseAdapter.syncQuestItems()
 
     val menuIcon: ImageButton = findViewById(R.id.ic_menu)
-    menuIcon.setOnClickListener {
-      DrawerUtils.setupPopupMenu(this, menuIcon)
-    }
+    menuIcon.setOnClickListener { DrawerUtils.setupPopupMenu(this, menuIcon) }
 
     binding.level.text = "Level: 1"
     binding.progressBar.progress = 10
@@ -50,12 +48,12 @@ class MainPageActivity : AppCompatActivity() {
     binding.recyclerView.layoutManager = LinearLayoutManager(this)
     val itemAdapter = ItemAdapter(items, false, imageRenderer)
     binding.recyclerView.adapter = itemAdapter
-    itemAdapter.setOnClickListener(object :
-      ItemAdapter.OnClickListener {
-      override fun onClick(position: Int, itemModel: Item) {
-        openViewSingleItemActivity(position, itemModel)
-      }
-    })
+    itemAdapter.setOnClickListener(
+        object : ItemAdapter.OnClickListener {
+          override fun onClick(position: Int, itemModel: Item) {
+            openViewSingleItemActivity(position, itemModel)
+          }
+        })
 
     binding.fab.setOnClickListener { showFabOptionsMenu(it) }
 
@@ -75,13 +73,14 @@ class MainPageActivity : AppCompatActivity() {
     if (itemsCursor.moveToFirst()) {
       do {
         val itemName = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("name"))
-        val itemDescription = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
+        val itemDescription =
+            itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
         val imageUri = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("imageURI"))
         val itemCategoryId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("categoryId"))
         val itemLocation =
-          "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
+            "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
         val itemDateTimeAdded =
-          "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
+            "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
 
         val categoryCursor = databaseManager.getCategory(itemCategoryId)
         var categoryName = "Category: "

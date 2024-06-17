@@ -46,21 +46,21 @@ class ViewCategoriesActivity : ComponentActivity() {
     }
 
     spinnerCategoryType.onItemSelectedListener =
-      object : AdapterView.OnItemSelectedListener {
-        override fun onItemSelected(
-          parent: AdapterView<*>?,
-          view: View?,
-          position: Int,
-          id: Long
-        ) {
-          when (position) {
-            0 -> loadCategories()
-            1 -> loadSubcategories()
+        object : AdapterView.OnItemSelectedListener {
+          override fun onItemSelected(
+              parent: AdapterView<*>?,
+              view: View?,
+              position: Int,
+              id: Long
+          ) {
+            when (position) {
+              0 -> loadCategories()
+              1 -> loadSubcategories()
+            }
           }
-        }
 
-        override fun onNothingSelected(parent: AdapterView<*>?) {}
-      }
+          override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
   }
 
   private fun loadCategories() {

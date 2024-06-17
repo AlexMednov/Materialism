@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import com.materialism.databinding.ActivityAddItemBinding
 import com.materialism.databinding.ActivityViewSingleItemBinding
 import com.materialism.sampledata.Item
 import com.materialism.utils.DrawerUtils
@@ -36,13 +35,13 @@ class ViewSingleItemActivity : AppCompatActivity() {
     binding.backButton.setOnClickListener { finish() }
 
     val it = getItemFromIntent()
-    binding.imagePlaceholder.setImageBitmap(imageRenderer.getThumbnail(it.imageUri.toUri(), THUMBNAIL_SIZE))
+    binding.imagePlaceholder.setImageBitmap(
+        imageRenderer.getThumbnail(it.imageUri.toUri(), THUMBNAIL_SIZE))
     binding.nameText.text = it.name
     binding.descriptionText.text = it.description
     binding.locationText.text = it.location
     binding.categoryText.text = it.category
     binding.dateText.text = it.date
-
   }
 
   private fun getItemFromIntent(): Item {
@@ -62,5 +61,4 @@ class ViewSingleItemActivity : AppCompatActivity() {
 
     return Item(name, description, imageUri, category, location, date)
   }
-
 }

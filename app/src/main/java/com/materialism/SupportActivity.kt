@@ -7,11 +7,11 @@ import com.materialism.utils.DrawerUtils
 
 class SupportActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_support)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_support)
 
-        val menuIcon: ImageButton = findViewById(R.id.menu_icon)
-        DrawerUtils.setupPopupMenu(this, menuIcon)
-    }
+    val menuIcon: ImageButton = findViewById(R.id.menu_icon)
+    DrawerUtils.setupPopupMenu(this, menuIcon)
+  }
 }

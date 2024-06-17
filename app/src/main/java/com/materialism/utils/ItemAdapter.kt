@@ -44,9 +44,7 @@ class ItemAdapter(
       holder.binding.itemCategory.text = item.category
       holder.binding.itemLocation.text = item.location
       holder.binding.itemDate.text = item.date
-      holder.itemView.setOnClickListener {
-        onClickListener?.onClick(position, item)
-      }
+      holder.itemView.setOnClickListener { onClickListener?.onClick(position, item) }
     } else if (holder is NoEditViewHolder) {
       holder.binding.itemImage.setImageBitmap(image)
       holder.binding.itemName.text = item.name
@@ -54,9 +52,7 @@ class ItemAdapter(
       holder.binding.itemCategory.text = item.category
       holder.binding.itemLocation.text = item.location
       holder.binding.itemDate.text = item.date
-      holder.itemView.setOnClickListener {
-        onClickListener?.onClick(position, item)
-      }
+      holder.itemView.setOnClickListener { onClickListener?.onClick(position, item) }
     }
   }
 

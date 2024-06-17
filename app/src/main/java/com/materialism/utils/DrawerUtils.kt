@@ -14,9 +14,7 @@ import com.materialism.SupportActivity
 object DrawerUtils {
 
   fun setupPopupMenu(activity: Activity, menuIcon: ImageButton) {
-    menuIcon.setOnClickListener {
-      showPopupMenu(activity, it)
-    }
+    menuIcon.setOnClickListener { showPopupMenu(activity, it) }
   }
 
   private fun showPopupMenu(activity: Activity, view: View) {

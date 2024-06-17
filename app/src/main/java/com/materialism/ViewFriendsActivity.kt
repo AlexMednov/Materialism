@@ -5,20 +5,34 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.materialism.utils.DrawerUtils
+import com.materialism.DatabaseAdapter
 
 class ViewFriendsActivity : AppCompatActivity() {
 
-  private lateinit var drawerLayout: DrawerLayout
-  private lateinit var navigationView: NavigationView
-  private lateinit var recyclerView: RecyclerView
-  private lateinit var friendAdapter: FriendAdapter
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navigationView: NavigationView
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var friendAdapter: FriendAdapter
+    private var databaseManager =  DatabaseManager(this)
+    private var databaseAdapter = DatabaseAdapter(databaseManager)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_view_friends)
+    databaseManager.open()
 
-    val menuIcon: ImageButton = findViewById(R.id.menu_icon)
-    val addFriendIcon: ImageButton = findViewById(R.id.add_friend_icon)
+    drawerLayout = findViewById(R.id.drawer_layout)
+    navigationView = findViewById(R.id.nav_view)
+
+
+
+    val menuIcon: ImageView = findViewById(R.id.menu_icon)
+    val addFriendIcon: ImageView = findViewById(R.id.add_friend_icon)
+
+    // Initialize the DrawerUtils to setup the drawer content
+    DrawerUtils.setupDrawerContent(this, navigationView, drawerLayout)
+
+    menuIcon.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
 
     DrawerUtils.setupPopupMenu(this, menuIcon)
 
@@ -26,13 +40,7 @@ class ViewFriendsActivity : AppCompatActivity() {
       val intent = Intent(this, AddFriendsActivity::class.java)
       startActivity(intent)
     }
-
-    // Set up RecyclerView for friend list
-    recyclerView = findViewById(R.id.recycler_view)
-    recyclerView.layoutManager = LinearLayoutManager(this)
-    friendAdapter = FriendAdapter { friend ->
-      val intent = Intent(this, ViewFriendProfileActivity::class.java)
-      startActivity(intent)
+        loadFriendsData(loggedInUserId = 1)
     }
     recyclerView.adapter = friendAdapter
 
@@ -46,6 +54,19 @@ class ViewFriendsActivity : AppCompatActivity() {
             Friend("Name Surname", "Location: Emmen", "Items: 240"),
             // Add more dummy friends here
         )
-    friendAdapter.submitList(dummyFriends)
-  }
+        friendAdapter.submitList(dummyFriends)
+    }
+
+    private fun loadFriendsData(loggedInUserId: Int) {
+        databaseAdapter.getFriendsUserIds(loggedInUserId) { friendUserIds ->
+            databaseAdapter.getUsersInformation(friendUserIds) { users ->
+                databaseAdapter.getItemsForUsers(friendUserIds) { items ->
+                    val friends = users.map { user ->
+                        Friend(user.name, "Location: ${user.location}", "Items: ${items}")
+                    }
+                    friendAdapter.submitList(friends)
+                }
+            }
+        }
+    }
 }

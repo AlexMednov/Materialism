@@ -7,17 +7,20 @@ import com.materialism.utils.DrawerUtils
 
 class AddFriendsActivity : AppCompatActivity() {
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_add_friends)
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navigationView: NavigationView
 
-    drawerLayout = findViewById(R.id.drawer_layout)
-    navigationView = findViewById(R.id.nav_view)
-    val menuIcon: ImageView = findViewById(R.id.menu_icon)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add_friends)
 
-    // Initialize the DrawerUtils to setup the drawer content
-    DrawerUtils.setupDrawerContent(this, navigationView, drawerLayout)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navigationView = findViewById(R.id.nav_view)
+        val menuIcon: ImageView = findViewById(R.id.menu_icon)
 
-    menuIcon.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
-  }
+        // Initialize the DrawerUtils to setup the drawer content
+        DrawerUtils.setupDrawerContent(this, navigationView, drawerLayout)
+
+        menuIcon.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
+    }
 }

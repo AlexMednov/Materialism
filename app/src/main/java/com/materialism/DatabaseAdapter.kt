@@ -1,102 +1,138 @@
 package com.materialism
 
 import android.util.Log
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.getValue
 import com.materialism.firebaseDatabase.data.*
+import com.google.firebase.database.ktx.getValue
 
 class DatabaseAdapter(val databaseManager: DatabaseManager) {
 
-  private val firebaseDatabase = FirebaseDatabase.getInstance().reference
+    private val firebaseDatabase = FirebaseDatabase.getInstance().reference
 
-  // Get categories from Firebase and write them to SQLite if they do not already exist
-  fun syncCategories() {
-    firebaseDatabase
-        .child("Category")
-        .get()
-        .addOnSuccessListener { dataSnapshot ->
-          dataSnapshot.children.forEach { categorySnapshot ->
-            try {
-              val category = categorySnapshot.getValue(Category::class.java)
-              if (category != null) {
-                val localCategoryCursor = databaseManager.getCategory(category.id)
-                if (!localCategoryCursor.moveToFirst()) {
-                  databaseManager.addCategory(
-                      category.name, category.description, category.isDefault)
-                }
-              }
-            } catch (e: Exception) {}
-          }
-        }
-        .addOnFailureListener { exception -> }
-  }
-  // Get subcategories from Firebase and write them to SQLite if they do not already exist
-  fun syncSubCategories() {
-    firebaseDatabase
-        .child("SubCategory")
-        .get()
-        .addOnSuccessListener { dataSnapshot ->
-          dataSnapshot.children.forEach { subcategorySnapshot ->
-            try {
-              val subcategory = subcategorySnapshot.getValue(SubCategory::class.java)
-              if (subcategory != null) {
-                val localSubCategoryCursor = databaseManager.getSubcategory(subcategory.id)
-                if (!localSubCategoryCursor.moveToFirst()) {
-                  databaseManager.addSubcategory(subcategory.name, subcategory.categoryId)
-                }
-              }
-            } catch (e: Exception) {}
-          }
-        }
-        .addOnFailureListener { exception -> }
-  }
+    // Get categories from Firebase and write them to SQLite if they do not already exist
+    fun syncCategories() {
+        firebaseDatabase.child("Category").get().addOnSuccessListener { dataSnapshot ->
+            dataSnapshot.children.forEach { categorySnapshot ->
+                try {
+                    val category = categorySnapshot.getValue(Category::class.java)
+                    if (category != null) {
+                        val localCategoryCursor = databaseManager.getCategory(category.id)
+                        if (!localCategoryCursor.moveToFirst()) {
+                            databaseManager.addCategory(
+                                category.name,
+                                category.description,
+                                category.isDefault
+                            )
+                        }
+                    }
+                } catch (e: Exception) {
 
-  fun syncQuests() {
-    firebaseDatabase
-        .child("Quests")
-        .get()
-        .addOnSuccessListener { dataSnapshot ->
-          dataSnapshot.children.forEach { questSnapshot ->
-            try {
-              val quest = questSnapshot.getValue(Quest::class.java)
-              if (quest != null) {
-                val localQuestCursor = databaseManager.getQuest(quest.id)
-                if (!localQuestCursor.moveToFirst()) {
-                  databaseManager.addQuest(quest.type, quest.weight, quest.categoryId)
                 }
-              }
-            } catch (e: Exception) {}
-          }
+            }
         }
-        .addOnFailureListener { exception ->
-          // Handle any errors
-        }
-  }
+            .addOnFailureListener { exception ->
 
-  fun syncQuestItems() {
-    firebaseDatabase
-        .child("QuestItems")
-        .get()
-        .addOnSuccessListener { dataSnapshot ->
-          dataSnapshot.children.forEach { questItemSnapshot ->
-            try {
-              val questItem = questItemSnapshot.getValue(QuestItem::class.java)
-              if (questItem != null) {
-                val localQuestItemCursor = databaseManager.getQuestItem(questItem.id)
-                if (!localQuestItemCursor.moveToFirst()) {
-                  databaseManager.addQuestItem(questItem.name, questItem.categoryId)
+            }
+    }
+
+    // Get subcategories from Firebase and write them to SQLite if they do not already exist
+    fun syncSubCategories() {
+        firebaseDatabase.child("SubCategory").get().addOnSuccessListener { dataSnapshot ->
+            dataSnapshot.children.forEach { subcategorySnapshot ->
+                try {
+                    val subcategory = subcategorySnapshot.getValue(SubCategory::class.java)
+                    if (subcategory != null) {
+                        val localSubCategoryCursor = databaseManager.getSubcategory(subcategory.id)
+                        if (!localSubCategoryCursor.moveToFirst()) {
+                            databaseManager.addSubcategory(subcategory.name, subcategory.categoryId)
+                        }
+                    }
+                } catch (e: Exception) {
+
                 }
-              }
-            } catch (e: Exception) {}
-          }
+            }
+        }.addOnFailureListener { exception ->
+
         }
-        .addOnFailureListener { exception ->
-          // Handle any errors
+    }
+
+    fun syncQuests() {
+        firebaseDatabase.child("Quests").get().addOnSuccessListener { dataSnapshot ->
+            dataSnapshot.children.forEach { questSnapshot ->
+                try {
+                    val quest = questSnapshot.getValue(Quest::class.java)
+                    if (quest != null) {
+                        val localQuestCursor = databaseManager.getQuest(quest.id)
+                        if (!localQuestCursor.moveToFirst()) {
+                            databaseManager.addQuest(quest.type, quest.weight, quest.categoryId)
+                        }
+                    }
+                } catch (e: Exception) {
+
+                }
+            }
+        }.addOnFailureListener { exception ->
+            // Handle any errors
         }
-  }
+    }
+
+    fun syncQuestItems() {
+        firebaseDatabase
+            .child("QuestItems")
+            .get()
+            .addOnSuccessListener { dataSnapshot ->
+                dataSnapshot.children.forEach { questItemSnapshot ->
+                    try {
+                        val questItem = questItemSnapshot.getValue(QuestItem::class.java)
+                        if (questItem != null) {
+                            val localQuestItemCursor = databaseManager.getQuestItem(questItem.id)
+                            if (!localQuestItemCursor.moveToFirst()) {
+                                databaseManager.addQuestItem(questItem.name, questItem.categoryId)
+                            }
+                        }
+                    } catch (e: Exception) {
+                    }
+                }
+            }.addOnFailureListener { exception ->
+                // Handle any errors
+            }
+    }
+
+
+    fun addItem(item: Item, userId: Int) {
+        if (item.isPublic) {
+            firebaseDatabase.child("User").child(userId.toString()).child("Item").push()
+                .setValue(item)
+        }
+    }
+
+    fun updateItem(item: Item, userId: Int) {
+        if (item.isPublic) {
+            firebaseDatabase.child("Users").child(userId.toString()).child("Items")
+                .child(item.id.toString()).setValue(item)
+        }
+    }
+
+    fun deleteItem(itemId: Int, userId: Int) {
+        firebaseDatabase.child("User").child(userId.toString()).child("Item")
+            .child(itemId.toString()).removeValue()
+    }
+
+    fun deleteItem(itemId: Int, userId: String) {
+        firebaseDatabase.child("Users").child(userId).child("Items").child(itemId.toString())
+            .removeValue()
+    }
+
+    fun getFriendsUserIds(loggedInUserId: Int, callback: (List<Int>) -> Unit) {
+        val databaseReference = FirebaseDatabase.getInstance().getReference("Friend")
+
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val friendsUserIds = mutableListOf<Int>()
 
   fun addItem(item: Item, userId: Int) {
     if (item.isPublic) {
@@ -293,5 +329,4 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
         getItemsForUsers(friendsUserIds) { items -> }
       }
     }
-  }
 }

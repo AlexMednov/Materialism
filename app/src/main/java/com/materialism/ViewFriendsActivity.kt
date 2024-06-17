@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.materialism.utils.DrawerUtils
+import com.materialism.DatabaseAdapter
 
 class ViewFriendsActivity : AppCompatActivity() {
 
@@ -17,12 +18,20 @@ class ViewFriendsActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var recyclerView: RecyclerView
     private lateinit var friendAdapter: FriendAdapter
+    private var databaseManager =  DatabaseManager(this)
+    private var databaseAdapter = DatabaseAdapter(databaseManager)
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_view_friends)
 
+    databaseManager.open()
+
     drawerLayout = findViewById(R.id.drawer_layout)
     navigationView = findViewById(R.id.nav_view)
+
+
+
     val menuIcon: ImageView = findViewById(R.id.menu_icon)
     val addFriendIcon: ImageView = findViewById(R.id.add_friend_icon)
 
@@ -45,8 +54,8 @@ class ViewFriendsActivity : AppCompatActivity() {
         }
         recyclerView.adapter = friendAdapter
 
-        // Load dummy data
-        loadDummyData()
+
+        loadFriendsData(loggedInUserId = 1)
     }
 
     private fun loadDummyData() {
@@ -56,14 +65,18 @@ class ViewFriendsActivity : AppCompatActivity() {
         )
         friendAdapter.submitList(dummyFriends)
     }
-<<<<<<< SCRUM-43-local-db-to-firebase-db
 
-    // Function to check all associated userIds with the current, logged-in user's Id, and retrieve associated users' information
-    // Get all
-    // Get One
+    private fun loadFriendsData(loggedInUserId: Int) {
+        databaseAdapter.getFriendsUserIds(loggedInUserId) { friendUserIds ->
+            databaseAdapter.getUsersInformation(friendUserIds) { users ->
+                databaseAdapter.getItemsForUsers(friendUserIds) { items ->
+                    val friends = users.map { user ->
+                        Friend(user.name, "Location: ${user.location}", "Items: ${items}")
+                    }
+                    friendAdapter.submitList(friends)
+                }
+            }
+        }
+    }
 
-    // Function to remove friend
-=======
-  }
->>>>>>> development
 }

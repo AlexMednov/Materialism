@@ -10,36 +10,21 @@ import com.materialism.utils.DrawerUtils
 
 class AddFriendsActivity : AppCompatActivity() {
 
-  private lateinit var drawerLayout: DrawerLayout
-  private lateinit var navigationView: NavigationView
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navigationView: NavigationView
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_add_friends)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add_friends)
 
-    drawerLayout = findViewById(R.id.drawer_layout)
-    navigationView = findViewById(R.id.nav_view)
-    val menuIcon: ImageView = findViewById(R.id.menu_icon)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navigationView = findViewById(R.id.nav_view)
+        val menuIcon: ImageView = findViewById(R.id.menu_icon)
 
-    // Initialize the DrawerUtils to setup the drawer content
-    DrawerUtils.setupDrawerContent(this, navigationView, drawerLayout)
+        // Initialize the DrawerUtils to setup the drawer content
+        DrawerUtils.setupDrawerContent(this, navigationView, drawerLayout)
 
-<<<<<<< SCRUM-43-local-db-to-firebase-db
-        menuIcon.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
-        }
+
+        menuIcon.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
     }
-
-    // Functions to:
-    // check all associated userIds with the current, logged-in user's Id
-
-    // if association already added, deny
-
-    //
-
-    // Function to remove friend
-=======
-    menuIcon.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
-  }
->>>>>>> development
 }

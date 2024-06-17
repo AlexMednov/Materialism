@@ -103,6 +103,7 @@ class AddItemActivity : AppCompatActivity() {
   private fun addItem() {
     val itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
     val itemDescription: String = findViewById<EditText>(R.id.description_edit_text).text.toString()
+    val itemLocation: String = findViewById<EditText>(R.id.location_edit_text).text.toString()
     val isPublic =
         findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
     val currentDate = LocalDate.now().toString()
@@ -116,7 +117,7 @@ class AddItemActivity : AppCompatActivity() {
             itemName,
             imageUri,
             itemDescription,
-            null,
+            itemLocation,
             isPublic,
             false,
             currentDate,

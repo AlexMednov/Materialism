@@ -74,7 +74,8 @@ class AddItemActivity : AppCompatActivity() {
 
             // Persist the permission to access the URI
             val contentResolver = applicationContext.contentResolver
-            val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            val takeFlags: Int =
+                Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
             try {
               contentResolver.takePersistableUriPermission(uri, takeFlags)
             } catch (e: SecurityException) {
@@ -137,7 +138,8 @@ class AddItemActivity : AppCompatActivity() {
 
   private fun copyUriToPictures(uri: Uri): Uri? {
     val contentResolver: ContentResolver = applicationContext.contentResolver
-    val picturesDir = ContextCompat.getExternalFilesDirs(applicationContext, Environment.DIRECTORY_PICTURES)[0]
+    val picturesDir =
+        ContextCompat.getExternalFilesDirs(applicationContext, Environment.DIRECTORY_PICTURES)[0]
     val fileName = "image_${System.currentTimeMillis()}.jpg"
     val inputStream: InputStream? = contentResolver.openInputStream(uri)
     val file = File(picturesDir, fileName)

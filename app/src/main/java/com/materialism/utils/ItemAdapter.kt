@@ -1,4 +1,4 @@
-package com.materialism
+package com.materialism.utils
 
 import android.graphics.Bitmap
 import android.util.Log
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.materialism.databinding.ItemLayoutBinding
 import com.materialism.databinding.ItemLayoutMainPageBinding
 import com.materialism.sampledata.Item
-import com.materialism.utils.ImageRenderer
 
 class ItemAdapter(
     private var items: List<Item>,

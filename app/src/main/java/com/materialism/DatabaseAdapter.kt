@@ -129,15 +129,6 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
         .removeValue()
   }
 
-  fun deleteItem(itemId: Int, userId: String) {
-    firebaseDatabase
-        .child("Users")
-        .child(userId)
-        .child("Items")
-        .child(itemId.toString())
-        .removeValue()
-  }
-
   fun getFriendsUserIds(loggedInUserId: Int, callback: (List<Int>) -> Unit) {
     val databaseReference = FirebaseDatabase.getInstance().getReference("Friend")
 

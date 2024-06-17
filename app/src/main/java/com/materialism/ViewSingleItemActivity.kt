@@ -1,6 +1,7 @@
 package com.materialism
 
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.drawerlayout.widget.DrawerLayout
@@ -29,22 +30,18 @@ class ViewSingleItemActivity : AppCompatActivity() {
     imageRenderer = ImageRenderer(this.contentResolver)
     databaseManager.open()
 
-    drawerLayout = findViewById(R.id.drawer_layout)
-    navView = findViewById(R.id.nav_view)
-
-    DrawerUtils.setupDrawerContent(this, navView, drawerLayout)
+    val menuIcon: ImageButton = findViewById(R.id.ic_menu)
+    DrawerUtils.setupPopupMenu(this, menuIcon)
 
     binding.backButton.setOnClickListener { finish() }
-
-    binding.menuButton.setOnClickListener { DrawerUtils.openDrawer(drawerLayout) }
 
     val it = getItemFromIntent()
     binding.imagePlaceholder.setImageBitmap(imageRenderer.getThumbnail(it.imageUri.toUri(), THUMBNAIL_SIZE))
     binding.nameText.text = it.name
-    binding.descriptionText.text = it.name
-    binding.locationText.text = it.name
-    binding.categoryText.text = it.name
-    binding.nameText.text = it.name
+    binding.descriptionText.text = it.description
+    binding.locationText.text = it.location
+    binding.categoryText.text = it.category
+    binding.dateText.text = it.name
 
   }
 

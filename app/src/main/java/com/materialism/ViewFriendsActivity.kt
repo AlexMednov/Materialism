@@ -1,59 +1,71 @@
-package com.materialism.utils
+package com.materialism
 
-import android.app.Activity
 import android.content.Intent
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.Button
+import android.os.Bundle
 import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.PopupWindow
-import com.materialism.R
-import com.materialism.SupportActivity
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
+import com.materialism.utils.DrawerUtils
+import com.materialism.utils.Friend
+import com.materialism.utils.FriendAdapter
 
-object DrawerUtils {
+class ViewFriendsActivity : AppCompatActivity() {
 
-    fun setupPopupMenu(activity: Activity, menuIcon: ImageButton) {
-        menuIcon.setOnClickListener {
-            showPopupMenu(activity, it)
-        }
+  private lateinit var drawerLayout: DrawerLayout
+  private lateinit var navigationView: NavigationView
+  private lateinit var recyclerView: RecyclerView
+  private lateinit var friendAdapter: FriendAdapter
+  private var databaseManager = DatabaseManager(this)
+  private var databaseAdapter = DatabaseAdapter(databaseManager)
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_view_friends)
+    databaseManager.open()
+
+    val menuIcon: ImageButton = findViewById(R.id.menu_icon)
+    val addFriendIcon: ImageView = findViewById(R.id.add_friend_icon)
+
+    menuIcon.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
+
+    DrawerUtils.setupPopupMenu(this, menuIcon)
+
+    addFriendIcon.setOnClickListener {
+      val intent = Intent(this, AddFriendsActivity::class.java)
+      startActivity(intent)
     }
+    loadFriendsData(loggedInUserId = 1)
 
-    private fun showPopupMenu(activity: Activity, view: View) {
-        val inflater = activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val popupView = inflater.inflate(R.layout.burger_menu_layout, null)
+    recyclerView.adapter = friendAdapter
 
-        val width = LinearLayout.LayoutParams.WRAP_CONTENT
-        val height = LinearLayout.LayoutParams.WRAP_CONTENT
-        val focusable = true
-        val popupWindow = PopupWindow(popupView, width, height, focusable)
+    // Load dummy data
+    loadDummyData()
+  }
 
-        popupWindow.showAsDropDown(view)
+  private fun loadDummyData() {
+    val dummyFriends =
+        listOf(
+            Friend("Name Surname", "Location: Emmen", "Items: 240"),
+            // Add more dummy friends here
+        )
+    friendAdapter.submitList(dummyFriends)
+  }
 
-        val navProfile = popupView.findViewById<Button>(R.id.nav_profile)
-        val navSettings = popupView.findViewById<Button>(R.id.nav_settings)
-        val navSupport = popupView.findViewById<Button>(R.id.nav_support)
-        val navLogout = popupView.findViewById<Button>(R.id.nav_logout)
-
-        navProfile.setOnClickListener {
-            popupWindow.dismiss()
-            // Add navigation logic here
+  private fun loadFriendsData(loggedInUserId: Int) {
+    databaseAdapter.getFriendsUserIds(loggedInUserId) { friendUserIds ->
+      databaseAdapter.getUsersInformation(friendUserIds) { users ->
+        databaseAdapter.getItemsForUsers(friendUserIds) { items ->
+          val friends =
+              users.map { user ->
+                Friend(user.name, "Location: ${user.location}", "Items: ${items}")
+              }
+          friendAdapter.submitList(friends)
         }
-
-        navSettings.setOnClickListener {
-            popupWindow.dismiss()
-            // Add navigation logic here
-        }
-
-        navSupport.setOnClickListener {
-            popupWindow.dismiss()
-            val intent = Intent(activity, SupportActivity::class.java)
-            activity.startActivity(intent)
-        }
-
-        navLogout.setOnClickListener {
-            popupWindow.dismiss()
-            // Add navigation logic here
-        }
+      }
     }
+  }
 }

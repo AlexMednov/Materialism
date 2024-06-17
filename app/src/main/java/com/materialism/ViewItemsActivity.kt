@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.materialism.databinding.ActivityViewItemsBinding
 import com.materialism.sampledata.Item
 import com.materialism.utils.DrawerUtils
+import com.materialism.utils.ImageRenderer
 
 class ViewItemsActivity : AppCompatActivity() {
 
@@ -17,10 +18,13 @@ class ViewItemsActivity : AppCompatActivity() {
   private lateinit var itemAdapter: ItemAdapter
   private var databaseManager = DatabaseManager(this)
 
+  private lateinit var imageRenderer: ImageRenderer
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = ActivityViewItemsBinding.inflate(layoutInflater)
     setContentView(binding.root)
+    imageRenderer = ImageRenderer(this.contentResolver)
     databaseManager.open()
 
     val menuIcon: ImageButton = findViewById(R.id.menu_icon)
@@ -64,7 +68,7 @@ class ViewItemsActivity : AppCompatActivity() {
   }
 
   private fun setupRecyclerView() {
-    itemAdapter = ItemAdapter(getAllItems(), true) // Pass true to show edit button
+    itemAdapter = ItemAdapter(getAllItems(), true, imageRenderer) // Pass true to show edit button
     binding.recyclerView.apply {
       layoutManager = LinearLayoutManager(this@ViewItemsActivity)
       adapter = itemAdapter
@@ -78,8 +82,7 @@ class ViewItemsActivity : AppCompatActivity() {
     if (itemsCursor.moveToFirst()) {
       do {
         val itemName = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("name"))
-        val itemDescription =
-          itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
+        val itemDescription = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
         val itemCategoryId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("categoryId"))
         val itemLocation =
           "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
@@ -95,7 +98,8 @@ class ViewItemsActivity : AppCompatActivity() {
           }
         }
 
-        val item = Item(itemName, itemDescription, categoryName, itemLocation, itemDateTimeAdded)
+        val item =
+            Item(itemName, itemDescription, imageUri, categoryName, itemLocation, itemDateTimeAdded)
 
         itemsArray.add(item)
       } while (itemsCursor.moveToNext())

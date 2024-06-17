@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.materialism.databinding.MainPageActivityBinding
 import com.materialism.sampledata.Item
 import com.materialism.utils.DrawerUtils
+import com.materialism.utils.ImageRenderer
 
 class MainPageActivity : AppCompatActivity() {
 
@@ -18,10 +19,13 @@ class MainPageActivity : AppCompatActivity() {
   private var databaseManager = DatabaseManager(this)
   private var databaseAdapter = DatabaseAdapter(databaseManager)
 
+  private lateinit var imageRenderer: ImageRenderer
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = MainPageActivityBinding.inflate(layoutInflater)
     setContentView(binding.root)
+    imageRenderer = ImageRenderer(this.contentResolver)
     databaseManager.open()
 
     databaseAdapter.databaseManager.open()
@@ -45,13 +49,13 @@ class MainPageActivity : AppCompatActivity() {
     val items = getAllItems()
 
     binding.recyclerView.layoutManager = LinearLayoutManager(this)
-    binding.recyclerView.adapter = ItemAdapter(items, false)
+    binding.recyclerView.adapter = ItemAdapter(items, false, imageRenderer)
 
     binding.fab.setOnClickListener { showFabOptionsMenu(it) }
 
     binding.libraryIcon.setOnClickListener { openViewItemsActivity(it) }
 
-    val icFlag = findViewById<ImageButton>(R.id.ic_flag)
+    val icFlag = findViewById<ImageButton>(R.id.ic_history)
     icFlag.setOnClickListener {
       val intent = Intent(this, RequestActivity::class.java)
       startActivity(intent)
@@ -65,8 +69,7 @@ class MainPageActivity : AppCompatActivity() {
     if (itemsCursor.moveToFirst()) {
       do {
         val itemName = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("name"))
-        val itemDescription =
-          itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
+        val itemDescription = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
         val itemCategoryId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("categoryId"))
         val itemLocation =
           "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
@@ -82,7 +85,8 @@ class MainPageActivity : AppCompatActivity() {
           }
         }
 
-        val item = Item(itemName, itemDescription, categoryName, itemLocation, itemDateTimeAdded)
+        val item =
+            Item(itemName, itemDescription, imageUri, categoryName, itemLocation, itemDateTimeAdded)
 
         itemsArray.add(item)
       } while (itemsCursor.moveToNext())
@@ -132,7 +136,7 @@ class MainPageActivity : AppCompatActivity() {
 
   // Method to handle the click event for the people icon
   fun openViewFriendsActivity(view: View) {
-    val intent = Intent(this, AddCategoryActivity::class.java)
+    val intent = Intent(this, ViewFriendsActivity::class.java)
     startActivity(intent)
   }
 }

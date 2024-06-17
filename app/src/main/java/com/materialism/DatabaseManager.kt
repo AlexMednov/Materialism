@@ -271,7 +271,7 @@ class DatabaseManager(context: Context) {
   }
 
   // Quest CRUD Operations
-  fun addQuest(type: Int, weight: Int, categoryId: Int): Long {
+  fun addQuest(type: String, weight: Int, categoryId: Int): Long {
     val values = ContentValues()
     values.put(DatabaseHelper.COLUMN_QUEST_TYPE, type)
     values.put(DatabaseHelper.COLUMN_QUEST_WEIGHT, weight)

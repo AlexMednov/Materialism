@@ -13,27 +13,27 @@ import com.materialism.utils.DrawerUtils
 
 class ViewCategoriesActivity : ComponentActivity() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var categoryAdapter: CategoryAdapter
+  private lateinit var recyclerView: RecyclerView
+  private lateinit var categoryAdapter: CategoryAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_categories)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_view_categories)
 
-        val menuIcon: ImageButton = findViewById(R.id.ic_menu)
-        DrawerUtils.setupPopupMenu(this, menuIcon)
+    val menuIcon: ImageButton = findViewById(R.id.ic_menu)
+    DrawerUtils.setupPopupMenu(this, menuIcon)
 
-        val spinnerCategoryType = findViewById<Spinner>(R.id.spinner_category_type)
-        recyclerView = findViewById(R.id.recycler_view)
+    val spinnerCategoryType = findViewById<Spinner>(R.id.spinner_category_type)
+    recyclerView = findViewById(R.id.recycler_view)
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        categoryAdapter = CategoryAdapter()
-        recyclerView.adapter = categoryAdapter
+    recyclerView.layoutManager = LinearLayoutManager(this)
+    categoryAdapter = CategoryAdapter()
+    recyclerView.adapter = categoryAdapter
 
-        val categoryTypes = arrayOf("Categories", "Subcategories")
-        val spinnerAdapter = ArrayAdapter(this, R.layout.custom_spinner_item, categoryTypes)
-        spinnerAdapter.setDropDownViewResource(R.layout.custom_spinner_item)
-        spinnerCategoryType.adapter = spinnerAdapter
+    val categoryTypes = arrayOf("Categories", "Subcategories")
+    val spinnerAdapter = ArrayAdapter(this, R.layout.custom_spinner_item, categoryTypes)
+    spinnerAdapter.setDropDownViewResource(R.layout.custom_spinner_item)
+    spinnerCategoryType.adapter = spinnerAdapter
 
     // Set dropdown width and height
     spinnerCategoryType.post {
@@ -63,14 +63,13 @@ class ViewCategoriesActivity : ComponentActivity() {
         }
   }
 
-   
-    private fun loadCategories() {
-        val categories = listOf("Category 1", "Category 2", "Category 3")
-        categoryAdapter.updateData(categories)
-    }
+  private fun loadCategories() {
+    val categories = listOf("Category 1", "Category 2", "Category 3")
+    categoryAdapter.updateData(categories)
+  }
 
-    private fun loadSubcategories() {
-        val subcategories = listOf("Subcategory 1", "Subcategory 2", "Subcategory 3")
-        categoryAdapter.updateData(subcategories)
-    }
+  private fun loadSubcategories() {
+    val subcategories = listOf("Subcategory 1", "Subcategory 2", "Subcategory 3")
+    categoryAdapter.updateData(subcategories)
+  }
 }

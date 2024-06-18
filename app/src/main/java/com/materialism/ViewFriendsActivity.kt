@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.materialism.utils.DrawerUtils
+import com.materialism.utils.Friend
 
 class ViewFriendsActivity : AppCompatActivity() {
 
@@ -47,30 +48,39 @@ class ViewFriendsActivity : AppCompatActivity() {
         val loggedInUserId = getLoggedInUserId() // Replace with dynamic user ID retrieval
         loadFriendsData(loggedInUserId)
     }
+    recyclerView.adapter = friendAdapter
 
-    private fun loadDummyData() {
-        val dummyFriends = listOf(
+    // Load dummy data
+    loadDummyData()
+
+    // Example usage of loadFriendsData
+    val loggedInUserId = getLoggedInUserId() // Replace with dynamic user ID retrieval
+    loadFriendsData(loggedInUserId)
+  }
+
+  private fun loadDummyData() {
+    val dummyFriends =
+        listOf(
             Friend("Name Surname", "Location: Emmen", "Items: 240")
             // Add more dummy friends here
-        )
-        friendAdapter.submitList(dummyFriends)
-    }
+            )
+    friendAdapter.submitList(dummyFriends)
+  }
 
-    private fun loadFriendsData(loggedInUserId: Int) {
-        databaseAdapter.getFriendsUserIds(loggedInUserId) { friendUserIds ->
-            databaseAdapter.getUsersInformation(friendUserIds) { users ->
-                databaseAdapter.getItemsForUsers(friendUserIds) { items ->
-                    val friends = users.map { user ->
-                        Friend(user.name, "Location: ${user.location}", "Items: $items")
-                    }
-                    friendAdapter.submitList(friends)
-                }
-            }
+  private fun loadFriendsData(loggedInUserId: Int) {
+    databaseAdapter.getFriendsUserIds(loggedInUserId) { friendUserIds ->
+      databaseAdapter.getUsersInformation(friendUserIds) { users ->
+        databaseAdapter.getItemsForUsers(friendUserIds) { items ->
+          val friends =
+              users.map { user -> Friend(user.name, "Location: ${user.location}", "Items: $items") }
+          friendAdapter.submitList(friends)
         }
+      }
     }
+  }
 
-    private fun getLoggedInUserId(): Int {
-        // Replace with actual logic to get the logged-in user ID
-        return 123
-    }
+  private fun getLoggedInUserId(): Int {
+    // Replace with actual logic to get the logged-in user ID
+    return 123
+  }
 }

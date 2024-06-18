@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/name_edit_text"
         android:layout_marginTop="16dp"
-        android:hint="@string/name_hint"
+        android:hint="@string/description_hint"
         android:background="@drawable/edit_text_background"
         android:padding="12dp" />
 

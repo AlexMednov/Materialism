@@ -18,8 +18,6 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
 
   // Get categories from Firebase and write them to SQLite if they do not already exist
   fun syncCategories() {
-    Log.d("SyncCategories", "Starting synchronization")
-
     firebaseDatabase
         .child("Category")
         .get()
@@ -32,19 +30,12 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
                 if (!localCategoryCursor.moveToFirst()) {
                   databaseManager.addCategory(
                       category.name, category.description, category.isDefault)
-                  Log.d("SyncCategories", "Category added: ${category.name}")
-                } else {
-                  Log.d("SyncCategories", "Category already exists: ${category.name}")
                 }
               }
-            } catch (e: Exception) {
-              Log.e("SyncCategories", "Error processing category: ${e.message}")
-            }
+            } catch (e: Exception) {}
           }
         }
-        .addOnFailureListener { exception ->
-          Log.e("SyncCategories", "Error retrieving categories from Firebase: ${exception.message}")
-        }
+        .addOnFailureListener { exception -> }
   }
 
   // Get subcategories from Firebase and write them to SQLite if they do not already exist
@@ -65,7 +56,6 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
             } catch (e: Exception) {}
           }
         }
-        .addOnFailureListener { exception -> }
         .addOnFailureListener { exception -> }
   }
 
@@ -135,15 +125,6 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
         .child("User")
         .child(userId.toString())
         .child("Item")
-        .child(itemId.toString())
-        .removeValue()
-  }
-
-  fun deleteItem(itemId: Int, userId: String) {
-    firebaseDatabase
-        .child("Users")
-        .child(userId)
-        .child("Items")
         .child(itemId.toString())
         .removeValue()
   }

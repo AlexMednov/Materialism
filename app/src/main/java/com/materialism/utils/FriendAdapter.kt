@@ -1,10 +1,11 @@
-package com.materialism
+package com.materialism.utils
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.materialism.R
 
 data class Friend(val name: String, val location: String, val items: String)
 
@@ -43,7 +44,7 @@ class FriendAdapter(private val onClick: (Friend) -> Unit) :
 
   override fun getItemCount() = friends.size
 
-  fun submitList(friendList: List<com.materialism.utils.Friend>) {
+  fun submitList(friendList: List<Friend>) {
     friends.clear()
     friends.addAll(friendList)
     notifyDataSetChanged()

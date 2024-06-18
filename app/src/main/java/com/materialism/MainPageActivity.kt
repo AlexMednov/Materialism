@@ -12,6 +12,7 @@ import com.materialism.databinding.MainPageActivityBinding
 import com.materialism.sampledata.Item
 import com.materialism.utils.DrawerUtils
 import com.materialism.utils.ImageRenderer
+import com.materialism.utils.ItemAdapter
 
 class MainPageActivity : AppCompatActivity() {
 
@@ -45,7 +46,14 @@ class MainPageActivity : AppCompatActivity() {
     val items = getAllItems()
 
     binding.recyclerView.layoutManager = LinearLayoutManager(this)
-    binding.recyclerView.adapter = ItemAdapter(items, false, imageRenderer)
+    val itemAdapter = ItemAdapter(items, false, imageRenderer)
+    binding.recyclerView.adapter = itemAdapter
+    itemAdapter.setOnClickListener(
+        object : ItemAdapter.OnClickListener {
+          override fun onClick(position: Int, itemModel: Item) {
+            openViewSingleItemActivity(position, itemModel)
+          }
+        })
 
     binding.fab.setOnClickListener { showFabOptionsMenu(it) }
 
@@ -138,4 +146,16 @@ class MainPageActivity : AppCompatActivity() {
     startActivity(intent)
   }
 
+  // Method to handle the click event for the recycle list
+  fun openViewSingleItemActivity(position: Int, itemModel: Item) {
+    val intent = Intent(this, ViewSingleItemActivity::class.java)
+
+    intent.putExtra("imageUri", itemModel.imageUri)
+    intent.putExtra("name", itemModel.name)
+    intent.putExtra("description", itemModel.description)
+    intent.putExtra("category", itemModel.category)
+    intent.putExtra("location", itemModel.location)
+    intent.putExtra("date", itemModel.date)
+    startActivity(intent)
+  }
 }

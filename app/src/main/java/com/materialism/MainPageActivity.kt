@@ -34,9 +34,8 @@ class MainPageActivity : AppCompatActivity() {
     databaseAdapter.syncQuests()
     databaseAdapter.syncQuestItems()
 
-    menuIcon.setOnClickListener {
-      DrawerUtils.setupPopupMenu(this, menuIcon)
-    }
+    val menuIcon: ImageButton = findViewById(R.id.ic_menu)
+    menuIcon.setOnClickListener { DrawerUtils.setupPopupMenu(this, menuIcon) }
 
     binding.level.text = "Level: 1"
     binding.progressBar.progress = 10
@@ -66,12 +65,14 @@ class MainPageActivity : AppCompatActivity() {
     if (itemsCursor.moveToFirst()) {
       do {
         val itemName = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("name"))
-        val itemDescription = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
+        val itemDescription =
+            itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
+        val imageUri = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("imageURI"))
         val itemCategoryId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("categoryId"))
         val itemLocation =
-          "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
+            "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
         val itemDateTimeAdded =
-          "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
+            "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
 
         val categoryCursor = databaseManager.getCategory(itemCategoryId)
         var categoryName = "Category: "
@@ -136,4 +137,5 @@ class MainPageActivity : AppCompatActivity() {
     val intent = Intent(this, ViewFriendsActivity::class.java)
     startActivity(intent)
   }
+
 }

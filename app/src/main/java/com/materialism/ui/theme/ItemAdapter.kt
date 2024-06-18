@@ -17,83 +17,88 @@ class ItemAdapter(
     private val imageRenderer: ImageRenderer
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-    return if (showEditButton) {
-      val binding = ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-      EditViewHolder(binding)
-    } else {
-      val binding =
-          ItemLayoutMainPageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-      NoEditViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (showEditButton) {
+            val binding =
+                ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            EditViewHolder(binding)
+        } else {
+            val binding =
+                ItemLayoutMainPageBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            NoEditViewHolder(binding)
+        }
     }
-  }
 
-  override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-    val item = items[position]
-    val imageUri = item.imageUri
-    var image: Bitmap? = null
-    try {
-      image = imageRenderer.getThumbnail(item.imageUri.toUri(), 240)
-    } catch (e: Exception) {
-      Log.e("ImageRenderer", e.toString())
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = items[position]
+        val imageUri = item.imageUri
+        var image: Bitmap? = null
+        try {
+            image = imageRenderer.getThumbnail(item.imageUri.toUri(), 240)
+        } catch (e: Exception) {
+            Log.e("ImageRenderer", e.toString())
+        }
+        if (holder is EditViewHolder) {
+            holder.binding.itemImage.setImageBitmap(image)
+            holder.binding.itemName.text = item.name
+            holder.binding.itemDescription.text = item.description
+            holder.binding.itemCategory.text = item.category
+            holder.binding.itemLocation.text = item.location
+            holder.binding.itemDate.text = item.date
+        } else if (holder is NoEditViewHolder) {
+            holder.binding.itemImage.setImageBitmap(image)
+            holder.binding.itemName.text = item.name
+            holder.binding.itemDescription.text = item.description
+            holder.binding.itemCategory.text = item.category
+            holder.binding.itemLocation.text = item.location
+            holder.binding.itemDate.text = item.date
+        }
     }
-    if (holder is EditViewHolder) {
-      holder.binding.itemImage.setImageBitmap(image)
-      holder.binding.itemName.text = item.name
-      holder.binding.itemDescription.text = item.description
-      holder.binding.itemCategory.text = item.category
-      holder.binding.itemLocation.text = item.location
-      holder.binding.itemDate.text = item.date
-    } else if (holder is NoEditViewHolder) {
-      holder.binding.itemImage.setImageBitmap(image)
-      holder.binding.itemName.text = item.name
-      holder.binding.itemDescription.text = item.description
-      holder.binding.itemCategory.text = item.category
-      holder.binding.itemLocation.text = item.location
-      holder.binding.itemDate.text = item.date
+
+    override fun getItemCount() = items.size
+
+    class EditViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+
+    class NoEditViewHolder(val binding: ItemLayoutMainPageBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    // Methods for sorting
+    fun sortByCategory() {
+        items = items.sortedBy { it.category }
+        notifyDataSetChanged()
     }
-  }
 
-  override fun getItemCount() = items.size
+    fun sortByNameAsc() {
+        items = items.sortedBy { it.name }
+        notifyDataSetChanged()
+    }
 
-  class EditViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+    fun sortByNameDesc() {
+        items = items.sortedByDescending { it.name }
+        notifyDataSetChanged()
+    }
 
-  class NoEditViewHolder(val binding: ItemLayoutMainPageBinding) :
-      RecyclerView.ViewHolder(binding.root)
+    fun sortByLocationAsc() {
+        items = items.sortedBy { it.location }
+        notifyDataSetChanged()
+    }
 
-  // Methods for sorting
-  fun sortByCategory() {
-    items = items.sortedBy { it.category }
-    notifyDataSetChanged()
-  }
+    fun sortByLocationDesc() {
+        items = items.sortedByDescending { it.location }
+        notifyDataSetChanged()
+    }
 
-  fun sortByNameAsc() {
-    items = items.sortedBy { it.name }
-    notifyDataSetChanged()
-  }
+    fun sortByDateAsc() {
+        items = items.sortedBy { it.date }
+        notifyDataSetChanged()
+    }
 
-  fun sortByNameDesc() {
-    items = items.sortedByDescending { it.name }
-    notifyDataSetChanged()
-  }
-
-  fun sortByLocationAsc() {
-    items = items.sortedBy { it.location }
-    notifyDataSetChanged()
-  }
-
-  fun sortByLocationDesc() {
-    items = items.sortedByDescending { it.location }
-    notifyDataSetChanged()
-  }
-
-  fun sortByDateAsc() {
-    items = items.sortedBy { it.date }
-    notifyDataSetChanged()
-  }
-
-  fun sortByDateDesc() {
-    items = items.sortedByDescending { it.date }
-    notifyDataSetChanged()
-  }
+    fun sortByDateDesc() {
+        items = items.sortedByDescending { it.date }
+        notifyDataSetChanged()
+    }
 }

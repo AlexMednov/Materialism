@@ -11,7 +11,7 @@ class SupportActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_support)
 
-        val menuIcon: ImageButton = findViewById(R.id.menu_icon)
+        val menuIcon: ImageButton = findViewById(R.id.ic_menu)
         DrawerUtils.setupPopupMenu(this, menuIcon)
     }
 }

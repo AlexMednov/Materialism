@@ -1,43 +1,51 @@
 package com.materialism
 
 import android.util.Log
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.materialism.firebaseDatabase.data.*
-import com.google.firebase.database.ktx.getValue
+import com.materialism.firebaseDatabase.data.Category
+import com.materialism.firebaseDatabase.data.Item
+import com.materialism.firebaseDatabase.data.Quest
+import com.materialism.firebaseDatabase.data.QuestItem
+import com.materialism.firebaseDatabase.data.SubCategory
+import com.materialism.firebaseDatabase.data.User
 
 class DatabaseAdapter(val databaseManager: DatabaseManager) {
 
-    private val firebaseDatabase = FirebaseDatabase.getInstance().reference
+  private val firebaseDatabase = FirebaseDatabase.getInstance().reference
 
-    // Get categories from Firebase and write them to SQLite if they do not already exist
-    fun syncCategories() {
-        firebaseDatabase.child("Category").get().addOnSuccessListener { dataSnapshot ->
-            dataSnapshot.children.forEach { categorySnapshot ->
-                try {
-                    val category = categorySnapshot.getValue(Category::class.java)
-                    if (category != null) {
-                        val localCategoryCursor = databaseManager.getCategory(category.id)
-                        if (!localCategoryCursor.moveToFirst()) {
-                            databaseManager.addCategory(
-                                category.name,
-                                category.description,
-                                category.isDefault
-                            )
-                        }
-                    }
-                } catch (e: Exception) {
+  // Get categories from Firebase and write them to SQLite if they do not already exist
+  fun syncCategories() {
+    Log.d("SyncCategories", "Starting synchronization")
 
+    firebaseDatabase
+        .child("Category")
+        .get()
+        .addOnSuccessListener { dataSnapshot ->
+          dataSnapshot.children.forEach { categorySnapshot ->
+            try {
+              val category = categorySnapshot.getValue(Category::class.java)
+              if (category != null) {
+                val localCategoryCursor = databaseManager.getCategory(category.id)
+                if (!localCategoryCursor.moveToFirst()) {
+                  databaseManager.addCategory(
+                      category.name, category.description, category.isDefault)
+                  Log.d("SyncCategories", "Category added: ${category.name}")
+                } else {
+                  Log.d("SyncCategories", "Category already exists: ${category.name}")
                 }
+              }
+            } catch (e: Exception) {
+              Log.e("SyncCategories", "Error processing category: ${e.message}")
             }
+          }
         }
-            .addOnFailureListener { exception ->
-
-            }
-    }
+        .addOnFailureListener { exception ->
+          Log.e("SyncCategories", "Error retrieving categories from Firebase: ${exception.message}")
+        }
+  }
 
     // Get subcategories from Firebase and write them to SQLite if they do not already exist
     fun syncSubCategories() {
@@ -58,49 +66,52 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
         }.addOnFailureListener { exception ->
 
         }
-    }
+        .addOnFailureListener { exception -> }
+  }
 
-    fun syncQuests() {
-        firebaseDatabase.child("Quests").get().addOnSuccessListener { dataSnapshot ->
-            dataSnapshot.children.forEach { questSnapshot ->
-                try {
-                    val quest = questSnapshot.getValue(Quest::class.java)
-                    if (quest != null) {
-                        val localQuestCursor = databaseManager.getQuest(quest.id)
-                        if (!localQuestCursor.moveToFirst()) {
-                            databaseManager.addQuest(quest.type, quest.weight, quest.categoryId)
-                        }
-                    }
-                } catch (e: Exception) {
-
+  fun syncQuests() {
+    firebaseDatabase
+        .child("Quests")
+        .get()
+        .addOnSuccessListener { dataSnapshot ->
+          dataSnapshot.children.forEach { questSnapshot ->
+            try {
+              val quest = questSnapshot.getValue(Quest::class.java)
+              if (quest != null) {
+                val localQuestCursor = databaseManager.getQuest(quest.id)
+                if (!localQuestCursor.moveToFirst()) {
+                  databaseManager.addQuest(quest.type, quest.weight, quest.categoryId)
                 }
-            }
-        }.addOnFailureListener { exception ->
-            // Handle any errors
+              }
+            } catch (e: Exception) {}
+          }
         }
-    }
+        .addOnFailureListener { exception ->
+          // Handle any errors
+        }
+  }
 
-    fun syncQuestItems() {
-        firebaseDatabase
-            .child("QuestItems")
-            .get()
-            .addOnSuccessListener { dataSnapshot ->
-                dataSnapshot.children.forEach { questItemSnapshot ->
-                    try {
-                        val questItem = questItemSnapshot.getValue(QuestItem::class.java)
-                        if (questItem != null) {
-                            val localQuestItemCursor = databaseManager.getQuestItem(questItem.id)
-                            if (!localQuestItemCursor.moveToFirst()) {
-                                databaseManager.addQuestItem(questItem.name, questItem.categoryId)
-                            }
-                        }
-                    } catch (e: Exception) {
-                    }
+  fun syncQuestItems() {
+    firebaseDatabase
+        .child("QuestItems")
+        .get()
+        .addOnSuccessListener { dataSnapshot ->
+          dataSnapshot.children.forEach { questItemSnapshot ->
+            try {
+              val questItem = questItemSnapshot.getValue(QuestItem::class.java)
+              if (questItem != null) {
+                val localQuestItemCursor = databaseManager.getQuestItem(questItem.id)
+                if (!localQuestItemCursor.moveToFirst()) {
+                  databaseManager.addQuestItem(questItem.name, questItem.categoryId)
                 }
-            }.addOnFailureListener { exception ->
-                // Handle any errors
-            }
-    }
+              }
+            } catch (e: Exception) {}
+          }
+        }
+        .addOnFailureListener { exception ->
+          // Handle any errors
+        }
+  }
 
 
     fun addItem(item: Item, userId: Int) {
@@ -136,15 +147,16 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
 
   fun addItem(item: Item, userId: Int) {
     if (item.isPublic) {
-      firebaseDatabase.child("User").child(userId.toString()).child("Item").push().setValue(item)
+      firebaseDatabase.child("Users").child(userId).child("Items").push().setValue(item)
     }
   }
 
-  fun updateItem(item: Item, userId: Int) {
+  // Update item in Firebase if isPublic is true
+  fun updateItem(item: Item, userId: String) {
     if (item.isPublic) {
       firebaseDatabase
           .child("Users")
-          .child(userId.toString())
+          .child(userId)
           .child("Items")
           .child(item.id.toString())
           .setValue(item)
@@ -169,8 +181,9 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
         .removeValue()
   }
 
-  fun getFriendsUserIds(loggedInUserId: Int, callback: (List<Int>) -> Unit) {
-    val databaseReference = FirebaseDatabase.getInstance().getReference("Friend")
+  // Get quests from Firebase and write them to SQLite if they do not already exist
+  fun syncQuests() {
+    Log.d("SyncQuests", "Starting synchronization")
 
     databaseReference.addListenerForSingleValueEvent(
         object : ValueEventListener {
@@ -329,4 +342,5 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
         getItemsForUsers(friendsUserIds) { items -> }
       }
     }
+  }
 }

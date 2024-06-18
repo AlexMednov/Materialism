@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.materialism.utils.DrawerUtils
@@ -40,6 +41,13 @@ class ViewFriendsActivity : AppCompatActivity() {
     }
     loadFriendsData(loggedInUserId = 1)
 
+    // Set up RecyclerView for friend list
+    recyclerView = findViewById(R.id.friend_list)
+    recyclerView.layoutManager = LinearLayoutManager(this)
+    friendAdapter = FriendAdapter { friend ->
+      val intent = Intent(this, ViewFriendProfileActivity::class.java)
+      startActivity(intent)
+    }
     recyclerView.adapter = friendAdapter
 
     // Load dummy data

@@ -14,6 +14,7 @@
     <string name="title_activity_support">SupportActivity</string>
     <string name="title_activity_add_friends">AddFriendsActivity</string>
     <string name="title_activity_request_page">RequestActivity</string>
+    <string name="title_activity_chat">ChatActivity</string>
     <string name="title_activity_view_friend_profile">ViewFriendProfileActivity</string>
     <string name="flag">Flag</string>
     <string name="people">People</string>
@@ -46,6 +47,7 @@
     <string name="nav_logout">Logout</string>
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
+    <string name="send">Send</string>
 
     <!-- Categories Array -->
     <string-array name="categories_array">

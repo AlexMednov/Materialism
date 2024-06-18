@@ -40,8 +40,8 @@ class AddItemActivity : AppCompatActivity() {
     imageRenderer = ImageRenderer(this.contentResolver)
     databaseManager.open()
 
-    val menuIcon: ImageButton = findViewById(R.id.ic_menu)
-    DrawerUtils.setupPopupMenu(this, menuIcon)
+        val menuIcon: ImageButton = findViewById(R.id.ic_menu)
+        DrawerUtils.setupPopupMenu(this, menuIcon)
 
     binding.backButton.setOnClickListener { finish() }
 
@@ -72,7 +72,6 @@ class AddItemActivity : AppCompatActivity() {
             } catch (e: SecurityException) {
               Log.e("PersistURI", "No persistable permission grants found for URI: $uri", e)
             }
-          }
         }
 
     binding.selectPictureButton.setOnClickListener {

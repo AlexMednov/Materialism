@@ -47,25 +47,25 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
         }
   }
 
-    // Get subcategories from Firebase and write them to SQLite if they do not already exist
-    fun syncSubCategories() {
-        firebaseDatabase.child("SubCategory").get().addOnSuccessListener { dataSnapshot ->
-            dataSnapshot.children.forEach { subcategorySnapshot ->
-                try {
-                    val subcategory = subcategorySnapshot.getValue(SubCategory::class.java)
-                    if (subcategory != null) {
-                        val localSubCategoryCursor = databaseManager.getSubcategory(subcategory.id)
-                        if (!localSubCategoryCursor.moveToFirst()) {
-                            databaseManager.addSubcategory(subcategory.name, subcategory.categoryId)
-                        }
-                    }
-                } catch (e: Exception) {
-
+  // Get subcategories from Firebase and write them to SQLite if they do not already exist
+  fun syncSubCategories() {
+    firebaseDatabase
+        .child("SubCategory")
+        .get()
+        .addOnSuccessListener { dataSnapshot ->
+          dataSnapshot.children.forEach { subcategorySnapshot ->
+            try {
+              val subcategory = subcategorySnapshot.getValue(SubCategory::class.java)
+              if (subcategory != null) {
+                val localSubCategoryCursor = databaseManager.getSubcategory(subcategory.id)
+                if (!localSubCategoryCursor.moveToFirst()) {
+                  databaseManager.addSubcategory(subcategory.name, subcategory.categoryId)
                 }
-            }
-        }.addOnFailureListener { exception ->
-
+              }
+            } catch (e: Exception) {}
+          }
         }
+        .addOnFailureListener { exception -> }
         .addOnFailureListener { exception -> }
   }
 
@@ -113,50 +113,17 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
         }
   }
 
-
-    fun addItem(item: Item, userId: Int) {
-        if (item.isPublic) {
-            firebaseDatabase.child("User").child(userId.toString()).child("Item").push()
-                .setValue(item)
-        }
-    }
-
-    fun updateItem(item: Item, userId: Int) {
-        if (item.isPublic) {
-            firebaseDatabase.child("Users").child(userId.toString()).child("Items")
-                .child(item.id.toString()).setValue(item)
-        }
-    }
-
-    fun deleteItem(itemId: Int, userId: Int) {
-        firebaseDatabase.child("User").child(userId.toString()).child("Item")
-            .child(itemId.toString()).removeValue()
-    }
-
-    fun deleteItem(itemId: Int, userId: String) {
-        firebaseDatabase.child("Users").child(userId).child("Items").child(itemId.toString())
-            .removeValue()
-    }
-
-    fun getFriendsUserIds(loggedInUserId: Int, callback: (List<Int>) -> Unit) {
-        val databaseReference = FirebaseDatabase.getInstance().getReference("Friend")
-
-        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val friendsUserIds = mutableListOf<Int>()
-
   fun addItem(item: Item, userId: Int) {
     if (item.isPublic) {
-      firebaseDatabase.child("Users").child(userId).child("Items").push().setValue(item)
+      firebaseDatabase.child("User").child(userId.toString()).child("Item").push().setValue(item)
     }
   }
 
-  // Update item in Firebase if isPublic is true
-  fun updateItem(item: Item, userId: String) {
+  fun updateItem(item: Item, userId: Int) {
     if (item.isPublic) {
       firebaseDatabase
           .child("Users")
-          .child(userId)
+          .child(userId.toString())
           .child("Items")
           .child(item.id.toString())
           .setValue(item)
@@ -181,15 +148,13 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
         .removeValue()
   }
 
-  // Get quests from Firebase and write them to SQLite if they do not already exist
-  fun syncQuests() {
-    Log.d("SyncQuests", "Starting synchronization")
+  fun getFriendsUserIds(loggedInUserId: Int, callback: (List<Int>) -> Unit) {
+    val databaseReference = FirebaseDatabase.getInstance().getReference("Friend")
 
     databaseReference.addListenerForSingleValueEvent(
         object : ValueEventListener {
           override fun onDataChange(dataSnapshot: DataSnapshot) {
             val friendsUserIds = mutableListOf<Int>()
-
             for (snapshot in dataSnapshot.children) {
               // Getting the friends map
               val friendMap = snapshot.value as? Map<String, Long>

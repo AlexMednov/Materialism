@@ -78,11 +78,11 @@ class ViewItemsActivity : AppCompatActivity() {
 
     binding.recyclerView.adapter = itemAdapter
     itemAdapter.setOnClickListener(
-      object : ItemAdapter.OnClickListener {
-        override fun onClick(position: Int, itemModel: Item) {
-          openViewSingleItemActivity(position, itemModel)
-        }
-      })
+        object : ItemAdapter.OnClickListener {
+          override fun onClick(position: Int, itemModel: Item) {
+            openViewSingleItemActivity(position, itemModel)
+          }
+        })
   }
 
   private fun getAllItems(): ArrayList<Item> {

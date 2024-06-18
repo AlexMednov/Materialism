@@ -1,6 +1,7 @@
 package com.materialism
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -35,8 +36,13 @@ class ViewSingleItemActivity : AppCompatActivity() {
     binding.backButton.setOnClickListener { finish() }
 
     val it = getItemFromIntent()
-    binding.imagePlaceholder.setImageBitmap(
+    try {
+      binding.imagePlaceholder.setImageBitmap(
         imageRenderer.getThumbnail(it.imageUri.toUri(), THUMBNAIL_SIZE))
+    } catch (e: Exception) {
+      Log.e("ImageRenderer", e.toString())
+    }
+
     binding.nameText.text = it.name
     binding.descriptionText.text = it.description
     binding.locationText.text = it.location

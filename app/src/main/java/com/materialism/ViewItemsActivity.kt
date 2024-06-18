@@ -1,5 +1,6 @@
 package com.materialism
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -74,6 +75,14 @@ class ViewItemsActivity : AppCompatActivity() {
       layoutManager = LinearLayoutManager(this@ViewItemsActivity)
       adapter = itemAdapter
     }
+
+    binding.recyclerView.adapter = itemAdapter
+    itemAdapter.setOnClickListener(
+      object : ItemAdapter.OnClickListener {
+        override fun onClick(position: Int, itemModel: Item) {
+          openViewSingleItemActivity(position, itemModel)
+        }
+      })
   }
 
   private fun getAllItems(): ArrayList<Item> {
@@ -109,5 +118,18 @@ class ViewItemsActivity : AppCompatActivity() {
       itemsCursor.close()
     }
     return itemsArray
+  }
+
+  // Method to handle the click event for the recycle list
+  fun openViewSingleItemActivity(position: Int, itemModel: Item) {
+    val intent = Intent(this, ViewSingleItemActivity::class.java)
+
+    intent.putExtra("imageUri", itemModel.imageUri)
+    intent.putExtra("name", itemModel.name)
+    intent.putExtra("description", itemModel.description)
+    intent.putExtra("category", itemModel.category)
+    intent.putExtra("location", itemModel.location)
+    intent.putExtra("date", itemModel.date)
+    startActivity(intent)
   }
 }

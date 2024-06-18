@@ -8,23 +8,23 @@ import android.widget.TextView
 import androidx.activity.ComponentActivity
 
 class LoginActivity : ComponentActivity() {
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.login_activity)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.login_activity)
 
-    val loginButton = findViewById<Button>(R.id.login_button)
-    val registerTextView = findViewById<TextView>(R.id.tv_register_here)
+        val loginButton = findViewById<Button>(R.id.login_button)
+        val registerTextView = findViewById<TextView>(R.id.tv_register_here)
 
-    loginButton.setOnClickListener(
-        View.OnClickListener {
-          val intent = Intent(this, MainPageActivity::class.java)
-          startActivity(intent)
-        })
+        loginButton.setOnClickListener(
+            View.OnClickListener {
+                val intent = Intent(this, MainPageActivity::class.java)
+                startActivity(intent)
+            })
 
-    registerTextView.setOnClickListener(
-        View.OnClickListener {
-          val intent = Intent(this, RegisterActivity::class.java)
-          startActivity(intent)
-        })
-  }
+        registerTextView.setOnClickListener(
+            View.OnClickListener {
+                val intent = Intent(this, RegisterActivity::class.java)
+                startActivity(intent)
+            })
+    }
 }

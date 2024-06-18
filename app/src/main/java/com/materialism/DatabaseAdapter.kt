@@ -136,7 +136,6 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
         object : ValueEventListener {
           override fun onDataChange(dataSnapshot: DataSnapshot) {
             val friendsUserIds = mutableListOf<Int>()
-
             for (snapshot in dataSnapshot.children) {
               // Getting the friends map
               val friendMap = snapshot.value as? Map<String, Long>

@@ -5,75 +5,73 @@ import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.navigation.NavigationView
 import com.materialism.utils.DrawerUtils
 import com.materialism.utils.Friend
-import com.materialism.utils.FriendAdapter
 
 class ViewFriendsActivity : AppCompatActivity() {
 
-  private lateinit var drawerLayout: DrawerLayout
-  private lateinit var navigationView: NavigationView
-  private lateinit var recyclerView: RecyclerView
-  private lateinit var friendAdapter: FriendAdapter
-  private var databaseManager = DatabaseManager(this)
-  private var databaseAdapter = DatabaseAdapter(databaseManager)
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var friendAdapter: FriendAdapter
+    private lateinit var databaseAdapter: DatabaseAdapter // Declare it as a lateinit var
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_view_friends)
-    databaseManager.open()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_view_friends)
 
-    val menuIcon: ImageButton = findViewById(R.id.menu_icon)
-    val addFriendIcon: ImageView = findViewById(R.id.add_friend_icon)
+        val databaseManager = DatabaseManager(this) // Assuming DatabaseManager requires a context
+        databaseAdapter = DatabaseAdapter(databaseManager) // Pass the databaseManager instance
 
-    menuIcon.setOnClickListener { drawerLayout.openDrawer(GravityCompat.START) }
+        val addFriendIcon: ImageView = findViewById(R.id.add_friend_icon)
+        val menuIcon: ImageButton = findViewById(R.id.ic_menu)
+        DrawerUtils.setupPopupMenu(this, menuIcon)
 
-    DrawerUtils.setupPopupMenu(this, menuIcon)
+        addFriendIcon.setOnClickListener {
+            val intent = Intent(this, AddFriendsActivity::class.java)
+            startActivity(intent)
+        }
 
-    addFriendIcon.setOnClickListener {
-      val intent = Intent(this, AddFriendsActivity::class.java)
-      startActivity(intent)
+        // Set up RecyclerView for friend list
+        recyclerView = findViewById(R.id.recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        friendAdapter = FriendAdapter { _ -> // Rename unused parameter to _
+            val intent = Intent(this, ViewFriendProfileActivity::class.java)
+            startActivity(intent)
+        }
+        recyclerView.adapter = friendAdapter
+
+        // Load dummy data
+        loadDummyData()
+
+        // Example usage of loadFriendsData
+        val loggedInUserId = getLoggedInUserId() // Replace with dynamic user ID retrieval
+        loadFriendsData(loggedInUserId)
     }
-    loadFriendsData(loggedInUserId = 1)
 
-    // Set up RecyclerView for friend list
-    recyclerView = findViewById(R.id.friend_list)
-    recyclerView.layoutManager = LinearLayoutManager(this)
-    friendAdapter = FriendAdapter { friend ->
-      val intent = Intent(this, ViewFriendProfileActivity::class.java)
-      startActivity(intent)
-    }
-    recyclerView.adapter = friendAdapter
-
-    // Load dummy data
-    loadDummyData()
-  }
-
-  private fun loadDummyData() {
-    val dummyFriends =
-        listOf(
-            Friend("Name Surname", "Location: Emmen", "Items: 240"),
+    private fun loadDummyData() {
+        val dummyFriends = listOf(
+            Friend("Name Surname", "Location: Emmen", "Items: 240")
             // Add more dummy friends here
         )
-    friendAdapter.submitList(dummyFriends)
-  }
-
-  private fun loadFriendsData(loggedInUserId: Int) {
-    databaseAdapter.getFriendsUserIds(loggedInUserId) { friendUserIds ->
-      databaseAdapter.getUsersInformation(friendUserIds) { users ->
-        databaseAdapter.getItemsForUsers(friendUserIds) { items ->
-          val friends =
-              users.map { user ->
-                Friend(user.name, "Location: ${user.location}", "Items: ${items}")
-              }
-          friendAdapter.submitList(friends)
-        }
-      }
+        friendAdapter.submitList(dummyFriends)
     }
-  }
+
+    private fun loadFriendsData(loggedInUserId: Int) {
+        databaseAdapter.getFriendsUserIds(loggedInUserId) { friendUserIds ->
+            databaseAdapter.getUsersInformation(friendUserIds) { users ->
+                databaseAdapter.getItemsForUsers(friendUserIds) { items ->
+                    val friends = users.map { user ->
+                        Friend(user.name, "Location: ${user.location}", "Items: $items")
+                    }
+                    friendAdapter.submitList(friends)
+                }
+            }
+        }
+    }
+
+    private fun getLoggedInUserId(): Int {
+        // Replace with actual logic to get the logged-in user ID
+        return 123
+    }
 }

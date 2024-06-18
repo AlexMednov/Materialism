@@ -9,14 +9,15 @@ import com.materialism.utils.DrawerUtils
 
 class ViewFriendProfileActivity : AppCompatActivity() {
 
-  private lateinit var drawerLayout: DrawerLayout
-  private lateinit var navigationView: NavigationView
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navigationView: NavigationView
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_view_friends_profile)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_view_friends_profile)
 
-    val menuIcon: ImageButton = findViewById(R.id.menu_button)
+    val menuIcon: ImageButton = findViewById(R.id.ic_menu)
     DrawerUtils.setupPopupMenu(this, menuIcon)
+
   }
 }

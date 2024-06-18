@@ -109,7 +109,7 @@
         android:id="@+id/category_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/description_edit_text"
+        android:layout_below="@id/location_edit_text"
         android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_background" />
 

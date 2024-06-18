@@ -32,13 +32,16 @@ class ItemAdapter(
     val item = items[position]
     val imageUri = item.imageUri
     var image: Bitmap? = null
-    try {
-      image = imageRenderer.getThumbnail(item.imageUri.toUri(), 240)
-    } catch (e: Exception) {
-      Log.e("ImageRenderer", e.toString())
-    }
+
     if (holder is EditViewHolder) {
-      holder.binding.itemImage.setImageBitmap(image)
+
+      try {
+        image = imageRenderer.getThumbnail(item.imageUri.toUri(), 240)
+        holder.binding.itemImage.setImageBitmap(image)
+      } catch (e: Exception) {
+        Log.e("ImageRenderer", e.toString())
+      }
+
       holder.binding.itemName.text = item.name
       holder.binding.itemDescription.text = item.description
       holder.binding.itemCategory.text = item.category
@@ -46,7 +49,14 @@ class ItemAdapter(
       holder.binding.itemDate.text = item.date
       holder.itemView.setOnClickListener { onClickListener?.onClick(position, item) }
     } else if (holder is NoEditViewHolder) {
-      holder.binding.itemImage.setImageBitmap(image)
+
+      try {
+        image = imageRenderer.getThumbnail(item.imageUri.toUri(), 240)
+        holder.binding.itemImage.setImageBitmap(image)
+      } catch (e: Exception) {
+        Log.e("ImageRenderer", e.toString())
+      }
+
       holder.binding.itemName.text = item.name
       holder.binding.itemDescription.text = item.description
       holder.binding.itemCategory.text = item.category

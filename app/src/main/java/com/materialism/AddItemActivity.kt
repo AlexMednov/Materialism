@@ -66,12 +66,13 @@ class AddItemActivity : AppCompatActivity() {
             // Persist the permission to access the URI
             val contentResolver = applicationContext.contentResolver
             val takeFlags: Int =
-                Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+              Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
             try {
               contentResolver.takePersistableUriPermission(uri, takeFlags)
             } catch (e: SecurityException) {
               Log.e("PersistURI", "No persistable permission grants found for URI: $uri", e)
             }
+          }
         }
 
     binding.selectPictureButton.setOnClickListener {

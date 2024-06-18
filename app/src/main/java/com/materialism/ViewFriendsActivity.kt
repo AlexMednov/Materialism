@@ -48,15 +48,7 @@ class ViewFriendsActivity : AppCompatActivity() {
         val loggedInUserId = getLoggedInUserId() // Replace with dynamic user ID retrieval
         loadFriendsData(loggedInUserId)
     }
-    recyclerView.adapter = friendAdapter
 
-    // Load dummy data
-    loadDummyData()
-
-    // Example usage of loadFriendsData
-    val loggedInUserId = getLoggedInUserId() // Replace with dynamic user ID retrieval
-    loadFriendsData(loggedInUserId)
-  }
 
   private fun loadDummyData() {
     val dummyFriends =

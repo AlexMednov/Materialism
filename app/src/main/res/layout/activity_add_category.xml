@@ -1,29 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/ic_menu"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="12dp"
+            android:src="@drawable/ic_menu"
+            android:contentDescription="@string/menu"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add category:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp" />
+    </LinearLayout>
 
     <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flexboxLayout"
+        android:id="@+id/flexbox_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@color/white" />
 
     <EditText
-        android:id="@+id/categoryName"
+        android:id="@+id/category_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Category Name" />
+        android:hint="Category Name"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_item_image" />
 
     <Button
-        android:id="@+id/addCategoryButton"
+        android:id="@+id/add_category_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Category" />
+        android:text="Add Category"
+        android:layout_marginTop="16dp"
+        android:background="@color/green" />
 
     <Button
-        android:id="@+id/deleteCategoryButton"
+        android:id="@+id/view_categories_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete Category" />
+        android:text="View Categories"
+        android:layout_marginTop="16dp"
+        android:background="@color/blue" />
 
 </LinearLayout>

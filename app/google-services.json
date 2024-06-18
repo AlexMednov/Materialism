@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "139206636225",
+    "firebase_url": "https://materialism-f3e91-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "materialism-f3e91",
+    "storage_bucket": "materialism-f3e91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139206636225:android:340a673798140cf0621a40",
+        "android_client_info": {
+          "package_name": "com.materialism"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdRBkq4YIiZWuOtJo8gT-razwlTgdCypI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

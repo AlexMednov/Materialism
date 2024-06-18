@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature android:name="android.hardware.camera.any" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,20 +22,30 @@
             android:exported="false"
             android:label="@string/title_activity_main_page"
             android:theme="@style/Theme.Materialism" />
-		<activity
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false"
+            android:label="@string/title_activity_register"
+            android:theme="@style/Theme.Materialism" />
+        <activity
             android:name=".AddItemActivity"
             android:exported="false"
             android:label="@string/add_item_activity"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".DesignMainPageActivity"
+            android:name=".ViewFriendsActivity"
             android:exported="false"
-            android:label="@string/title_activity_design_main_page"
+            android:label="@string/title_activity_view_friends"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".DesignAddItemActivity"
+            android:name=".AddFriendsActivity"
             android:exported="false"
-            android:label="@string/title_activity_add_item"
+            android:label="@string/title_activity_add_friends"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".ViewFriendProfileActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_friends"
             android:theme="@style/Theme.Materialism" />
         <activity
             android:name=".ViewItemsActivity"
@@ -38,9 +53,29 @@
             android:label="@string/title_activity_view_items"
             android:theme="@style/Theme.Materialism" />
         <activity
+            android:name=".RequestActivity"
+            android:exported="false"
+            android:label="@string/title_activity_request_page"
+            android:theme="@style/Theme.Materialism" />
+        <activity
             android:name=".AddCategoryActivity"
             android:exported="false"
             android:label="@string/title_activity_add_item"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".AddSubcategoryActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_subcategory"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".ViewCategoriesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_subcategory"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".SupportActivity"
+            android:exported="true"
+            android:label="@string/title_activity_support"
             android:theme="@style/Theme.Materialism" />
         <activity
             android:name=".LoginActivity"
@@ -53,6 +88,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CameraActivity"
+            android:exported="true"
+            android:label="@string/take_photo"
+            android:theme="@style/Theme.Materialism"
+            />
 
     </application>
 

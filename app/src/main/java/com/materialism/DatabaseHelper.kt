@@ -4,11 +4,12 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DatabaseHelper(context: Context) :
+    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
         const val DATABASE_NAME = "inventory.db"
-        const val DATABASE_VERSION = 1
+        const val DATABASE_VERSION = 2
 
         // User table
         const val TABLE_USER = "User"
@@ -16,6 +17,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         const val COLUMN_USER_NAME = "name"
         const val COLUMN_USER_EMAIL = "emailAddress"
         const val COLUMN_USER_REGISTERED = "isRegistered"
+        const val COLUMN_USER_SCORE = "score"
+        const val COLUMN_USER_KARMA = "karma"
 
         // Category table
         const val TABLE_CATEGORY = "Category"
@@ -44,19 +47,36 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         const val COLUMN_ITEM_USER_ID = "userId"
         const val COLUMN_ITEM_CATEGORY_ID = "categoryId"
         const val COLUMN_ITEM_SUBCATEGORY_ID = "subcategoryId"
+
+        // Quest table
+        const val TABLE_QUEST = "Quest"
+        const val COLUMN_QUEST_ID = "id"
+        const val COLUMN_QUEST_TYPE = "type"
+        const val COLUMN_QUEST_WEIGHT = "weight"
+        const val COLUMN_QUEST_CATEGORY_ID = "categoryId"
+
+        // QuestItem table
+        const val TABLE_QUESTITEM = "QuestItem"
+        const val COLUMN_QUESTITEM_ID = "id"
+        const val COLUMN_QUESTITEM_NAME = "name"
+        const val COLUMN_QUESTITEM_CATEGORY_ID = "categoryId"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-        val createUserTable = """
+        val createUserTable =
+            """
             CREATE TABLE $TABLE_USER (
                 $COLUMN_USER_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 $COLUMN_USER_NAME TEXT NOT NULL,
                 $COLUMN_USER_EMAIL TEXT,
-                $COLUMN_USER_REGISTERED BOOLEAN NOT NULL
+                $COLUMN_USER_REGISTERED BOOLEAN NOT NULL,
+                $COLUMN_USER_SCORE INTEGER NOT NULL,
+                $COLUMN_USER_KARMA INTEGER NOT NULL
             );
         """
 
-        val createCategoryTable = """
+        val createCategoryTable =
+            """
             CREATE TABLE $TABLE_CATEGORY (
                 $COLUMN_CATEGORY_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 $COLUMN_CATEGORY_NAME TEXT NOT NULL,
@@ -65,7 +85,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             );
         """
 
-        val createSubcategoryTable = """
+        val createSubcategoryTable =
+            """
             CREATE TABLE $TABLE_SUBCATEGORY (
                 $COLUMN_SUBCATEGORY_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 $COLUMN_SUBCATEGORY_NAME TEXT NOT NULL,
@@ -74,10 +95,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             );
         """
 
-        val createItemTable = """
+        val createItemTable =
+            """
             CREATE TABLE $TABLE_ITEM (
                 $COLUMN_ITEM_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 $COLUMN_ITEM_NAME TEXT NOT NULL,
+                $COLUMN_ITEM_IMAGE_URI TEXT NOT NULL,
                 $COLUMN_ITEM_DESCRIPTION TEXT,
                 $COLUMN_ITEM_LOCATION TEXT,
                 $COLUMN_ITEM_PUBLIC BOOLEAN NOT NULL,
@@ -93,10 +116,68 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             );
         """
 
+        val createQuestTable =
+            """
+            CREATE TABLE $TABLE_QUEST (
+                $COLUMN_QUEST_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                $COLUMN_QUEST_TYPE INTEGER NOT NULL,
+                $COLUMN_QUEST_WEIGHT INTEGER NOT NULL,
+                $COLUMN_QUEST_CATEGORY_ID INTEGER NOT NULL,
+                FOREIGN KEY($COLUMN_QUEST_CATEGORY_ID) REFERENCES $TABLE_CATEGORY($COLUMN_CATEGORY_ID)
+            );
+        """
+
+        val createQuestItemTable =
+            """
+            CREATE TABLE $TABLE_QUESTITEM (
+                $COLUMN_QUESTITEM_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                $COLUMN_QUESTITEM_NAME TEXT NOT NULL,
+                $COLUMN_QUESTITEM_CATEGORY_ID INTEGER NOT NULL,
+                FOREIGN KEY($COLUMN_QUESTITEM_CATEGORY_ID) REFERENCES $TABLE_CATEGORY($COLUMN_CATEGORY_ID)
+            );
+        """
+
         db.execSQL(createUserTable)
         db.execSQL(createCategoryTable)
         db.execSQL(createSubcategoryTable)
         db.execSQL(createItemTable)
+        db.execSQL(createQuestTable)
+        db.execSQL(createQuestItemTable)
+
+        val addDefaultCategories =
+            """
+            INSERT INTO $TABLE_CATEGORY (
+                $COLUMN_CATEGORY_NAME,
+                $COLUMN_CATEGORY_DESCRIPTION,
+                $COLUMN_CATEGORY_DEFAULT
+            ) VALUES (
+                "Groceries",
+                "For the items you buy at the grocery store",
+                1
+            ),
+            (
+                "Trinkets",
+                "For the interesting items you collect",
+                1
+            ),
+            (
+                "Cars",
+                "For vehicles that you own",
+                1
+            );
+        """
+
+        val addDefaultItems =
+            """
+            CREATE TABLE $TABLE_QUESTITEM (
+                $COLUMN_QUESTITEM_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                $COLUMN_QUESTITEM_NAME TEXT NOT NULL,
+                $COLUMN_QUESTITEM_CATEGORY_ID INTEGER NOT NULL,
+                FOREIGN KEY($COLUMN_QUESTITEM_CATEGORY_ID) REFERENCES $TABLE_CATEGORY($COLUMN_CATEGORY_ID)
+            );
+        """
+
+        db.execSQL(addDefaultCategories)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -104,7 +185,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL("DROP TABLE IF EXISTS $TABLE_SUBCATEGORY")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_CATEGORY")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_USER")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_QUEST")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_QUESTITEM")
         onCreate(db)
     }
 }
-

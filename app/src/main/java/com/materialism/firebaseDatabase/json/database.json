@@ -1,0 +1,631 @@
+{
+  "Quest": [
+    {
+      "id": 1,
+      "type": "Daily",
+      "weight": 7,
+      "categoryId": 1
+    },
+    {
+      "id": 2,
+      "type": "Daily",
+      "Weight": 7,
+      "categoryId": 2
+    },
+    {
+      "id": 3,
+      "type": "Daily",
+      "Weight": 2,
+      "categoryId": 3
+    },
+    {
+      "id": 4,
+      "type": "Daily",
+      "Weight": 2,
+      "categoryId": 4
+    },
+    {
+      "id": 5,
+      "type": "Daily",
+      "Weight": 2,
+      "categoryId": 5
+    },
+    {
+      "id": 6,
+      "type": "Daily",
+      "Weight": 1,
+      "categoryId": 6
+    },
+    {
+      "id": 7,
+      "type": "Daily",
+      "Weight": 1,
+      "categoryId": 7
+    },
+    {
+      "id": 8,
+      "type": "Daily",
+      "Weight": 1,
+      "categoryId": 8
+    },
+    {
+      "id": 9,
+      "type": "Daily",
+      "Weight": 1,
+      "categoryId": 9
+    },
+    {
+      "id": 10,
+      "type": "Daily",
+      "Weight": 1,
+      "categoryId": 10
+    },
+    {
+      "id": 11,
+      "type": "Weekly",
+      "weight": 5,
+      "categoryId": 1
+    },
+    {
+      "id": 12,
+      "type": "Weekly",
+      "weight": 5,
+      "categoryId": 2
+    },
+    {
+      "id": 13,
+      "type": "Weekly",
+      "weight": 4,
+      "categoryId": 3
+    },
+    {
+      "id": 14,
+      "type": "Weekly",
+      "weight": 3,
+      "categoryId": 4
+    },
+    {
+      "id": 15,
+      "type": "Weekly",
+      "weight": 2,
+      "categoryId": 5
+    },
+    {
+      "id": 16,
+      "type": "Weekly",
+      "weight": 2,
+      "categoryId": 6
+    },
+    {
+      "id": 17,
+      "type": "Weekly",
+      "weight": 3,
+      "categoryId": 7
+    },
+    {
+      "id": 18,
+      "type": "Weekly",
+      "weight": 1,
+      "categoryId": 8
+    },
+    {
+      "id": 19,
+      "type": "Weekly",
+      "weight": 1,
+      "categoryId": 9
+    },
+    {
+      "id": 20,
+      "type": "Weekly",
+      "weight": 1,
+      "categoryId": 10
+    },
+    {
+      "id": 21,
+      "type": "Monthly",
+      "weight": 1,
+      "categoryId": 1
+    },
+    {
+      "id": 22,
+      "type": "Monthly",
+      "weight": 1,
+      "categoryId": 2
+    },
+    {
+      "id": 23,
+      "type": "Monthly",
+      "weight": 4,
+      "categoryId": 3
+    },
+    {
+      "id": 24,
+      "type": "Monthly",
+      "weight": 4,
+      "categoryId": 4
+    },
+    {
+      "id": 25,
+      "type": "Monthly",
+      "weight": 3,
+      "categoryId": 5
+    },
+    {
+      "id": 26,
+      "type": "Monthly",
+      "weight": 4,
+      "categoryId": 6
+    },
+    {
+      "id": 27,
+      "type": "Monthly",
+      "weight": 4,
+      "categoryId": 7
+    },
+    {
+      "id": 28,
+      "type": "Monthly",
+      "weight": 2,
+      "categoryId": 8
+    },
+    {
+      "id": 29,
+      "type": "Monthly",
+      "weight": 3,
+      "categoryId": 9
+    },
+    {
+      "id": 30,
+      "type": "Monthly",
+      "weight": 1,
+      "categoryId": 10
+    }
+  ],
+  "Category": [
+    {
+      "id": 1,
+      "name": "Groceries",
+      "description": "Typically found in grocery stores",
+      "isDefault": true
+    },
+    {
+      "id": 2,
+      "name": "Beverages",
+      "description": "Typically found in grocery stores",
+      "isDefault": true
+    },
+    {
+      "id": 3,
+      "name": "HouseHold_supplies",
+      "description": "Typically found in household stores",
+      "isDefault": true
+    },
+    {
+      "id": 4,
+      "name": "Personal_care_products",
+      "description": "Could be find somewhere like an apothecary",
+      "isDefault": true
+    },
+    {
+      "id": 5,
+      "name": "Health_care",
+      "description": "Found in pharmacies",
+      "isDefault": true
+    },
+    {
+      "id": 6,
+      "name": "Office_or_school_supplies",
+      "description": "Found in book stores",
+      "isDefault": true
+    },
+    {
+      "id": 7,
+      "name": "Entertainment",
+      "description": "Could be found in a lot of places",
+      "isDefault": true
+    },
+    {
+      "id": 8,
+      "name": "Clothing_accessories",
+      "description": "Could be found in the clothing shops",
+      "isDefault": true
+    },
+    {
+      "id": 9,
+      "name": "Tech",
+      "description": "Could be found in places like mediamarkt",
+      "isDefault": true
+    },
+    {
+      "id": 10,
+      "name": "Misc",
+      "description": "Good luck finding them",
+      "isDefault": true
+    }
+  ],
+  "QuestItem": [
+    {
+      "id": 1,
+      "name": "Apple",
+      "categoryId": 1
+    },
+    {
+      "id": 2,
+      "name": "Banana",
+      "categoryId": 1
+    },
+    {
+      "id": 3,
+      "name": "Cucumber",
+      "categoryId": 1
+    },
+    {
+      "id": 4,
+      "name": "Orange",
+      "categoryId": 1
+    },
+    {
+      "id": 5,
+      "name": "Strawberry",
+      "categoryId": 1
+    },
+    {
+      "id": 6,
+      "name": "Carrot",
+      "categoryId": 1
+    },
+    {
+      "id": 7,
+      "name": "Broccoli",
+      "categoryId": 1
+    },
+    {
+      "id": 8,
+      "name": "Spinach",
+      "categoryId": 1
+    },
+    {
+      "id": 9,
+      "name": "Tomato",
+      "categoryId": 1
+    },
+    {
+      "id": 10,
+      "name": "Ball pepper",
+      "categoryId": 1
+    },
+    {
+      "id": 11,
+      "name": "Water",
+      "categoryId": 2
+    },
+    {
+      "id": 12,
+      "name": "Orange juice",
+      "categoryId": 2
+    },
+    {
+      "id": 13,
+      "name": "Coffee",
+      "categoryId": 2
+    },
+    {
+      "id": 14,
+      "name": "Green tea",
+      "categoryId": 2
+    },
+    {
+      "id": 15,
+      "name": "Lemonade",
+      "categoryId": 2
+    },
+    {
+      "id": 16,
+      "name": "Smoothie",
+      "categoryId": 2
+    },
+    {
+      "id": 17,
+      "name": "Soda",
+      "categoryId": 2
+    },
+    {
+      "id": 18,
+      "name": "Milkshake",
+      "categoryId": 2
+    },
+    {
+      "id": 19,
+      "name": "Apple juice",
+      "categoryId": 2
+    },
+    {
+      "id": 20,
+      "name": "Mango juice",
+      "categoryId": 2
+    },
+    {
+      "id": 21,
+      "name": "Paper towels",
+      "categoryId": 3
+    },
+    {
+      "id": 22,
+      "name": "Laundry detergent",
+      "categoryId": 3
+    },
+    {
+      "id": 23,
+      "name": "Dish soap",
+      "categoryId": 3
+    },
+    {
+      "id": 24,
+      "name": "Trash bags",
+      "categoryId": 3
+    },
+    {
+      "id": 25,
+      "name": "Cleaning spray",
+      "categoryId": 3
+    },
+    {
+      "id": 26,
+      "name": "Toothpaste",
+      "categoryId": 4
+    },
+    {
+      "id": 27,
+      "name": "Shampoo",
+      "categoryId": 4
+    },
+    {
+      "id": 28,
+      "name": "Body lotion",
+      "categoryId": 4
+    },
+    {
+      "id": 29,
+      "name": "Deodorant",
+      "categoryId": 4
+    },
+    {
+      "id": 30,
+      "name": "Face wash",
+      "categoryId": 4
+    },
+    {
+      "id": 31,
+      "name": "First aid kit",
+      "categoryId": 5
+    },
+    {
+      "id": 32,
+      "name": "Thermometer",
+      "categoryId": 5
+    },
+    {
+      "id": 33,
+      "name": "Pain killers",
+      "categoryId": 5
+    },
+    {
+      "id": 34,
+      "name": "Band-aids",
+      "categoryId": 5
+    },
+    {
+      "id": 35,
+      "name": "Antiseptic solution",
+      "categoryId": 5
+    },
+    {
+      "id": 36,
+      "name": "Notebook",
+      "categoryId": 6
+    },
+    {
+      "id": 37,
+      "name": "Pen",
+      "categoryId": 6
+    },
+    {
+      "id": 38,
+      "name": "Stapler",
+      "categoryId": 6
+    },
+    {
+      "id": 39,
+      "name": "Sticky notes",
+      "categoryId": 6
+    },
+    {
+      "id": 40,
+      "name": "Highlighters",
+      "categoryId": 6
+    },
+    {
+      "id": 41,
+      "name": "Playing cards",
+      "categoryId": 7
+    },
+    {
+      "id": 42,
+      "name": "Board game",
+      "categoryId": 7
+    },
+    {
+      "id": 43,
+      "name": "Video game",
+      "categoryId": 7
+    },
+    {
+      "id": 44,
+      "name": "Belt",
+      "categoryId": 8
+    },
+    {
+      "id": 46,
+      "name": "Scarf",
+      "categoryId": 8
+    },
+    {
+      "id": 47,
+      "name": "Hat",
+      "categoryId": 8
+    },
+    {
+      "id": 48,
+      "name": "Sunglasses",
+      "categoryId": 8
+    },
+    {
+      "id": 49,
+      "name": "Watch",
+      "categoryId": 8
+    },
+    {
+      "id": 50,
+      "name": "Charging cable",
+      "categoryId": 9
+    },
+    {
+      "id": 51,
+      "name": "Batteries",
+      "categoryId": 9
+    },
+    {
+      "id": 52,
+      "name": "Phone case",
+      "categoryId": 9
+    },
+    {
+      "Id": 53,
+      "name": "Clown Shoes",
+      "categoryId": 10
+    },
+    {
+      "id": 54,
+      "name": "Sledgehammer",
+      "categoryId": 10
+    },
+    {
+      "id": 55,
+      "name": "Cool stick",
+      "categoryId": 10
+    }
+  ],
+  "SubCategory": [
+    {
+      "id": 1,
+      "name": "Fruits",
+      "description": "Typically grow on trees",
+      "categoryId": 1
+    },
+    {
+      "id": 2,
+      "name": "Vegetables",
+      "description": "Typically grow underground",
+      "categoryId": 1
+    },
+    {
+      "id": 3,
+      "name": "Carbonated drinks",
+      "description": "Bubbles",
+      "categoryId": 2
+    },
+    {
+      "id": 4,
+      "name": "Not carbonated drinks",
+      "description": "No bubbles",
+      "categoryId": 2
+    },
+    {
+      "id": 5,
+      "name": "Cleaning supplies",
+      "description": "You clean with those",
+      "categoryId": 3
+    },
+    {
+      "id": 6,
+      "name": "Hygiene supplies",
+      "description": "Hygiene",
+      "categoryId": 4
+    },
+    {
+      "id": 7,
+      "name": "Pills",
+      "description": "Take pills with water",
+      "categoryId": 5
+    },
+    {
+      "id": 8,
+      "name": "Topical",
+      "description": "Apply on skin",
+      "categoryId": 5
+    },
+    {
+      "id": 9,
+      "name": "Writing supplies",
+      "description": "Helps to write",
+      "categoryId": 6
+    },
+    {
+      "id": 10,
+      "name": "Digital",
+      "description": "Digital entertainment",
+      "categoryId": 7
+    },
+    {
+      "id": 11,
+      "name": "Physical",
+      "description": "Physical entertainment",
+      "categoryId": 7
+    },
+    {
+      "id": 12,
+      "name": "Clothing",
+      "description": "Clothes that you wear",
+      "categoryId": 8
+    },
+    {
+      "id": 13,
+      "name": "Technical",
+      "description": "All sorts of tech",
+      "categoryId": 9
+    },
+    {
+      "id": 14,
+      "name": "Misc",
+      "description": "Miscellaneous items",
+      "categoryId": 10
+    }
+  ],
+  "User": [
+    {
+      "id": 1,
+      "name": "User",
+      "email": "user.email@email.com",
+      "hashedPassword": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+      "isRegistered": false,
+      "score": 5432,
+      "karma": 2345
+    }
+  ],
+  "Item": [
+    {
+      "id": 1,
+      "name": "Pickle jar",
+      "imageURI": "jar/pickles.png",
+      "description": "No pickles",
+      "Location": "Dubai",
+      "isPublic": true,
+      "isLoaned": false,
+      "dateAdded": "12-12-2012",
+      "dateModified": "01-01-2020",
+      "userId": 1,
+      "categoryId": 1,
+      "subCategoryId": 1
+    }
+  ]
+}

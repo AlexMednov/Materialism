@@ -4,4 +4,5 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false
     kotlin("jvm") version "1.8.0"
     kotlin("plugin.serialization") version "1.8.0"
+    id("com.google.gms.google-services") version "4.4.1" apply false
 }

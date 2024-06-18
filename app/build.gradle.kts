@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -43,6 +44,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -55,6 +57,17 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    val camerax_version = "1.3.3"
+    implementation("androidx.camera:camera-core:${camerax_version}")
+    implementation("androidx.camera:camera-camera2:${camerax_version}")
+    implementation("androidx.camera:camera-lifecycle:${camerax_version}")
+    implementation("androidx.camera:camera-video:${camerax_version}")
+
+    implementation("androidx.camera:camera-view:${camerax_version}")
+    implementation("androidx.camera:camera-extensions:${camerax_version}")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -76,5 +89,7 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("com.google.android.material:material:1.1.0")
-    implementation("com.google.android.flexbox:flexbox:3.0.0");
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation("com.google.firebase:firebase-database-ktx");
 }

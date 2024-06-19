@@ -83,6 +83,12 @@ class ViewItemsActivity : AppCompatActivity() {
             openViewSingleItemActivity(position, itemModel)
           }
         })
+    itemAdapter.setOnEditButtonClickListener(
+        object : ItemAdapter.OnClickListener {
+          override fun onClick(position: Int, itemModel: Item) {
+            openEditItemActivity(position, itemModel)
+          }
+        })
   }
 
   private fun getAllItems(): List<Item> {

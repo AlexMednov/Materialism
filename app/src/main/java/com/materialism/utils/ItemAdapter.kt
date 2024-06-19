@@ -16,6 +16,7 @@ class ItemAdapter(
     val imageRenderer: ImageRenderer
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   private var onClickListener: OnClickListener? = null
+  private var onEditButtonClickListener: OnClickListener? = null
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
     return if (showEditButton) {
@@ -45,7 +46,7 @@ class ItemAdapter(
       holder.binding.itemCategory.text = item.category
       holder.binding.itemLocation.text = item.location
       holder.binding.itemDate.text = item.date
-      holder.binding.editButton.setOnClickListener { onClickListener?.onClick(position, item) }
+      holder.binding.editButton.setOnClickListener { onEditButtonClickListener?.onClick(position, item) }
       holder.itemView.setOnClickListener { onClickListener?.onClick(position, item) }
     } else if (holder is NoEditViewHolder) {
       holder.binding.itemImage.setImageBitmap(image)
@@ -63,6 +64,10 @@ class ItemAdapter(
   // Set the click listener for the adapter
   fun setOnClickListener(listener: OnClickListener?) {
     this.onClickListener = listener
+  }
+
+  fun setOnEditButtonClickListener(listener: OnClickListener?) {
+    this.onEditButtonClickListener = listener
   }
 
   // Interface for the click listener

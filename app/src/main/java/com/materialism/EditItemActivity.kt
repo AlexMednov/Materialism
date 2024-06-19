@@ -93,11 +93,13 @@ class EditItemActivity : AppCompatActivity() {
   }
 
   private fun updateItem() {
+    val itemId = intent.getStringExtra("itemId")?.toInt()
     val itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
     val itemDescription: String = findViewById<EditText>(R.id.description_edit_text).text.toString()
     val itemLocation: String = findViewById<EditText>(R.id.location_edit_text).text.toString()
     val isPublic =
         findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
+    val dateAdded = intent.getStringExtra("date")?.split(" ")?.get(1)
     val currentDate = LocalDate.now().toString()
 
     val categoryName = findViewById<Spinner>(R.id.category_spinner).selectedItem.toString()
@@ -105,18 +107,23 @@ class EditItemActivity : AppCompatActivity() {
 
     try {
       if (categoryId != null) {
-        databaseManager.updateItem(
-            itemName,
-            imageUri,
-            itemDescription,
-            itemLocation,
-            isPublic,
-            false,
-            currentDate,
-            currentDate,
-            0,
-            categoryId,
-            null)
+        if (itemId != null) {
+          if (dateAdded != null) {
+            databaseManager.updateItem(
+              itemId,
+              itemName,
+              imageUri,
+              itemDescription,
+              itemLocation,
+              isPublic,
+              false,
+              dateAdded,
+              currentDate,
+              0,
+              categoryId,
+              null)
+          }
+        }
       }
     } catch (e: SQLException) {
       Log.e("SQLException", e.toString())

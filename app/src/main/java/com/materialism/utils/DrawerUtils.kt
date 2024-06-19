@@ -54,8 +54,11 @@ object DrawerUtils {
 
     navLogout.setOnClickListener {
       popupWindow.dismiss()
+      SessionManager.logout(activity)
       val intent = Intent(activity, LoginActivity::class.java)
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
       activity.startActivity(intent)
+      activity.finish()
     }
   }
 }

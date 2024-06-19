@@ -13,7 +13,7 @@ import com.materialism.sampledata.Item
 class ItemAdapter(
     private var items: List<Item>,
     private val showEditButton: Boolean,
-    private val imageRenderer: ImageRenderer
+    val imageRenderer: ImageRenderer
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   private var onClickListener: OnClickListener? = null
 

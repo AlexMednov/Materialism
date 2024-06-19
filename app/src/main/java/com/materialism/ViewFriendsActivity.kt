@@ -68,13 +68,14 @@ class ViewFriendsActivity : AppCompatActivity() {
   private fun loadFriendsData(loggedInUserId: Int) {
     databaseAdapter.getFriendsUserIds(loggedInUserId) { friendUserIds ->
       databaseAdapter.getUsersInformation(friendUserIds) { users ->
+        // Clear existing entries, to avoid stale data
+        userDetailsMap.clear()
         // Fill userDetailsMap to have user information
         users.forEach { user -> userDetailsMap[user.id] = user }
-
         // Create Friend list based on the user information
         val friends = friendUserIds.map { friendUserId -> Friend(loggedInUserId, friendUserId) }
 
-        // Directly use friends for the adapter
+        // Update adapter with new friends list
         friendAdapter.submitList(friends)
       }
     }

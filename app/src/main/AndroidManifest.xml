@@ -83,6 +83,11 @@
             android:label="@string/title_activity_add_subcategory"
             android:theme="@style/Theme.Materialism" />
         <activity
+            android:name=".ProfilePageActivity"
+            android:exported="false"
+            android:label="@string/title_activity_profile_page"
+            android:theme="@style/Theme.Materialism" />
+        <activity
             android:name=".SupportActivity"
             android:exported="true"
             android:label="@string/title_activity_support"

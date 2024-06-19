@@ -17,7 +17,9 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import com.materialism.databinding.ActivityEditItemBinding
+import com.materialism.sampledata.Item
 import com.materialism.utils.DrawerUtils
 import com.materialism.utils.ImageRenderer
 import java.io.File
@@ -42,6 +44,8 @@ class EditItemActivity : AppCompatActivity() {
 
     val menuIcon: ImageButton = findViewById(R.id.ic_menu)
     DrawerUtils.setupPopupMenu(this, menuIcon)
+
+    setFields()
 
     binding.backButton.setOnClickListener { finish() }
 
@@ -92,6 +96,60 @@ class EditItemActivity : AppCompatActivity() {
     binding.editItemButton.setOnClickListener { updateItem() }
   }
 
+  private fun setFields() {
+    val it = getItemFromIntent()
+
+    try {
+      val image = imageRenderer.getThumbnail(it.imageUri.toUri(), THUMBNAIL_SIZE)
+      binding.imagePlaceholder.setImageBitmap(image)
+    } catch (e: Error){
+      Log.e("EditItem", e.toString())
+    }
+
+    binding.nameEditText.setText(it.name)
+    binding.descriptionEditText.setText(it.description)
+    binding.locationEditText.setText(it.location)
+
+    binding.categorySpinner.setSelection(getCategoryPosition(it.category))
+  }
+
+  private fun getItemFromIntent(): Item {
+    var imageUri = ""
+    var name = ""
+    var description = ""
+    var category = ""
+    var location = ""
+    var date = ""
+
+    imageUri = intent.getStringExtra("imageUri").toString()
+    name = intent.getStringExtra("name").toString()
+    description = intent.getStringExtra("description").toString()
+    category = intent.getStringExtra("category").toString()
+    location = intent.getStringExtra("location").toString().substringAfter(" ")
+    date = intent.getStringExtra("date").toString()
+
+    return Item(name, description, imageUri, category, location, date)
+  }
+
+  private fun getCategoryPosition(categoryName: String): Int {
+    return getCategoriesList().indexOf(categoryName)
+  }
+
+  private fun getCategoriesList(): ArrayList<String> {
+    val categoriesCursor = databaseManager.getAllCategories()
+    val categoryList = ArrayList<String>()
+
+    if (categoriesCursor.moveToFirst()) {
+      do {
+        val name = categoriesCursor.getString(categoriesCursor.getColumnIndexOrThrow("name"))
+        categoryList.add(name)
+      } while (categoriesCursor.moveToNext())
+      categoriesCursor.close()
+    }
+
+    return categoryList
+  }
+
   private fun updateItem() {
     val itemId = intent.getStringExtra("itemId")?.toInt()
     val itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
@@ -99,7 +157,7 @@ class EditItemActivity : AppCompatActivity() {
     val itemLocation: String = findViewById<EditText>(R.id.location_edit_text).text.toString()
     val isPublic =
         findViewById<RadioButton>(R.id.private_no_button).isChecked // not private == public
-    val dateAdded = intent.getStringExtra("date")?.split(" ")?.get(1)
+    val dateAdded = intent.getStringExtra("date")?.substringAfter(" ")
     val currentDate = LocalDate.now().toString()
 
     val categoryName = findViewById<Spinner>(R.id.category_spinner).selectedItem.toString()

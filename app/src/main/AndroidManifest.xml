@@ -33,6 +33,11 @@
             android:label="@string/add_item_activity"
             android:theme="@style/Theme.Materialism" />
         <activity
+            android:name=".EditItemActivity"
+            android:exported="false"
+            android:label="@string/add_item_activity"
+            android:theme="@style/Theme.Materialism" />
+        <activity
             android:name=".ViewFriendsActivity"
             android:exported="false"
             android:label="@string/title_activity_view_friends"

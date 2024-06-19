@@ -9,13 +9,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 data class Request(
-  val name: String,
-  val description: String,
-  val category: String,
-  val location: String,
-  val date: String,
-  val recipient: String? = null,
-  val status: String? = null
+    val name: String,
+    val description: String,
+    val category: String,
+    val location: String,
+    val date: String,
+    val recipient: String? = null,
+    val status: String? = null
 )
 
 class RequestAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -37,11 +37,11 @@ class RequestAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
     return if (viewType == ViewType.INCOMING.ordinal) {
       val view =
-        LayoutInflater.from(parent.context).inflate(R.layout.item_incoming_request, parent, false)
+          LayoutInflater.from(parent.context).inflate(R.layout.item_incoming_request, parent, false)
       IncomingRequestViewHolder(view)
     } else {
       val view =
-        LayoutInflater.from(parent.context).inflate(R.layout.item_your_request, parent, false)
+          LayoutInflater.from(parent.context).inflate(R.layout.item_your_request, parent, false)
       YourRequestViewHolder(view)
     }
   }

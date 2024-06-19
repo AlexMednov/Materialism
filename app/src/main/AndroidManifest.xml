@@ -53,6 +53,11 @@
             android:label="@string/title_activity_view_items"
             android:theme="@style/Theme.Materialism" />
         <activity
+            android:name=".ViewSingleItemActivity"
+            android:exported="false"
+            android:label="@string/title_activity_view_items"
+            android:theme="@style/Theme.Materialism" />
+        <activity
             android:name=".RequestActivity"
             android:exported="false"
             android:label="@string/title_activity_request_page"

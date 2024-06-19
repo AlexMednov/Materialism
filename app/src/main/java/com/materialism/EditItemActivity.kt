@@ -33,7 +33,7 @@ class EditItemActivity : AppCompatActivity() {
   private var databaseManager = DatabaseManager(this)
   private lateinit var imageRenderer: ImageRenderer
   private val THUMBNAIL_SIZE = 480
-  private var imageUri = ""
+  private var newImageUri = ""
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -56,13 +56,13 @@ class EditItemActivity : AppCompatActivity() {
           // Callback is invoked after the user selects a media item or closes the
           // photo picker.
           if (uri != null) {
-            imageUri = uri.toString()
+            newImageUri = uri.toString()
             val bitmap = imageRenderer.getThumbnail(uri, THUMBNAIL_SIZE)
             thumbnail.setImageBitmap(bitmap)
 
             val newUri = copyUriToPictures(uri)
             if (newUri != null) {
-              imageUri = newUri.toString()
+              newImageUri = newUri.toString()
             } else {
               Log.e("FileCopy", "Failed to copy file to Pictures directory")
             }
@@ -151,7 +151,7 @@ class EditItemActivity : AppCompatActivity() {
   }
 
   private fun updateItem() {
-    val itemId = intent.getStringExtra("itemId")?.toInt()
+    val itemId = intent.getIntExtra("itemId", 0)
     val itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
     val itemDescription: String = findViewById<EditText>(R.id.description_edit_text).text.toString()
     val itemLocation: String = findViewById<EditText>(R.id.location_edit_text).text.toString()
@@ -163,24 +163,26 @@ class EditItemActivity : AppCompatActivity() {
     val categoryName = findViewById<Spinner>(R.id.category_spinner).selectedItem.toString()
     val categoryId = getCategoriesMap()[categoryName]
 
+    if (newImageUri == "") {
+      newImageUri = intent.getStringExtra("imageUri").toString()
+    }
+
     try {
       if (categoryId != null) {
-        if (itemId != null) {
-          if (dateAdded != null) {
-            databaseManager.updateItem(
-              itemId,
-              itemName,
-              imageUri,
-              itemDescription,
-              itemLocation,
-              isPublic,
-              false,
-              dateAdded,
-              currentDate,
-              0,
-              categoryId,
-              null)
-          }
+        if (dateAdded != null) {
+          databaseManager.updateItem(
+            itemId,
+            itemName,
+            newImageUri,
+            itemDescription,
+            itemLocation,
+            isPublic,
+            false,
+            dateAdded,
+            currentDate,
+            0,
+            categoryId,
+            null)
         }
       }
     } catch (e: SQLException) {

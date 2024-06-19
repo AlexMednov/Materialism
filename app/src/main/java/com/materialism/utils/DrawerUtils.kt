@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import com.materialism.LoginActivity
+import com.materialism.ProfilePageActivity
 import com.materialism.R
 import com.materialism.SupportActivity
 
@@ -36,7 +37,8 @@ object DrawerUtils {
 
     navProfile.setOnClickListener {
       popupWindow.dismiss()
-      // Add navigation logic here
+      val intent = Intent(activity, ProfilePageActivity::class.java)
+      activity.startActivity(intent)
     }
 
     navSettings.setOnClickListener {

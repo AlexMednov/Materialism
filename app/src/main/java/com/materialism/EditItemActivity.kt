@@ -17,7 +17,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.materialism.databinding.ActivityAddItemBinding
+import com.materialism.databinding.ActivityEditItemBinding
 import com.materialism.utils.DrawerUtils
 import com.materialism.utils.ImageRenderer
 import java.io.File
@@ -25,9 +25,9 @@ import java.io.FileOutputStream
 import java.io.InputStream
 import java.time.LocalDate
 
-class AddItemActivity : AppCompatActivity() {
+class EditItemActivity : AppCompatActivity() {
 
-  private lateinit var binding: ActivityAddItemBinding
+  private lateinit var binding: ActivityEditItemBinding
   private var databaseManager = DatabaseManager(this)
   private lateinit var imageRenderer: ImageRenderer
   private val THUMBNAIL_SIZE = 480
@@ -35,13 +35,13 @@ class AddItemActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    binding = ActivityAddItemBinding.inflate(layoutInflater)
+    binding = ActivityEditItemBinding.inflate(layoutInflater)
     setContentView(binding.root)
     imageRenderer = ImageRenderer(this.contentResolver)
     databaseManager.open()
 
-        val menuIcon: ImageButton = findViewById(R.id.ic_menu)
-        DrawerUtils.setupPopupMenu(this, menuIcon)
+    val menuIcon: ImageButton = findViewById(R.id.ic_menu)
+    DrawerUtils.setupPopupMenu(this, menuIcon)
 
     binding.backButton.setOnClickListener { finish() }
 
@@ -89,10 +89,10 @@ class AddItemActivity : AppCompatActivity() {
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     binding.categorySpinner.adapter = adapter
 
-    binding.addItemButton.setOnClickListener { addItem() }
+    binding.editItemButton.setOnClickListener { updateItem() }
   }
 
-  private fun addItem() {
+  private fun updateItem() {
     val itemName: String = findViewById<EditText>(R.id.name_edit_text).text.toString()
     val itemDescription: String = findViewById<EditText>(R.id.description_edit_text).text.toString()
     val itemLocation: String = findViewById<EditText>(R.id.location_edit_text).text.toString()
@@ -105,7 +105,7 @@ class AddItemActivity : AppCompatActivity() {
 
     try {
       if (categoryId != null) {
-        databaseManager.addItem(
+        databaseManager.updateItem(
             itemName,
             imageUri,
             itemDescription,

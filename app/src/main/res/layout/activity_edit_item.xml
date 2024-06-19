@@ -147,16 +147,16 @@
             android:textColor="@android:color/black" />
     </RadioGroup>
 
-    <!-- Add Item Button -->
+    <!-- Edit Item Button -->
     <Button
-        android:id="@+id/add_item_button"
+        android:id="@+id/edit_item_button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/private_radio_buttons"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:background="@drawable/button_background"
-        android:text="@string/add_item"
+        android:text="@string/edit_item"
         android:textColor="@android:color/white"
         />
 

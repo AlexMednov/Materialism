@@ -30,10 +30,10 @@ class ItemAdapter(
 
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     val item = items[position]
-    val imageUri = item.imageUri
+    val imageUri = item.imageUri.toUri()
     var image: Bitmap? = null
     try {
-      image = imageRenderer.getThumbnail(item.imageUri.toUri(), 240)
+      image = imageRenderer.getThumbnail(imageUri, 240)
     } catch (e: Exception) {
       Log.e("ImageRenderer", e.toString())
     }
@@ -45,6 +45,7 @@ class ItemAdapter(
       holder.binding.itemCategory.text = item.category
       holder.binding.itemLocation.text = item.location
       holder.binding.itemDate.text = item.date
+      holder.binding.editButton.setOnClickListener { onClickListener?.onClick(position, item) }
       holder.itemView.setOnClickListener { onClickListener?.onClick(position, item) }
     } else if (holder is NoEditViewHolder) {
       holder.binding.itemImage.setImageBitmap(image)

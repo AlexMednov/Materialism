@@ -1,5 +1,6 @@
 package com.materialism
 
+import android.app.Activity
 import android.content.ContentResolver
 import android.content.Intent
 import android.database.SQLException
@@ -35,6 +36,7 @@ class EditItemActivity : AppCompatActivity() {
   private lateinit var imageRenderer: ImageRenderer
   private val THUMBNAIL_SIZE = 480
   private var newImageUri = ""
+  private val CAMERA_REQUEST_CODE = 1001
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -53,30 +55,10 @@ class EditItemActivity : AppCompatActivity() {
     // Registers a photo picker activity launcher in single-select mode.
     val pickMedia =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-          val thumbnail: ImageView = findViewById(R.id.image_placeholder)
           // Callback is invoked after the user selects a media item or closes the
           // photo picker.
           if (uri != null) {
-            newImageUri = uri.toString()
-            val bitmap = imageRenderer.getThumbnail(uri, THUMBNAIL_SIZE)
-            thumbnail.setImageBitmap(bitmap)
-
-            val newUri = copyUriToPictures(uri)
-            if (newUri != null) {
-              newImageUri = newUri.toString()
-            } else {
-              Log.e("FileCopy", "Failed to copy file to Pictures directory")
-            }
-
-            // Persist the permission to access the URI
-            val contentResolver = applicationContext.contentResolver
-            val takeFlags: Int =
-              Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-            try {
-              contentResolver.takePersistableUriPermission(uri, takeFlags)
-            } catch (e: SecurityException) {
-              Log.e("PersistURI", "No persistable permission grants found for URI: $uri", e)
-            }
+            setImage(uri)
           }
         }
 
@@ -86,7 +68,7 @@ class EditItemActivity : AppCompatActivity() {
 
     binding.takePictureButton.setOnClickListener {
       val intent = Intent(this, CameraActivity::class.java)
-      startActivity(intent)
+      startActivityForResult(intent, CAMERA_REQUEST_CODE)
     }
 
     val adapter =
@@ -97,16 +79,54 @@ class EditItemActivity : AppCompatActivity() {
     binding.editItemButton.setOnClickListener { updateItem() }
   }
 
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+      val savedUri = data?.getStringExtra("savedUri")?.toUri()
+      if (savedUri != null) {
+        setImage(savedUri)
+      }
+    }
+  }
+
+  private fun setImage(uri: Uri) {
+    newImageUri = uri.toString()
+    val bitmap = imageRenderer.getThumbnail(uri, THUMBNAIL_SIZE)
+    binding.imagePlaceholder.setImageBitmap(bitmap)
+
+    val newUri = copyUriToPictures(uri)
+    if (newUri != null) {
+      newImageUri = newUri.toString()
+    } else {
+      Log.e("FileCopy", "Failed to copy file to Pictures directory")
+    }
+
+    // Persist the permission to access the URI
+    val contentResolver = applicationContext.contentResolver
+    val takeFlags: Int =
+      Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+    try {
+      contentResolver.takePersistableUriPermission(uri, takeFlags)
+    } catch (e: SecurityException) {
+      Log.e("PersistURI", "No persistable permission grants found for URI: $uri", e)
+    }
+  }
+
   private fun setFields() {
     val it = getItemFromIntent()
 
     newImageUri = it.imageUri
 
-    try {
-      binding.imagePlaceholder.setImageBitmap(
-        imageRenderer.getThumbnail(it.imageUri.toUri(), THUMBNAIL_SIZE))
-    } catch (e: Exception) {
-      Log.e("ImageRenderer", e.toString())
+    val cameraUri = intent.getStringExtra("savedUri")?.toUri()
+    if (cameraUri != null) {
+      setImage(cameraUri)
+    } else {
+      try {
+        binding.imagePlaceholder.setImageBitmap(
+          imageRenderer.getThumbnail(it.imageUri.toUri(), THUMBNAIL_SIZE))
+      } catch (e: Exception) {
+        Log.e("ImageRenderer", e.toString())
+      }
     }
 
     binding.nameEditText.setText(it.name)

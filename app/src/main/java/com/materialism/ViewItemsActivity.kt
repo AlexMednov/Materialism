@@ -3,9 +3,12 @@ package com.materialism
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,8 +23,8 @@ class ViewItemsActivity : AppCompatActivity() {
   private lateinit var binding: ActivityViewItemsBinding
   private lateinit var itemAdapter: ItemAdapter
   private var databaseManager = DatabaseManager(this)
-
   private lateinit var imageRenderer: ImageRenderer
+  private lateinit var allItems: ArrayList<Item>
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -29,6 +32,7 @@ class ViewItemsActivity : AppCompatActivity() {
     setContentView(binding.root)
     imageRenderer = ImageRenderer(this.contentResolver)
     databaseManager.open()
+    allItems = getAllItems()
 
     val menuIcon: ImageButton = findViewById(R.id.ic_menu)
     DrawerUtils.setupPopupMenu(this, menuIcon)
@@ -36,6 +40,8 @@ class ViewItemsActivity : AppCompatActivity() {
     setupRecyclerView()
 
     binding.backButton.setOnClickListener { onBackPressed() }
+
+    setupSearchBar()
   }
 
   private fun setupSortSpinner() {
@@ -92,7 +98,33 @@ class ViewItemsActivity : AppCompatActivity() {
         })
   }
 
-  private fun getAllItems(): List<Item> {
+  private fun setupSearchBar() {
+    val searchBar: EditText = findViewById(R.id.search_bar)
+    searchBar.addTextChangedListener(
+        object : TextWatcher {
+          override fun afterTextChanged(s: Editable?) {
+            filterItems(s.toString())
+          }
+
+          override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+          override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+  }
+
+  private fun filterItems(query: String) {
+    val filteredItems =
+        allItems.filter { item ->
+          item.name.contains(query, ignoreCase = true) ||
+              item.description.contains(query, ignoreCase = true) ||
+              item.category.contains(query, ignoreCase = true) ||
+              item.location.contains(query, ignoreCase = true) ||
+              item.date.contains(query, ignoreCase = true)
+        }
+    itemAdapter.setItems(filteredItems)
+  }
+
+  private fun getAllItems(): ArrayList<Item> {
     val itemsCursor = databaseManager.getAllItems()
     val itemsList = ArrayList<Item>()
 

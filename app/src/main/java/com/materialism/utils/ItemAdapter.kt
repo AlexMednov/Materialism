@@ -69,6 +69,12 @@ class ItemAdapter(
   fun setOnEditButtonClickListener(listener: OnClickListener?) {
     this.onEditButtonClickListener = listener
   }
+  fun getItems(): List<Item> = items
+
+  fun setItems(newItems: List<Item>) {
+    items = newItems
+    notifyDataSetChanged()
+  }
 
   // Interface for the click listener
   interface OnClickListener {

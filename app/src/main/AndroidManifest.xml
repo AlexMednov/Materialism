@@ -78,6 +78,11 @@
             android:label="@string/title_activity_add_subcategory"
             android:theme="@style/Theme.Materialism" />
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Theme.Materialism" />
+        <activity
             android:name=".ChatActivity"
             android:exported="false"
             android:label="@string/title_activity_chat"

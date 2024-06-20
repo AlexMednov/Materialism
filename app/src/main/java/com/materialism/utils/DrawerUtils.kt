@@ -11,6 +11,7 @@ import android.widget.PopupWindow
 import com.materialism.LoginActivity
 import com.materialism.ProfilePageActivity
 import com.materialism.R
+import com.materialism.SettingsActivity
 import com.materialism.SupportActivity
 
 object DrawerUtils {
@@ -43,7 +44,8 @@ object DrawerUtils {
 
     navSettings.setOnClickListener {
       popupWindow.dismiss()
-      // Add navigation logic here
+      val intent = Intent(activity, SettingsActivity::class.java)
+      activity.startActivity(intent)
     }
 
     navSupport.setOnClickListener {

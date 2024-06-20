@@ -1,5 +1,6 @@
 package com.materialism
 
+import android.app.Activity
 import android.content.ContentResolver
 import android.content.Intent
 import android.database.SQLException
@@ -35,6 +36,7 @@ class EditItemActivity : AppCompatActivity() {
   private lateinit var imageRenderer: ImageRenderer
   private val THUMBNAIL_SIZE = 480
   private var newImageUri = ""
+  private val CAMERA_REQUEST_CODE = 1001
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -66,7 +68,7 @@ class EditItemActivity : AppCompatActivity() {
 
     binding.takePictureButton.setOnClickListener {
       val intent = Intent(this, CameraActivity::class.java)
-      startActivity(intent)
+      startActivityForResult(intent, CAMERA_REQUEST_CODE)
     }
 
     val adapter =
@@ -75,6 +77,16 @@ class EditItemActivity : AppCompatActivity() {
     binding.categorySpinner.adapter = adapter
 
     binding.editItemButton.setOnClickListener { updateItem() }
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+      val savedUri = data?.getStringExtra("savedUri")?.toUri()
+      if (savedUri != null) {
+        setImage(savedUri)
+      }
+    }
   }
 
   private fun setImage(uri: Uri) {
@@ -105,11 +117,16 @@ class EditItemActivity : AppCompatActivity() {
 
     newImageUri = it.imageUri
 
-    try {
-      binding.imagePlaceholder.setImageBitmap(
-        imageRenderer.getThumbnail(it.imageUri.toUri(), THUMBNAIL_SIZE))
-    } catch (e: Exception) {
-      Log.e("ImageRenderer", e.toString())
+    val cameraUri = intent.getStringExtra("savedUri")?.toUri()
+    if (cameraUri != null) {
+      setImage(cameraUri)
+    } else {
+      try {
+        binding.imagePlaceholder.setImageBitmap(
+          imageRenderer.getThumbnail(it.imageUri.toUri(), THUMBNAIL_SIZE))
+      } catch (e: Exception) {
+        Log.e("ImageRenderer", e.toString())
+      }
     }
 
     binding.nameEditText.setText(it.name)

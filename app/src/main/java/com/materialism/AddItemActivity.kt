@@ -1,5 +1,6 @@
 package com.materialism
 
+import android.app.Activity
 import android.content.ContentResolver
 import android.content.Intent
 import android.database.SQLException
@@ -17,6 +18,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import com.materialism.databinding.ActivityAddItemBinding
 import com.materialism.utils.DrawerUtils
 import com.materialism.utils.ImageRenderer
@@ -32,6 +34,7 @@ class AddItemActivity : AppCompatActivity() {
   private lateinit var imageRenderer: ImageRenderer
   private val THUMBNAIL_SIZE = 480
   private var imageUri = ""
+  private val CAMERA_REQUEST_CODE = 1001
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -52,26 +55,7 @@ class AddItemActivity : AppCompatActivity() {
           // Callback is invoked after the user selects a media item or closes the
           // photo picker.
           if (uri != null) {
-            imageUri = uri.toString()
-            val bitmap = imageRenderer.getThumbnail(uri, THUMBNAIL_SIZE)
-            thumbnail.setImageBitmap(bitmap)
-
-            val newUri = copyUriToPictures(uri)
-            if (newUri != null) {
-              imageUri = newUri.toString()
-            } else {
-              Log.e("FileCopy", "Failed to copy file to Pictures directory")
-            }
-
-            // Persist the permission to access the URI
-            val contentResolver = applicationContext.contentResolver
-            val takeFlags: Int =
-              Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-            try {
-              contentResolver.takePersistableUriPermission(uri, takeFlags)
-            } catch (e: SecurityException) {
-              Log.e("PersistURI", "No persistable permission grants found for URI: $uri", e)
-            }
+            setImage(uri)
           }
         }
 
@@ -81,7 +65,7 @@ class AddItemActivity : AppCompatActivity() {
 
     binding.takePictureButton.setOnClickListener {
       val intent = Intent(this, CameraActivity::class.java)
-      startActivity(intent)
+      startActivityForResult(intent, CAMERA_REQUEST_CODE)
     }
 
     val adapter =
@@ -90,6 +74,39 @@ class AddItemActivity : AppCompatActivity() {
     binding.categorySpinner.adapter = adapter
 
     binding.addItemButton.setOnClickListener { addItem() }
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+      val savedUri = data?.getStringExtra("savedUri")?.toUri()
+      if (savedUri != null) {
+        setImage(savedUri)
+      }
+    }
+  }
+
+  private fun setImage(uri: Uri) {
+    imageUri = uri.toString()
+    val bitmap = imageRenderer.getThumbnail(uri, THUMBNAIL_SIZE)
+    binding.imagePlaceholder.setImageBitmap(bitmap)
+
+    val newUri = copyUriToPictures(uri)
+    if (newUri != null) {
+      imageUri = newUri.toString()
+    } else {
+      Log.e("FileCopy", "Failed to copy file to Pictures directory")
+    }
+
+    // Persist the permission to access the URI
+    val contentResolver = applicationContext.contentResolver
+    val takeFlags: Int =
+      Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+    try {
+      contentResolver.takePersistableUriPermission(uri, takeFlags)
+    } catch (e: SecurityException) {
+      Log.e("PersistURI", "No persistable permission grants found for URI: $uri", e)
+    }
   }
 
   private fun addItem() {

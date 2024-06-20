@@ -1,7 +1,6 @@
 package com.materialism
 
 import android.Manifest
-import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -90,7 +89,7 @@ class CameraActivity : ComponentActivity() {
 
             // Create an Intent to navigate back to the previous activity
             val returnIntent = Intent()
-            setResult(Activity.RESULT_OK, returnIntent)
+            setResult(RESULT_OK, returnIntent)
             returnIntent.putExtra("savedUri", output.savedUri.toString())
 
             // Finish the current activity

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".ViewCategoriesActivity">
+    tools:context=".category.ViewCategoriesActivity">
 
     <ImageButton
         android:id="@+id/ic_menu"

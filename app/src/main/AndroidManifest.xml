@@ -28,77 +28,77 @@
             android:label="@string/title_activity_register"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".AddItemActivity"
+            android:name=".item.AddItemActivity"
             android:exported="false"
             android:label="@string/add_item_activity"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".EditItemActivity"
+            android:name=".item.EditItemActivity"
             android:exported="false"
             android:label="@string/add_item_activity"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".ViewFriendsActivity"
+            android:name=".friend.ViewFriendsActivity"
             android:exported="false"
             android:label="@string/title_activity_view_friends"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".AddFriendsActivity"
+            android:name=".friend.AddFriendsActivity"
             android:exported="false"
             android:label="@string/title_activity_add_friends"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".ViewFriendProfileActivity"
+            android:name=".friend.ViewFriendProfileActivity"
             android:exported="false"
             android:label="@string/title_activity_add_friends"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".ViewItemsActivity"
+            android:name=".item.ViewItemsActivity"
             android:exported="false"
             android:label="@string/title_activity_view_items"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".ViewSingleItemActivity"
+            android:name=".item.ViewSingleItemActivity"
             android:exported="false"
             android:label="@string/title_activity_view_items"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".RequestActivity"
+            android:name=".friend.RequestActivity"
             android:exported="false"
             android:label="@string/title_activity_request_page"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".AddCategoryActivity"
+            android:name=".category.AddCategoryActivity"
             android:exported="false"
             android:label="@string/title_activity_add_item"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".AddSubcategoryActivity"
+            android:name=".category.AddSubcategoryActivity"
             android:exported="false"
             android:label="@string/title_activity_add_subcategory"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".sidebar.SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".ChatActivity"
+            android:name=".friend.ChatActivity"
             android:exported="false"
             android:label="@string/title_activity_chat"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".ViewCategoriesActivity"
+            android:name=".category.ViewCategoriesActivity"
             android:exported="false"
             android:label="@string/title_activity_add_subcategory"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".ProfilePageActivity"
+            android:name=".sidebar.ProfilePageActivity"
             android:exported="false"
             android:label="@string/title_activity_profile_page"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".SupportActivity"
+            android:name=".sidebar.SupportActivity"
             android:exported="true"
             android:label="@string/title_activity_support"
             android:theme="@style/Theme.Materialism" />

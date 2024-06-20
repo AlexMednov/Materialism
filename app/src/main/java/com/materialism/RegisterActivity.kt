@@ -11,7 +11,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.materialism.firebaseDatabase.data.User
+import com.materialism.database.firebaseDatabase.data.User
 import com.materialism.utils.PasswordUtils
 
 class RegisterActivity : AppCompatActivity() {

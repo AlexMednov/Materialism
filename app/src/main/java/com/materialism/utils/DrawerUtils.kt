@@ -9,10 +9,10 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import com.materialism.LoginActivity
-import com.materialism.ProfilePageActivity
 import com.materialism.R
-import com.materialism.SettingsActivity
-import com.materialism.SupportActivity
+import com.materialism.sidebar.ProfilePageActivity
+import com.materialism.sidebar.SettingsActivity
+import com.materialism.sidebar.SupportActivity
 
 object DrawerUtils {
 

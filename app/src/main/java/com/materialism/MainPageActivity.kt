@@ -8,11 +8,20 @@ import android.widget.ImageButton
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.materialism.adapter.DatabaseAdapter
+import com.materialism.adapter.ItemAdapter
+import com.materialism.category.AddCategoryActivity
+import com.materialism.category.AddSubcategoryActivity
+import com.materialism.database.localDatabase.DatabaseManager
 import com.materialism.databinding.MainPageActivityBinding
-import com.materialism.sampledata.Item
+import com.materialism.dto.Item
+import com.materialism.friend.RequestActivity
+import com.materialism.friend.ViewFriendsActivity
+import com.materialism.item.AddItemActivity
+import com.materialism.item.ViewItemsActivity
+import com.materialism.item.ViewSingleItemActivity
 import com.materialism.utils.DrawerUtils
 import com.materialism.utils.ImageRenderer
-import com.materialism.utils.ItemAdapter
 
 class MainPageActivity : AppCompatActivity() {
 
@@ -93,7 +102,14 @@ class MainPageActivity : AppCompatActivity() {
         }
 
         val item =
-            Item(itemName, itemDescription, imageUri, categoryName, itemLocation, itemDateTimeAdded, itemId)
+            Item(
+                itemName,
+                itemDescription,
+                imageUri,
+                categoryName,
+                itemLocation,
+                itemDateTimeAdded,
+                itemId)
 
         itemsList.add(item)
       } while (itemsCursor.moveToNext())

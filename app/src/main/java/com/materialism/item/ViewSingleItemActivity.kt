@@ -5,8 +5,6 @@ import android.util.Log
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
 import com.materialism.R
 import com.materialism.database.localDatabase.DatabaseManager
 import com.materialism.databinding.ActivityViewSingleItemBinding
@@ -17,13 +15,10 @@ import com.materialism.utils.ImageRenderer
 class ViewSingleItemActivity : AppCompatActivity() {
 
   private lateinit var binding: ActivityViewSingleItemBinding
-  private lateinit var drawerLayout: DrawerLayout
-  private lateinit var navView: NavigationView
 
   private var databaseManager = DatabaseManager(this)
   private lateinit var imageRenderer: ImageRenderer
   private val THUMBNAIL_SIZE = 480
-  private var imageUri = ""
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

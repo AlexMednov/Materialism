@@ -10,8 +10,7 @@ class QuestGenerator {
   companion object {
     var fetchedQuests: ArrayList<Quest> = arrayListOf()
 
-    fun fetchAllQuests() { // USE THIS FUNCTION WITH Timer.schedule(1000), AS FB DOES NOT HAVE TIME
-      // TO PROCESS IT OTHERWISE I DO NOT KNOW WHY
+    fun fetchAllQuests() {
       val database = FirebaseDatabase.getInstance()
       val reference = database.getReference("Quest")
 
@@ -27,7 +26,7 @@ class QuestGenerator {
             }
           }
           .addOnFailureListener { initializeQuests() }
-    } // CHECK WHETHER THE CHANGE TO DB BREAKS ADAPTER FOR DB, CHANGED WEIGHT TO UPPER case
+    }
 
     private fun convertMapToQuest(map: Map<String, Any>): Quest {
       return Quest(

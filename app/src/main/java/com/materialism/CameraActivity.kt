@@ -23,7 +23,6 @@ import java.util.Locale
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-//    setContentView(R.layout.main_page_activity)
 typealias LumaListener = (luma: Double) -> Unit
 
 class CameraActivity : ComponentActivity() {

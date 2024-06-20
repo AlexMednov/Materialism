@@ -279,7 +279,6 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
   }
 
   var loggedInUserId = 1 // dummy logged in userId
-  var exampleFriendUserId = 2011884291 // example friendId for testing
 
   fun getAllFriendsInfoAndItemInfo() {
     getFriendsUserIds(loggedInUserId) { friendsUserIds ->

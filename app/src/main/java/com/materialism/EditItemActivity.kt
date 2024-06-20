@@ -3,6 +3,7 @@ package com.materialism
 import android.content.ContentResolver
 import android.content.Intent
 import android.database.SQLException
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -99,11 +100,13 @@ class EditItemActivity : AppCompatActivity() {
   private fun setFields() {
     val it = getItemFromIntent()
 
+    newImageUri = it.imageUri
+
     try {
-      val image = imageRenderer.getThumbnail(it.imageUri.toUri(), THUMBNAIL_SIZE)
-      binding.imagePlaceholder.setImageBitmap(image)
-    } catch (e: Error){
-      Log.e("EditItem", e.toString())
+      binding.imagePlaceholder.setImageBitmap(
+        imageRenderer.getThumbnail(it.imageUri.toUri(), THUMBNAIL_SIZE))
+    } catch (e: Exception) {
+      Log.e("ImageRenderer", e.toString())
     }
 
     binding.nameEditText.setText(it.name)

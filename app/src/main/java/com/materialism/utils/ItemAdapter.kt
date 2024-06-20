@@ -64,6 +64,13 @@ class ItemAdapter(
     this.onClickListener = listener
   }
 
+  fun getItems(): List<Item> = items
+
+  fun setItems(newItems: List<Item>) {
+    items = newItems
+    notifyDataSetChanged()
+  }
+
   // Interface for the click listener
   interface OnClickListener {
     fun onClick(position: Int, itemModel: Item)

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".sidebar.SupportActivity">
+
+    <!-- Menu icon -->
+    <ImageButton
+        android:id="@+id/ic_menu"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="12dp"
+        android:src="@drawable/ic_menu"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Menu icon"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp" />
+    <!-- Contact Section -->
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:alignItems="center"
+        app:justifyContent="space_around"
+        app:flexWrap="wrap"
+        app:flexDirection="column">
+
+        <TextView
+            android:id="@+id/contact_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ic_menu"
+            android:layout_marginTop="32dp"
+            android:text="Contact"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:alignItems="center"
+            app:justifyContent="center"
+            app:flexWrap="wrap"
+            app:flexDirection="column">
+
+            <TextView
+                android:id="@+id/email_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/contact_title"
+                android:layout_marginTop="16dp"
+                android:text="Email:"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/email_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/email_label"
+                android:text="materialismsupport@gmail.com"
+                android:textSize="16sp" />
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:alignItems="center"
+            app:justifyContent="center"
+            app:flexWrap="wrap"
+            app:flexDirection="column">
+
+            <TextView
+                android:id="@+id/phone_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Phone number:"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/phone_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/phone_label"
+                android:text="+38679546789"
+                android:textSize="16sp" />
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <!-- Report Issue Section -->
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:alignItems="center"
+        app:justifyContent="center"
+        app:flexWrap="wrap"
+        app:flexDirection="column">
+
+        <TextView
+            android:id="@+id/report_issue_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Report issue"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/report_email_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/report_issue_title"
+            android:layout_marginTop="16dp"
+            android:text="Email:"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/report_email_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/report_email_label"
+            android:text="materialismtechteam@gmail.com"
+            android:textSize="16sp" />
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+</RelativeLayout>

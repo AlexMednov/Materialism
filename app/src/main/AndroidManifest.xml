@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature android:name="android.hardware.camera.any" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,30 +22,85 @@
             android:exported="false"
             android:label="@string/title_activity_main_page"
             android:theme="@style/Theme.Materialism" />
-		<activity
-            android:name=".AddItemActivity"
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false"
+            android:label="@string/title_activity_register"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".item.AddItemActivity"
             android:exported="false"
             android:label="@string/add_item_activity"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".DesignMainPageActivity"
+            android:name=".item.EditItemActivity"
             android:exported="false"
-            android:label="@string/title_activity_design_main_page"
+            android:label="@string/add_item_activity"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".DesignAddItemActivity"
+            android:name=".friend.ViewFriendsActivity"
             android:exported="false"
-            android:label="@string/title_activity_add_item"
+            android:label="@string/title_activity_view_friends"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".ViewItemsActivity"
+            android:name=".friend.AddFriendsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_friends"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".friend.ViewFriendProfileActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_friends"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".item.ViewItemsActivity"
             android:exported="false"
             android:label="@string/title_activity_view_items"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".AddCategoryActivity"
+            android:name=".item.ViewSingleItemActivity"
+            android:exported="false"
+            android:label="@string/title_activity_view_items"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".friend.RequestActivity"
+            android:exported="false"
+            android:label="@string/title_activity_request_page"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".category.AddCategoryActivity"
             android:exported="false"
             android:label="@string/title_activity_add_item"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".category.AddSubcategoryActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_subcategory"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".sidebar.SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".friend.ChatActivity"
+            android:exported="false"
+            android:label="@string/title_activity_chat"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".category.ViewCategoriesActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_subcategory"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".sidebar.ProfilePageActivity"
+            android:exported="false"
+            android:label="@string/title_activity_profile_page"
+            android:theme="@style/Theme.Materialism" />
+        <activity
+            android:name=".sidebar.SupportActivity"
+            android:exported="true"
+            android:label="@string/title_activity_support"
             android:theme="@style/Theme.Materialism" />
         <activity
             android:name=".LoginActivity"
@@ -53,6 +113,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CameraActivity"
+            android:exported="true"
+            android:label="@string/take_photo"
+            android:theme="@style/Theme.Materialism"
+            />
 
     </application>
 

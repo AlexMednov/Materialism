@@ -119,6 +119,9 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
           .setValue(item)
     }
   }
+    fun updateUser(){
+
+    }
 
   fun deleteItem(itemId: Int, userId: Int) {
     firebaseDatabase
@@ -276,6 +279,29 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
               }
             })
   }
+
+    fun updateUserInformation(user: User, callback: (Boolean) -> Unit) {
+        val databaseReference = FirebaseDatabase.getInstance().getReference("User")
+        databaseReference.orderByChild("id").equalTo(user.id.toDouble())
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        for (snapshot in dataSnapshot.children) {
+                            snapshot.ref.setValue(user)
+                            callback(true)
+                            return
+                        }
+                    } else {
+                        callback(false)
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle error
+                    callback(false)
+                }
+            })
+    }
 
   var loggedInUserId = 1 // dummy logged in userId
   var exampleFriendUserId = 2011884291 // example friendId for testing

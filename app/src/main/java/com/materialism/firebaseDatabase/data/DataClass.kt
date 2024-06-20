@@ -15,13 +15,13 @@ data class QuestItem(val id: Int = 0, val name: String = "Default name", val cat
 
 data class User(
     val id: Int = 0,
-    val name: String = "User Userovich",
-    val email: String? = null,
+    var name: String = "User Userovich",
+    var email: String? = null,
     val hashedPassword: String? = null,
     val isRegistered: Boolean = false,
     val score: Int = 0,
     val karma: Int = 0,
-    val location: String? = null
+    var location: String? = null
 ) {
   constructor() :
       this(

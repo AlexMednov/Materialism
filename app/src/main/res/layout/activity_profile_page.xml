@@ -68,6 +68,12 @@
                     android:layout_weight="1"
                     android:text="User"
                     android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/et_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
 
                 <ImageButton
                     android:id="@+id/btn_edit_name"
@@ -101,6 +107,13 @@
                     android:text="user@gmail.com"
                     android:textSize="16sp" />
 
+                <EditText
+                    android:id="@+id/et_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
+
                 <ImageButton
                     android:id="@+id/btn_edit_email"
                     android:layout_width="wrap_content"
@@ -131,6 +144,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Emmen"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/et_location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:textSize="16sp" />
 
                 <ImageButton

@@ -1,0 +1,1 @@
+This folder contains all the burndown charts for all the sprints. During sprint 1 and parts of sprint 2 we were operating using the story point system. During the sprint 2 we had switched midway to time, which caused the burndowns to be weird. It is recommended to use issue number burndown as a reference.

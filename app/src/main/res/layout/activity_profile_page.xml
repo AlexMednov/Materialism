@@ -62,7 +62,7 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/tv_name"
+                    android:id="@+id/profile_username"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -94,7 +94,7 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/tv_email"
+                    android:id="@+id/profile_email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -141,6 +141,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/edit_location_desc" />
             </LinearLayout>
+
         </LinearLayout>
 
         <Button
@@ -160,6 +161,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/blue">
+
         <include layout="@layout/burger_menu_layout" />
     </com.google.android.material.navigation.NavigationView>
+
 </androidx.drawerlayout.widget.DrawerLayout>

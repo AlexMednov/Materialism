@@ -2,6 +2,7 @@ package com.materialism
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -89,6 +90,12 @@ class ViewItemsActivity : AppCompatActivity() {
             openViewSingleItemActivity(position, itemModel)
           }
         })
+    itemAdapter.setOnEditButtonClickListener(
+        object : ItemAdapter.OnClickListener {
+          override fun onClick(position: Int, itemModel: Item) {
+            openEditItemActivity(position, itemModel)
+          }
+        })
   }
 
   private fun setupSearchBar() {
@@ -119,19 +126,20 @@ class ViewItemsActivity : AppCompatActivity() {
 
   private fun getAllItems(): ArrayList<Item> {
     val itemsCursor = databaseManager.getAllItems()
-    val itemsArray = ArrayList<Item>()
+    val itemsList = ArrayList<Item>()
 
     if (itemsCursor.moveToFirst()) {
       do {
+        val itemId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("id"))
         val itemName = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("name"))
         val itemDescription =
-            itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
+          itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
         val imageUri = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("imageURI"))
         val itemCategoryId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("categoryId"))
         val itemLocation =
-            "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
+          "Location: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("location"))
         val itemDateTimeAdded =
-            "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
+          "Added: " + itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("dateTimeAdded"))
 
         val categoryCursor = databaseManager.getCategory(itemCategoryId)
         var categoryName = "Category: "
@@ -143,19 +151,34 @@ class ViewItemsActivity : AppCompatActivity() {
         }
 
         val item =
-            Item(itemName, itemDescription, imageUri, categoryName, itemLocation, itemDateTimeAdded)
+          Item(itemName, itemDescription, imageUri, categoryName, itemLocation, itemDateTimeAdded, itemId)
 
-        itemsArray.add(item)
+        itemsList.add(item)
       } while (itemsCursor.moveToNext())
       itemsCursor.close()
     }
-    return itemsArray
+    return itemsList
   }
 
   // Method to handle the click event for the recycle list
   fun openViewSingleItemActivity(position: Int, itemModel: Item) {
     val intent = Intent(this, ViewSingleItemActivity::class.java)
 
+    intent.putExtra("itemId", itemModel.id)
+    intent.putExtra("imageUri", itemModel.imageUri)
+    intent.putExtra("name", itemModel.name)
+    intent.putExtra("description", itemModel.description)
+    intent.putExtra("category", itemModel.category)
+    intent.putExtra("location", itemModel.location)
+    intent.putExtra("date", itemModel.date)
+    startActivity(intent)
+  }
+
+  // Method to handle the click event for the edit button
+  fun openEditItemActivity(position: Int, itemModel: Item) {
+    val intent = Intent(this, EditItemActivity::class.java)
+
+    intent.putExtra("itemId", itemModel.id)
     intent.putExtra("imageUri", itemModel.imageUri)
     intent.putExtra("name", itemModel.name)
     intent.putExtra("description", itemModel.description)

@@ -66,12 +66,13 @@ class MainPageActivity : AppCompatActivity() {
     }
   }
 
-  private fun getAllItems(): ArrayList<Item> {
+  private fun getAllItems(): List<Item> {
     val itemsCursor = databaseManager.getAllItems()
-    val itemsArray = ArrayList<Item>()
+    val itemsList = ArrayList<Item>()
 
     if (itemsCursor.moveToFirst()) {
       do {
+        val itemId = itemsCursor.getInt(itemsCursor.getColumnIndexOrThrow("id"))
         val itemName = itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("name"))
         val itemDescription =
             itemsCursor.getString(itemsCursor.getColumnIndexOrThrow("description"))
@@ -92,13 +93,13 @@ class MainPageActivity : AppCompatActivity() {
         }
 
         val item =
-            Item(itemName, itemDescription, imageUri, categoryName, itemLocation, itemDateTimeAdded)
+            Item(itemName, itemDescription, imageUri, categoryName, itemLocation, itemDateTimeAdded, itemId)
 
-        itemsArray.add(item)
+        itemsList.add(item)
       } while (itemsCursor.moveToNext())
       itemsCursor.close()
     }
-    return itemsArray
+    return itemsList
   }
 
   private fun showFabOptionsMenu(view: View) {
@@ -150,6 +151,7 @@ class MainPageActivity : AppCompatActivity() {
   fun openViewSingleItemActivity(position: Int, itemModel: Item) {
     val intent = Intent(this, ViewSingleItemActivity::class.java)
 
+    intent.putExtra("itemId", itemModel.id)
     intent.putExtra("imageUri", itemModel.imageUri)
     intent.putExtra("name", itemModel.name)
     intent.putExtra("description", itemModel.description)

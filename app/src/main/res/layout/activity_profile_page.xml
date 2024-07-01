@@ -91,7 +91,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="User"
                     android:textSize="18sp" />
 
                 <ImageButton
@@ -123,7 +122,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="user@gmail.com"
                     android:textSize="18sp" />
 
                 <ImageButton
@@ -155,7 +153,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Emmen"
                     android:textSize="18sp" />
 
                 <ImageButton

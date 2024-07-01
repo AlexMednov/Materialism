@@ -78,11 +78,11 @@ class CameraActivity : ComponentActivity() {
         ContextCompat.getMainExecutor(this),
         object : ImageCapture.OnImageSavedCallback {
           override fun onError(exc: ImageCaptureException) {
-            Log.e(TAG, "Photo capture failed", exc)
+            Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
           }
 
           override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-            val msg = "Photo capture succeeded"
+            val msg = "Photo capture succeeded: ${output.savedUri}"
             Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
             Log.d(TAG, msg)
 

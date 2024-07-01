@@ -63,7 +63,7 @@
             android:label="@string/title_activity_view_items"
             android:theme="@style/Theme.Materialism" />
         <activity
-            android:name=".friend.RequestActivity"
+            android:name=".friend.RequestItemActivity"
             android:exported="false"
             android:label="@string/title_activity_request_page"
             android:theme="@style/Theme.Materialism" />

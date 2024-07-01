@@ -247,7 +247,6 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
             })
   }
 
-  // passes, but crashes due to there being no No-Argument Constructors for data classes
   fun getItemsForSingleUser(userId: Int, callback: (List<Item>) -> Unit) {
     val databaseReference = FirebaseDatabase.getInstance().getReference("Item")
     val items = mutableListOf<Item>()
@@ -276,17 +275,5 @@ class DatabaseAdapter(val databaseManager: DatabaseManager) {
                 callback(emptyList())
               }
             })
-  }
-
-  var loggedInUserId = 1 // dummy logged in userId
-
-  fun getAllFriendsInfoAndItemInfo() {
-    getFriendsUserIds(loggedInUserId) { friendsUserIds ->
-      // get all friends' items
-      getUsersInformation(friendsUserIds) { users ->
-        // get all friends' tems
-        getItemsForUsers(friendsUserIds) { items -> }
-      }
-    }
   }
 }

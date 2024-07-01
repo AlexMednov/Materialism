@@ -81,7 +81,6 @@ class ViewFriendsActivity : AppCompatActivity() {
         val friends = friendUserIds.map { friendUserId -> Friend(loggedInUserId, friendUserId) }
 
           if(friends.isEmpty()){
-              println("Empty friend list")
               val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
               Snackbar.make(recyclerView, "It would appear that you do not have any friends. Try adding them!", Snackbar.LENGTH_LONG).show()
           }

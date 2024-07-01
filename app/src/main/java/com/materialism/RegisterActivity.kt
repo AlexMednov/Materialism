@@ -1,5 +1,6 @@
 package com.materialism
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
@@ -42,7 +43,10 @@ class RegisterActivity : AppCompatActivity() {
       val location = etLocation.text.toString().trim()
 
       if (validateInputs(email, username, password, confirmPassword)) {
-        checkIfUserExists(email, username, password, location)
+        if (!userExists(email, username, password, location)) {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
       }
     }
   }
@@ -72,12 +76,13 @@ class RegisterActivity : AppCompatActivity() {
     return true
   }
 
-  private fun checkIfUserExists(
+  private fun userExists(
       email: String,
       username: String,
       password: String,
       location: String
-  ) {
+  ): Boolean {
+    var exists = false
     val database = FirebaseDatabase.getInstance().reference.child("User")
 
     // Check by email
@@ -87,6 +92,7 @@ class RegisterActivity : AppCompatActivity() {
         .addListenerForSingleValueEvent(
             object : ValueEventListener {
               override fun onDataChange(snapshot: DataSnapshot) {
+                exists = true
                 if (snapshot.exists()) {
                   Toast.makeText(
                           this@RegisterActivity, "Email already registered", Toast.LENGTH_SHORT)
@@ -100,6 +106,7 @@ class RegisterActivity : AppCompatActivity() {
                           object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
                               if (snapshot.exists()) {
+                                exists = true
                                 Toast.makeText(
                                         this@RegisterActivity,
                                         "Username already taken",
@@ -111,6 +118,7 @@ class RegisterActivity : AppCompatActivity() {
                             }
 
                             override fun onCancelled(error: DatabaseError) {
+                              exists = true
                               Toast.makeText(
                                       this@RegisterActivity,
                                       "Database error: ${error.message}",
@@ -122,6 +130,7 @@ class RegisterActivity : AppCompatActivity() {
               }
 
               override fun onCancelled(error: DatabaseError) {
+                exists = true
                 Toast.makeText(
                         this@RegisterActivity,
                         "Database error: ${error.message}",
@@ -129,6 +138,7 @@ class RegisterActivity : AppCompatActivity() {
                     .show()
               }
             })
+      return exists
   }
 
   private fun createUser(email: String, username: String, password: String, location: String) {

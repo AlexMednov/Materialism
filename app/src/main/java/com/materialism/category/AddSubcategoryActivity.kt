@@ -21,6 +21,9 @@ class AddSubcategoryActivity : AppCompatActivity() {
     val menuIcon: ImageButton = findViewById(R.id.ic_menu)
     DrawerUtils.setupPopupMenu(this, menuIcon)
 
+    val backButton: ImageButton = findViewById(R.id.back_button)
+    backButton.setOnClickListener { onBackPressed() }
+
     val addSubcategoryButton = findViewById<Button>(R.id.add_subcategory_button)
     addSubcategoryButton.setOnClickListener {
       val subcategoryNameEditText = findViewById<EditText>(R.id.subcategory_name)

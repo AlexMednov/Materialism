@@ -57,16 +57,6 @@ class RequestItemActivity : ComponentActivity() {
             }
     }
 
-    private fun loadIncomingRequests() {
-        val incomingRequests =
-            listOf(
-                Request("Item name", "Item description", "Category", "Location", "Date"),
-                Request("Item name", "Item description", "Category", "Location", "Date"),
-                Request("Item name", "Item description", "Category", "Location", "Date"))
-        requestAdapter.updateData(incomingRequests, RequestAdapter.ViewType.INCOMING)
-    }
-
-<<<<<<< HEAD:app/src/main/java/com/materialism/friend/RequestItemActivity.kt
   private fun loadIncomingRequests() {
     // Create logic for API calls via an HTTP client like Retrofit
   }
@@ -75,27 +65,3 @@ class RequestItemActivity : ComponentActivity() {
     // Create logic for API calls via an HTTP client like Retrofit
   }
 }
-=======
-    private fun loadYourRequests() {
-        val yourRequests =
-            listOf(
-                Request(
-                    "Item name",
-                    "Item description",
-                    "Category",
-                    "Location",
-                    "Date",
-                    "Name Surname",
-                    "Pending"),
-                Request(
-                    "Item name",
-                    "Item description",
-                    "Category",
-                    "Location",
-                    "Date",
-                    "Name Surname",
-                    "Confirmed"))
-        requestAdapter.updateData(yourRequests, RequestAdapter.ViewType.YOUR)
-    }
-}
->>>>>>> development:app/src/main/java/com/materialism/friend/RequestActivity.kt

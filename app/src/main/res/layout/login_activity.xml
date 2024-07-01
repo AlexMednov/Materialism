@@ -55,7 +55,8 @@
                 android:layout_margin="20dp"
                 android:padding="8dp"
                 android:background="@color/light_grey_login"
-                android:hint="Password"/>
+                android:hint="Password"
+                android:inputType="textPassword"/>
 
             <Button
                 android:id="@+id/login_button"

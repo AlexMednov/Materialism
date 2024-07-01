@@ -42,10 +42,10 @@
         android:id="@+id/buttons_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/image_placeholder"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/image_placeholder">
 
         <!-- Select Picture Button -->
         <Button
@@ -71,93 +71,114 @@
             android:textColor="@android:color/black" />
     </LinearLayout>
 
-    <!-- Name EditText -->
-    <EditText
-        android:id="@+id/name_edit_text"
-        android:layout_width="match_parent"
+    <!-- Top Arrow Indicator -->
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttons_layout"
-        android:layout_marginTop="16dp"
-        android:hint="@string/name_hint"
-        android:background="@drawable/edit_text_background"
-        android:padding="12dp" />
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_arrow_down"
+        android:layout_marginBottom="4dp"/>
 
-    <!-- Description EditText -->
-    <EditText
-        android:id="@+id/description_edit_text"
+    <!-- ScrollView for scrollable content -->
+    <ScrollView
+        android:id="@+id/text_field_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/name_edit_text"
-        android:layout_marginTop="16dp"
-        android:hint="@string/description_hint"
-        android:background="@drawable/edit_text_background"
-        android:padding="12dp" />
+        android:layout_height="0dp"
+        android:layout_below="@id/buttons_layout"
+        android:layout_above="@id/edit_item_button"
+        android:layout_marginTop="8dp"
+        android:scrollbars="vertical" >
 
-    <!-- Location EditText -->
-    <EditText
-        android:id="@+id/location_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/description_edit_text"
-        android:layout_marginTop="16dp"
-        android:hint="@string/location_hint"
-        android:background="@drawable/edit_text_background"
-        android:padding="12dp" />
-
-    <!-- Category Spinner -->
-    <Spinner
-        android:id="@+id/category_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/location_edit_text"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/edit_text_background" />
-
-    <!-- Private Item Checkboxes -->
-    <TextView
-        android:id="@+id/private_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/category_spinner"
-        android:layout_marginTop="16dp"
-        android:text="@string/private_label"
-        android:textColor="@android:color/black" />
-
-    <RadioGroup
-        android:id="@+id/private_radio_buttons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/private_label"
-        android:layout_alignParentStart="true"
-        android:orientation="horizontal">
-        <RadioButton
-            android:id="@+id/private_yes_button"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/private_yes"
-            android:textColor="@android:color/black" />
+            android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/private_no_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/private_no"
-            android:textColor="@android:color/black" />
-    </RadioGroup>
+            <!-- Name EditText -->
+            <EditText
+                android:id="@+id/name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/name_hint"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp" />
+
+            <!-- Description EditText -->
+            <EditText
+                android:id="@+id/description_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/description_hint"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp" />
+
+            <!-- Location EditText -->
+            <EditText
+                android:id="@+id/location_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/location_hint"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp" />
+
+            <!-- Category Spinner -->
+            <Spinner
+                android:id="@+id/category_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:prompt="@string/category_hint"
+                android:background="@drawable/edit_text_background"
+                android:padding="12dp" />
+
+            <!-- Private Item Checkboxes -->
+            <TextView
+                android:id="@+id/private_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/private_label"
+                android:textColor="@android:color/black" />
+
+            <RadioGroup
+                android:id="@+id/private_radio_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/private_yes_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/private_yes"
+                    android:textColor="@android:color/black" />
+
+                <RadioButton
+                    android:id="@+id/private_no_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/private_no"
+                    android:textColor="@android:color/black" />
+            </RadioGroup>
+
+        </LinearLayout>
+    </ScrollView>
 
     <!-- Edit Item Button -->
     <Button
         android:id="@+id/edit_item_button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/private_radio_buttons"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:background="@drawable/button_background"
         android:text="@string/edit_item"
         android:textColor="@android:color/white"
-        />
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

@@ -34,7 +34,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add category:"
+            android:text="Add category"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginStart="16dp" />
@@ -51,9 +51,10 @@
         android:id="@+id/category_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Category Name"
         android:layout_marginTop="16dp"
-        android:background="@drawable/bg_item_image" />
+        android:hint="@string/add_category_hint"
+        android:background="@drawable/edit_text_background"
+        android:padding="12dp" />
 
     <Button
         android:id="@+id/add_category_button"

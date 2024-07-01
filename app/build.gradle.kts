@@ -88,8 +88,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("com.google.android.material:material:1.1.0")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
-    implementation("com.google.firebase:firebase-database-ktx");
+    implementation("com.google.firebase:firebase-database-ktx")
+    implementation("com.google.android.material:material:1.4.0");
 }

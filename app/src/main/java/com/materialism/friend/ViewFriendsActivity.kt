@@ -1,12 +1,12 @@
-    package com.materialism.friend
+package com.materialism.friend
 
 import android.content.Intent
-import android.content.Context
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.materialism.R
 import com.materialism.adapter.DatabaseAdapter
 import com.materialism.adapter.FriendAdapter
@@ -71,7 +71,13 @@ class ViewFriendsActivity : AppCompatActivity() {
         val friends = friendUserIds.map { friendUserId -> Friend(userId, friendUserId) }
 
         // Update adapter with new friends list
-        friendAdapter.submitList(friends)
+          if(friends.isEmpty()){
+              val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+              Snackbar.make(recyclerView, "It would appear that you do not have any friends. Try adding them!", Snackbar.LENGTH_LONG).show()
+          }
+          else{
+              friendAdapter.submitList(friends)
+          }
       }
     }
   }

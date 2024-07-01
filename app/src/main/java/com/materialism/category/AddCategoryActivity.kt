@@ -27,6 +27,9 @@ class AddCategoryActivity : AppCompatActivity() {
     val menuIcon: ImageButton = findViewById(R.id.ic_menu)
     DrawerUtils.setupPopupMenu(this, menuIcon)
 
+    val backButton: ImageButton = findViewById(R.id.back_button)
+    backButton.setOnClickListener { onBackPressed() }
+
     val addCategoryButton = findViewById<Button>(R.id.add_category_button)
     addCategoryButton.setOnClickListener {
       val categoryNameEditText = findViewById<EditText>(R.id.category_name)
@@ -53,8 +56,8 @@ class AddCategoryActivity : AppCompatActivity() {
     textView.text = categoryName
     textView.tag = categoryName // Set tag to identify the view later
     val params =
-        FlexboxLayout.LayoutParams(
-            FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
+      FlexboxLayout.LayoutParams(
+        FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
     params.setMargins(10, 10, 10, 10) // Add margins
     textView.layoutParams = params
 

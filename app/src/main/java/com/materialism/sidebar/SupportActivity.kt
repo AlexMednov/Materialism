@@ -14,5 +14,8 @@ class SupportActivity : AppCompatActivity() {
 
     val menuIcon: ImageButton = findViewById(R.id.ic_menu)
     DrawerUtils.setupPopupMenu(this, menuIcon)
+
+    val backButton: ImageButton = findViewById(R.id.back_button)
+    backButton.setOnClickListener { onBackPressed() }
   }
 }

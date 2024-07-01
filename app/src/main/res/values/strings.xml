@@ -78,4 +78,5 @@
     <string name="location_hint">Location:</string>
     <string name="edit_item">Edit item</string>
     <string name="add_category_hint">Category name:</string>
+    <string name="add_subcategory_hint">Subcategory name:</string>
 </resources>

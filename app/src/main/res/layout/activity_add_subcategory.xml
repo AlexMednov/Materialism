@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_item_image"
         android:padding="12dp"
-        android:hint="Subcategory Name"
+        android:hint="@string/add_subcategory_hint"
         android:layout_below="@id/ic_menu"
         android:layout_marginTop="72dp"
         android:inputType="text" />

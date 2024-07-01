@@ -48,13 +48,13 @@ class ViewItemsActivity : AppCompatActivity() {
   private fun setupSortSpinner() {
     val sortOptions =
         arrayOf(
-            "Sort by Category",
-            "Sort by Name Ascending",
-            "Sort by Name Descending",
-            "Sort by Location Ascending",
-            "Sort by Location Descending",
-            "Sort by Date Ascending",
-            "Sort by Date Descending",
+            "Category",
+            "Name ASC",
+            "Name DESC",
+            "Location ASC",
+            "Location DESC",
+            "Date ASC",
+            "Date DESC",
         )
     val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, sortOptions)
     binding.sortSpinner.adapter = adapter

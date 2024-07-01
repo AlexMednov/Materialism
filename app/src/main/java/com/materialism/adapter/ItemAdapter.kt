@@ -12,9 +12,9 @@ import com.materialism.dto.Item
 import com.materialism.utils.ImageRenderer
 
 class ItemAdapter(
-    private var items: List<Item>,
-    private val showEditButton: Boolean,
-    val imageRenderer: ImageRenderer
+  private var items: List<Item>,
+  private val showEditButton: Boolean,
+  val imageRenderer: ImageRenderer
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   private var onClickListener: OnClickListener? = null
   private var onEditButtonClickListener: OnClickListener? = null
@@ -25,7 +25,7 @@ class ItemAdapter(
       EditViewHolder(binding)
     } else {
       val binding =
-          ItemLayoutMainPageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemLayoutMainPageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
       NoEditViewHolder(binding)
     }
   }
@@ -88,7 +88,7 @@ class ItemAdapter(
   class EditViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
   class NoEditViewHolder(val binding: ItemLayoutMainPageBinding) :
-      RecyclerView.ViewHolder(binding.root)
+    RecyclerView.ViewHolder(binding.root)
 
   // Methods for sorting
   fun sortByCategory() {

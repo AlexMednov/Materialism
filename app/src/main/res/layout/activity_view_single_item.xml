@@ -51,7 +51,8 @@
             android:layout_below="@id/image_placeholder"
             android:layout_marginTop="16dp"
             android:background="@drawable/edit_text_background"
-            android:padding="12dp" />
+            android:padding="12dp"
+            style="@style/CustomTextViewStyle" />
 
         <!-- Description Text -->
         <TextView
@@ -61,7 +62,8 @@
             android:layout_below="@id/name_text"
             android:layout_marginTop="16dp"
             android:background="@drawable/edit_text_background"
-            android:padding="12dp" />
+            android:padding="12dp"
+            style="@style/CustomTextViewStyle" />
 
         <!-- Location Text -->
         <TextView
@@ -71,7 +73,8 @@
             android:layout_below="@id/description_text"
             android:layout_marginTop="16dp"
             android:background="@drawable/edit_text_background"
-            android:padding="12dp" />
+            android:padding="12dp"
+            style="@style/CustomTextViewStyle" />
 
         <!-- Category Text -->
         <TextView
@@ -81,7 +84,8 @@
             android:layout_below="@id/location_text"
             android:layout_marginTop="16dp"
             android:background="@drawable/edit_text_background"
-            android:padding="12dp" />
+            android:padding="12dp"
+            style="@style/CustomTextViewStyle" />
 
         <!-- Date Text -->
         <TextView
@@ -91,7 +95,8 @@
             android:layout_below="@id/category_text"
             android:layout_marginTop="16dp"
             android:background="@drawable/edit_text_background"
-            android:padding="12dp" />
+            android:padding="12dp"
+            style="@style/CustomTextViewStyle" />
 
     </RelativeLayout>
 

@@ -1,6 +1,7 @@
 package com.materialism.friend
 
 import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import com.materialism.database.firebaseDatabase.data.Friend
 import com.materialism.database.firebaseDatabase.data.User
 import com.materialism.database.localDatabase.DatabaseManager
 import com.materialism.utils.DrawerUtils
+import com.materialism.utils.SessionManager
 
 class ViewFriendsActivity : AppCompatActivity() {
 
@@ -28,10 +30,17 @@ class ViewFriendsActivity : AppCompatActivity() {
         val databaseManager = DatabaseManager(this)
         databaseAdapter = DatabaseAdapter(databaseManager)
 
+<<<<<<< HEAD
+    val userId = SessionManager.getUserId(this)
+    val addFriendIcon: ImageButton = findViewById(R.id.add_friend_icon)
+    val menuIcon: ImageButton = findViewById(R.id.ic_menu)
+    DrawerUtils.setupPopupMenu(this, menuIcon)
+=======
         val addFriendIcon: ImageButton = findViewById(R.id.add_friend_icon)
         val menuIcon: ImageButton = findViewById(R.id.ic_menu)
         val backButton: ImageButton = findViewById(R.id.back_button)
         DrawerUtils.setupPopupMenu(this, menuIcon)
+>>>>>>> development
 
         addFriendIcon.setOnClickListener {
             val intent = Intent(this, AddFriendsActivity::class.java)
@@ -63,6 +72,29 @@ class ViewFriendsActivity : AppCompatActivity() {
                 User(id = 4, name = "Lisa White", location = "Toronto", score = 400))
         dummyUsers.forEach { user -> userDetailsMap[user.id] = user }
 
+<<<<<<< HEAD
+      if (userId != -1) { // Check if userId is valid
+          loadFriendsData(userId)
+      }
+  }
+
+  private fun loadFriendsData(userId: Int) {
+    databaseAdapter.getFriendsUserIds(userId) { friendUserIds ->
+      databaseAdapter.getUsersInformation(friendUserIds) { users ->
+        // Clear existing entries, to avoid stale data
+        userDetailsMap.clear()
+        // Fill userDetailsMap to have user information
+        users.forEach { user -> userDetailsMap[user.id] = user }
+        // Create Friend list based on the user information
+        val friends = friendUserIds.map { friendUserId -> Friend(userId, friendUserId) }
+
+        // Update adapter with new friends list
+        friendAdapter.submitList(friends)
+      }
+    }
+  }
+}
+=======
         val dummyFriends =
             listOf(
                 Friend(userId1 = 0, userId2 = 1),
@@ -93,3 +125,4 @@ class ViewFriendsActivity : AppCompatActivity() {
         return 1
     }
 }
+>>>>>>> development

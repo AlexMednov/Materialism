@@ -10,11 +10,10 @@ import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.materialism.R
-import com.materialism.adapter.Request
 import com.materialism.adapter.RequestAdapter
 import com.materialism.utils.DrawerUtils
 
-class RequestActivity : ComponentActivity() {
+class RequestItemActivity : ComponentActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var requestAdapter: RequestAdapter
@@ -67,6 +66,16 @@ class RequestActivity : ComponentActivity() {
         requestAdapter.updateData(incomingRequests, RequestAdapter.ViewType.INCOMING)
     }
 
+<<<<<<< HEAD:app/src/main/java/com/materialism/friend/RequestItemActivity.kt
+  private fun loadIncomingRequests() {
+    // Create logic for API calls via an HTTP client like Retrofit
+  }
+
+  private fun loadYourRequests() {
+    // Create logic for API calls via an HTTP client like Retrofit
+  }
+}
+=======
     private fun loadYourRequests() {
         val yourRequests =
             listOf(
@@ -89,3 +98,4 @@ class RequestActivity : ComponentActivity() {
         requestAdapter.updateData(yourRequests, RequestAdapter.ViewType.YOUR)
     }
 }
+>>>>>>> development:app/src/main/java/com/materialism/friend/RequestActivity.kt

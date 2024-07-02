@@ -1,5 +1,6 @@
 package com.materialism.category
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -8,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.flexbox.FlexboxLayout
+import com.materialism.MainPageActivity
 import com.materialism.R
 import com.materialism.database.localDatabase.DatabaseManager
 import com.materialism.utils.DrawerUtils
@@ -38,6 +40,19 @@ class AddCategoryActivity : AppCompatActivity() {
         addCategoryView(categoryName)
         saveCategory(categoryName)
         categoryNameEditText.text.clear()
+
+        //Creating alert dialog
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Category addition")
+        builder.setMessage("Your category has been successfully added")
+        builder.setPositiveButton("Ok"){dialog, which ->//Setting ok button
+          // send to previous page upon acknowledgment
+          val intent = Intent(this, MainPageActivity::class.java)
+          startActivity(intent)
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()//showing alertDialog
       }
     }
 

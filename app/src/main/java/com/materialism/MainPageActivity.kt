@@ -47,11 +47,6 @@ class MainPageActivity : AppCompatActivity() {
     val menuIcon: ImageButton = findViewById(R.id.ic_menu)
     menuIcon.setOnClickListener { DrawerUtils.setupPopupMenu(this, menuIcon) }
 
-    binding.level.text = "Level: 1"
-    binding.progressBar.progress = 10
-    binding.progressBar.max = 20
-    binding.exp.text = "Exp: 10/20"
-
     val items = getAllItems()
 
     binding.recyclerView.layoutManager = LinearLayoutManager(this)

@@ -53,6 +53,7 @@ This project has implemented multiple libraries and packages, they are listed be
 - - material3
 - - graphics
 - - tooling.preview
+- - Snackbar
 - - And other smaller packages
 
 

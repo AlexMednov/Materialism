@@ -46,11 +46,11 @@ class ProfilePageActivity : AppCompatActivity() {
         emailTextView.text = it.email
         locationTextView.text = it.location
       }
-        ?: run {
-          // Handle case where user is not found
-          usernameTextView.text = "User not found"
-          emailTextView.text = ""
-        }
+          ?: run {
+            // Handle case where user is not found
+            usernameTextView.text = "User not found"
+            emailTextView.text = ""
+          }
     }
   }
 }

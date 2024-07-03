@@ -15,47 +15,47 @@ import com.materialism.utils.DrawerUtils
 
 class RequestItemActivity : ComponentActivity() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var requestAdapter: RequestAdapter
+  private lateinit var recyclerView: RecyclerView
+  private lateinit var requestAdapter: RequestAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_request)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_request)
 
-        val menuIcon: ImageButton = findViewById(R.id.ic_menu)
-        DrawerUtils.setupPopupMenu(this, menuIcon)
+    val menuIcon: ImageButton = findViewById(R.id.ic_menu)
+    DrawerUtils.setupPopupMenu(this, menuIcon)
 
-        val backButton: ImageButton = findViewById(R.id.back_button)
-        backButton.setOnClickListener { onBackPressed() }
+    val backButton: ImageButton = findViewById(R.id.back_button)
+    backButton.setOnClickListener { onBackPressed() }
 
-        val spinnerRequestType = findViewById<Spinner>(R.id.spinner_request_type)
-        recyclerView = findViewById(R.id.recycler_view)
+    val spinnerRequestType = findViewById<Spinner>(R.id.spinner_request_type)
+    recyclerView = findViewById(R.id.recycler_view)
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        requestAdapter = RequestAdapter()
-        recyclerView.adapter = requestAdapter
+    recyclerView.layoutManager = LinearLayoutManager(this)
+    requestAdapter = RequestAdapter()
+    recyclerView.adapter = requestAdapter
 
-        val requestTypes = arrayOf("Incoming requests", "Your requests")
-        val spinnerAdapter = ArrayAdapter(this, R.layout.custom_spinner_item, requestTypes)
-        spinnerRequestType.adapter = spinnerAdapter
+    val requestTypes = arrayOf("Incoming requests", "Your requests")
+    val spinnerAdapter = ArrayAdapter(this, R.layout.custom_spinner_item, requestTypes)
+    spinnerRequestType.adapter = spinnerAdapter
 
-        spinnerRequestType.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    when (position) {
-                        0 -> loadIncomingRequests()
-                        1 -> loadYourRequests()
-                    }
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+    spinnerRequestType.onItemSelectedListener =
+        object : AdapterView.OnItemSelectedListener {
+          override fun onItemSelected(
+              parent: AdapterView<*>?,
+              view: View?,
+              position: Int,
+              id: Long
+          ) {
+            when (position) {
+              0 -> loadIncomingRequests()
+              1 -> loadYourRequests()
             }
-    }
+          }
+
+          override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+  }
 
   private fun loadIncomingRequests() {
     // Create logic for API calls via an HTTP client like Retrofit

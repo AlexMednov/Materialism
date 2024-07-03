@@ -11,16 +11,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.materialism.R
 import com.materialism.adapter.CategoryAdapter
+import com.materialism.database.localDatabase.DatabaseManager
 import com.materialism.utils.DrawerUtils
 
 class ViewCategoriesActivity : ComponentActivity() {
 
   private lateinit var recyclerView: RecyclerView
   private lateinit var categoryAdapter: CategoryAdapter
+  private var databaseManager = DatabaseManager(this)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_view_categories)
+    databaseManager.open()
 
     val menuIcon: ImageButton = findViewById(R.id.ic_menu)
     DrawerUtils.setupPopupMenu(this, menuIcon)
@@ -66,12 +69,32 @@ class ViewCategoriesActivity : ComponentActivity() {
   }
 
   private fun loadCategories() {
-    val categories = listOf("Category 1", "Category 2", "Category 3")
-    categoryAdapter.updateData(categories)
+    val categoriesCursor = databaseManager.getAllCategories()
+    val categoryArray = ArrayList<String>()
+
+    if (categoriesCursor.moveToFirst()) {
+      do {
+        val key = categoriesCursor.getString(categoriesCursor.getColumnIndexOrThrow("name"))
+        categoryArray.add(key)
+      } while (categoriesCursor.moveToNext())
+      categoriesCursor.close()
+    }
+
+    categoryAdapter.updateData(categoryArray)
   }
 
   private fun loadSubcategories() {
-    val subcategories = listOf("Subcategory 1", "Subcategory 2", "Subcategory 3")
-    categoryAdapter.updateData(subcategories)
+    val subCategoriesCursor = databaseManager.getAllSubcategories()
+    val subCategoryArray = ArrayList<String>()
+
+    if (subCategoriesCursor.moveToFirst()) {
+      do {
+        val key = subCategoriesCursor.getString(subCategoriesCursor.getColumnIndexOrThrow("name"))
+        subCategoryArray.add(key)
+      } while (subCategoriesCursor.moveToNext())
+      subCategoriesCursor.close()
+    }
+
+    categoryAdapter.updateData(subCategoryArray)
   }
 }

@@ -13,13 +13,38 @@
         android:padding="16dp"
         android:background="@android:color/white">
 
-        <ImageButton
-            android:id="@+id/ic_menu"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/menu_icon_desc" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/ic_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/menu_icon_desc" />
+
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="12dp"
+                android:src="@drawable/ic_back"
+                android:contentDescription="@string/back"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/profile_picture"
@@ -49,8 +74,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name:"
-                android:textSize="16sp"
+                android:text="Name"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp" />
 
@@ -66,8 +91,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="User"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <ImageButton
                     android:id="@+id/btn_edit_name"
@@ -81,8 +105,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email:"
-                android:textSize="16sp"
+                android:text="Email"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp" />
 
@@ -98,8 +122,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="user@gmail.com"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <ImageButton
                     android:id="@+id/btn_edit_email"
@@ -113,8 +136,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Location:"
-                android:textSize="16sp"
+                android:text="Location"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp" />
 
@@ -130,8 +153,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Emmen"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <ImageButton
                     android:id="@+id/btn_edit_location"

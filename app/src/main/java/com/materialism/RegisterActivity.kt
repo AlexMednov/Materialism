@@ -44,8 +44,8 @@ class RegisterActivity : AppCompatActivity() {
 
       if (validateInputs(email, username, password, confirmPassword)) {
         if (!userExists(email, username, password, location)) {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+          val intent = Intent(this, LoginActivity::class.java)
+          startActivity(intent)
         }
       }
     }
@@ -138,7 +138,7 @@ class RegisterActivity : AppCompatActivity() {
                     .show()
               }
             })
-      return exists
+    return exists
   }
 
   private fun createUser(email: String, username: String, password: String, location: String) {

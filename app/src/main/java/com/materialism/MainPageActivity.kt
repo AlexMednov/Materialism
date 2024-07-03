@@ -15,7 +15,7 @@ import com.materialism.category.AddSubcategoryActivity
 import com.materialism.database.localDatabase.DatabaseManager
 import com.materialism.databinding.MainPageActivityBinding
 import com.materialism.dto.Item
-import com.materialism.friend.RequestActivity
+import com.materialism.friend.RequestItemActivity
 import com.materialism.friend.ViewFriendsActivity
 import com.materialism.item.AddItemActivity
 import com.materialism.item.ViewItemsActivity
@@ -47,11 +47,6 @@ class MainPageActivity : AppCompatActivity() {
     val menuIcon: ImageButton = findViewById(R.id.ic_menu)
     menuIcon.setOnClickListener { DrawerUtils.setupPopupMenu(this, menuIcon) }
 
-    binding.level.text = "Level: 1"
-    binding.progressBar.progress = 10
-    binding.progressBar.max = 20
-    binding.exp.text = "Exp: 10/20"
-
     val items = getAllItems()
 
     binding.recyclerView.layoutManager = LinearLayoutManager(this)
@@ -70,7 +65,7 @@ class MainPageActivity : AppCompatActivity() {
 
     val icFlag = findViewById<ImageButton>(R.id.ic_history)
     icFlag.setOnClickListener {
-      val intent = Intent(this, RequestActivity::class.java)
+      val intent = Intent(this, RequestItemActivity::class.java)
       startActivity(intent)
     }
   }

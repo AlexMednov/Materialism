@@ -21,10 +21,20 @@
             android:contentDescription="@string/menu"
             android:background="?attr/selectableItemBackgroundBorderless" />
 
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="12dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="@string/back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_marginStart="8dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add category:"
+            android:text="Add category"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginStart="16dp" />
@@ -41,9 +51,10 @@
         android:id="@+id/category_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Category Name"
         android:layout_marginTop="16dp"
-        android:background="@drawable/bg_item_image" />
+        android:hint="@string/add_category_hint"
+        android:background="@drawable/edit_text_background"
+        android:padding="12dp" />
 
     <Button
         android:id="@+id/add_category_button"

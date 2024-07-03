@@ -10,11 +10,10 @@ import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.materialism.R
-import com.materialism.adapter.Request
 import com.materialism.adapter.RequestAdapter
 import com.materialism.utils.DrawerUtils
 
-class RequestActivity : ComponentActivity() {
+class RequestItemActivity : ComponentActivity() {
 
   private lateinit var recyclerView: RecyclerView
   private lateinit var requestAdapter: RequestAdapter
@@ -25,6 +24,9 @@ class RequestActivity : ComponentActivity() {
 
     val menuIcon: ImageButton = findViewById(R.id.ic_menu)
     DrawerUtils.setupPopupMenu(this, menuIcon)
+
+    val backButton: ImageButton = findViewById(R.id.back_button)
+    backButton.setOnClickListener { onBackPressed() }
 
     val spinnerRequestType = findViewById<Spinner>(R.id.spinner_request_type)
     recyclerView = findViewById(R.id.recycler_view)
@@ -56,33 +58,10 @@ class RequestActivity : ComponentActivity() {
   }
 
   private fun loadIncomingRequests() {
-    val incomingRequests =
-        listOf(
-            Request("Item name", "Item description", "Category", "Location", "Date"),
-            Request("Item name", "Item description", "Category", "Location", "Date"),
-            Request("Item name", "Item description", "Category", "Location", "Date"))
-    requestAdapter.updateData(incomingRequests, RequestAdapter.ViewType.INCOMING)
+    // Create logic for API calls via an HTTP client like Retrofit
   }
 
   private fun loadYourRequests() {
-    val yourRequests =
-        listOf(
-            Request(
-                "Item name",
-                "Item description",
-                "Category",
-                "Location",
-                "Date",
-                "Name Surname",
-                "Pending"),
-            Request(
-                "Item name",
-                "Item description",
-                "Category",
-                "Location",
-                "Date",
-                "Name Surname",
-                "Confirmed"))
-    requestAdapter.updateData(yourRequests, RequestAdapter.ViewType.YOUR)
+    // Create logic for API calls via an HTTP client like Retrofit
   }
 }

@@ -142,6 +142,15 @@ class DatabaseManager(context: Context) {
         null)
   }
 
+  fun getAllSubcategories(): Cursor {
+    val columns =
+        arrayOf(
+            DatabaseHelper.COLUMN_SUBCATEGORY_ID,
+            DatabaseHelper.COLUMN_SUBCATEGORY_NAME,
+            DatabaseHelper.COLUMN_SUBCATEGORY_CATEGORY_ID)
+    return database!!.query(DatabaseHelper.TABLE_SUBCATEGORY, columns, null, null, null, null, null)
+  }
+
   fun updateSubcategory(id: Int, name: String, categoryId: Int): Int {
     val values = ContentValues()
     values.put(DatabaseHelper.COLUMN_SUBCATEGORY_NAME, name)

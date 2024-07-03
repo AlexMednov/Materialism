@@ -15,4 +15,9 @@
         <item name="android:textColorPrimary">@color/colorPrimaryTextDark</item>
         <item name="android:windowBackground">@color/colorBackgroundDark</item>
     </style>
+
+    <style name="CustomTextViewStyle">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

@@ -16,17 +16,20 @@ class ProfilePageActivity : AppCompatActivity() {
   private lateinit var emailTextView: TextView
   private lateinit var locationTextView: TextView
   private lateinit var menuIcon: ImageButton
+  private lateinit var backButton: ImageButton
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_profile_page)
 
     menuIcon = findViewById(R.id.ic_menu)
+    backButton = findViewById(R.id.back_button)
     usernameTextView = findViewById(R.id.profile_username)
     emailTextView = findViewById(R.id.profile_email)
     locationTextView = findViewById(R.id.tv_location)
 
     DrawerUtils.setupPopupMenu(this, menuIcon)
+    backButton.setOnClickListener { onBackPressed() }
 
     databaseAdapter = DatabaseAdapter(DatabaseManager(this))
 

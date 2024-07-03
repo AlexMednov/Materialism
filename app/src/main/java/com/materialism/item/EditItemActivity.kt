@@ -219,14 +219,14 @@ class EditItemActivity : AppCompatActivity() {
     val builder = AlertDialog.Builder(this)
     builder.setTitle("Item change")
     builder.setMessage("Your item has been successfully changed")
-    builder.setPositiveButton("Ok"){dialog, which ->//Setting ok button
+    builder.setPositiveButton("Ok") { dialog, which -> // Setting ok button
       // send to previous page upon acknowledgment
       val intent = Intent(this, MainPageActivity::class.java)
       startActivity(intent)
     }
     val alertDialog: AlertDialog = builder.create()
     alertDialog.setCancelable(false)
-    alertDialog.show()//showing alertDialog
+    alertDialog.show() // showing alertDialog
   }
 
   private fun copyUriToPictures(uri: Uri): Uri? {

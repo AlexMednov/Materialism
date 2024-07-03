@@ -18,17 +18,17 @@ import com.materialism.utils.SessionManager
 
 class ViewFriendsActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var friendAdapter: FriendAdapter
-    private lateinit var databaseAdapter: DatabaseAdapter
-    private val userDetailsMap = mutableMapOf<Int, User>()
+  private lateinit var recyclerView: RecyclerView
+  private lateinit var friendAdapter: FriendAdapter
+  private lateinit var databaseAdapter: DatabaseAdapter
+  private val userDetailsMap = mutableMapOf<Int, User>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_friends)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_view_friends)
 
-        val databaseManager = DatabaseManager(this)
-        databaseAdapter = DatabaseAdapter(databaseManager)
+    val databaseManager = DatabaseManager(this)
+    databaseAdapter = DatabaseAdapter(databaseManager)
 
     val userId = SessionManager.getUserId(this)
     val addFriendIcon: ImageButton = findViewById(R.id.add_friend_icon)
@@ -36,28 +36,27 @@ class ViewFriendsActivity : AppCompatActivity() {
     val backButton: ImageButton = findViewById(R.id.back_button)
     DrawerUtils.setupPopupMenu(this, menuIcon)
 
-        addFriendIcon.setOnClickListener {
-            val intent = Intent(this, AddFriendsActivity::class.java)
-            startActivity(intent)
-        }
+    addFriendIcon.setOnClickListener {
+      val intent = Intent(this, AddFriendsActivity::class.java)
+      startActivity(intent)
+    }
 
-        backButton.setOnClickListener { onBackPressed() }
+    backButton.setOnClickListener { onBackPressed() }
 
-        recyclerView = findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        friendAdapter =
-            FriendAdapter(
-                { friend, user ->
-                    val intent = Intent(this, ViewFriendProfileActivity::class.java)
-                    startActivity(intent)
-                },
-                { userId -> userDetailsMap[userId] })
-        recyclerView.adapter = friendAdapter
+    recyclerView = findViewById(R.id.recycler_view)
+    recyclerView.layoutManager = LinearLayoutManager(this)
+    friendAdapter =
+        FriendAdapter(
+            { friend, user ->
+              val intent = Intent(this, ViewFriendProfileActivity::class.java)
+              startActivity(intent)
+            },
+            { userId -> userDetailsMap[userId] })
+    recyclerView.adapter = friendAdapter
 
-        if (userId != -1) { // Check if userId is valid
-            loadFriendsData(userId)
-        }
-
+    if (userId != -1) { // Check if userId is valid
+      loadFriendsData(userId)
+    }
   }
 
   private fun loadFriendsData(userId: Int) {
@@ -71,13 +70,16 @@ class ViewFriendsActivity : AppCompatActivity() {
         val friends = friendUserIds.map { friendUserId -> Friend(userId, friendUserId) }
 
         // Update adapter with new friends list
-          if(friends.isEmpty()){
-              val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-              Snackbar.make(recyclerView, "It would appear that you do not have any friends. Try adding them!", Snackbar.LENGTH_LONG).show()
-          }
-          else{
-              friendAdapter.submitList(friends)
-          }
+        if (friends.isEmpty()) {
+          val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+          Snackbar.make(
+                  recyclerView,
+                  "It would appear that you do not have any friends. Try adding them!",
+                  Snackbar.LENGTH_LONG)
+              .show()
+        } else {
+          friendAdapter.submitList(friends)
+        }
       }
     }
   }

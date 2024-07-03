@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.materialism.R
 import com.materialism.adapter.DatabaseAdapter
 import com.materialism.adapter.ItemAdapter
+import com.materialism.database.firebaseDatabase.data.Item as FirebaseItem
 import com.materialism.database.localDatabase.DatabaseManager
+import com.materialism.dto.Item as SampleItem
 import com.materialism.utils.DrawerUtils
 import com.materialism.utils.ImageRenderer
-import com.materialism.database.firebaseDatabase.data.Item as FirebaseItem
-import com.materialism.dto.Item as SampleItem
 
 class ViewFriendProfileActivity : AppCompatActivity() {
 

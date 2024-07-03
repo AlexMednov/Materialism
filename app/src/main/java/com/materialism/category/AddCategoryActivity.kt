@@ -41,18 +41,18 @@ class AddCategoryActivity : AppCompatActivity() {
         saveCategory(categoryName)
         categoryNameEditText.text.clear()
 
-        //Creating alert dialog
+        // Creating alert dialog
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Category addition")
         builder.setMessage("Your category has been successfully added")
-        builder.setPositiveButton("Ok"){dialog, which ->//Setting ok button
+        builder.setPositiveButton("Ok") { dialog, which -> // Setting ok button
           // send to previous page upon acknowledgment
           val intent = Intent(this, MainPageActivity::class.java)
           startActivity(intent)
         }
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
-        alertDialog.show()//showing alertDialog
+        alertDialog.show() // showing alertDialog
       }
     }
 
@@ -71,8 +71,8 @@ class AddCategoryActivity : AppCompatActivity() {
     textView.text = categoryName
     textView.tag = categoryName // Set tag to identify the view later
     val params =
-      FlexboxLayout.LayoutParams(
-        FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
+        FlexboxLayout.LayoutParams(
+            FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
     params.setMargins(10, 10, 10, 10) // Add margins
     textView.layoutParams = params
 
